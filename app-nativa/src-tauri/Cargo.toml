@@ -1,0 +1,27 @@
+[package]
+name = "biomaterial-ideal"
+version = "1.0.0"
+description = "Biomaterial Ideal: exploração educativa da seleção multicritério de biomateriais"
+authors = ["André Oliveira Massuça"]
+edition = "2021"
+publish = false
+
+[lib]
+# Nome com sufixo _lib para não chocar com o binário no Windows.
+name = "biomaterial_ideal_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+mcdm = { path = "../crates/mcdm" }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

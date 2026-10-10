@@ -1,0 +1,413 @@
+{
+ "caso": "Par articular",
+ "caso_componente": "Prótese da anca | Par articular",
+ "parametros": {
+  "eta": 1.0,
+  "incerteza_valor_unico": 0.1,
+  "fator_foco_problema": 2.0,
+  "teto_custo_relativo": 3.0
+ },
+ "cenarios": {
+  "A": {
+   "alternativas": [
+    "CoCrMo / UHMWPE convencional (MoP)",
+    "CoCrMo / HXLPE (MoXLPE)",
+    "ZTA / HXLPE (CoXLPE)",
+    "ZTA / ZTA (CoC)"
+   ],
+   "criterios": [
+    "Taxa de desgaste linear",
+    "Segurança iónica / risco ALTR (ordinal 1-5)",
+    "Dureza da cabeça",
+    "Compatibilidade galvânica cabeça-cone (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)"
+   ],
+   "tipos": [
+    "cost",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost"
+   ],
+   "alvos": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.3499999999999999,
+    0.24999999999999994,
+    0.04999999999999999,
+    0.14999999999999997,
+    0.04999999999999999,
+    0.04999999999999999,
+    0.09999999999999998
+   ],
+   "x_min": [
+    [
+     0.04,
+     4.0,
+     312.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.011,
+     4.0,
+     312.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.032,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0019,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "x_max": [
+    [
+     0.106,
+     4.0,
+     368.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.0212,
+     4.0,
+     368.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.044,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0063,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     0.077,
+     4.0,
+     340.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.0161,
+     4.0,
+     340.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.038,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0041,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  "B": {
+   "alternativas": [
+    "CoCrMo / UHMWPE convencional (MoP)",
+    "CoCrMo / HXLPE (MoXLPE)",
+    "ZTA / HXLPE (CoXLPE)",
+    "ZTA / ZTA (CoC)"
+   ],
+   "criterios": [
+    "Taxa de desgaste linear",
+    "Segurança iónica / risco ALTR (ordinal 1-5)",
+    "Dureza da cabeça",
+    "Compatibilidade galvânica cabeça-cone (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)"
+   ],
+   "tipos": [
+    "cost",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost"
+   ],
+   "alvos": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.3499999999999999,
+    0.24999999999999994,
+    0.04999999999999999,
+    0.14999999999999997,
+    0.04999999999999999,
+    0.04999999999999999,
+    0.09999999999999998
+   ],
+   "x_min": [
+    [
+     0.04,
+     4.0,
+     312.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.011,
+     4.0,
+     312.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.032,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0019,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "x_max": [
+    [
+     0.106,
+     4.0,
+     368.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.0212,
+     4.0,
+     368.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.044,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0063,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     0.077,
+     4.0,
+     340.0,
+     3.0,
+     2.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.0161,
+     4.0,
+     340.0,
+     3.0,
+     4.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.038,
+     5.0,
+     1937.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.0041,
+     5.0,
+     1937.0,
+     5.0,
+     5.0,
+     5.0,
+     4.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "propriedades_extra": {},
+ "problemas_criticos": {
+  "direta": [
+   "Taxa de desgaste linear",
+   "Segurança iónica / risco ALTR (ordinal 1-5)",
+   "Compatibilidade galvânica cabeça-cone (ordinal 1-5)"
+  ],
+  "indireta": [
+   "Dureza da cabeça",
+   "Compatibilidade com esterilização (ordinal 1-5)"
+  ]
+ },
+ "regras": [
+  {
+   "id": "P-JOV",
+   "dispositivo": "Prótese da anca | Par articular",
+   "condicao": "idade < 60 e atividade alta",
+   "condicao_codigo": "idade<60; atividade=alta",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Taxa de desgaste linear",
+   "valor": "2",
+   "justificacao": "O desgaste do polietileno acompanha o uso (passos) e não o tempo: mais atividade, mais partículas.",
+   "fonte": "Schmalzried TP et al. Clin Orthop Relat Res 2000;(381):36-46",
+   "doi_url": "https://doi.org/10.1097/00003086-200012000-00005",
+   "estado": "Verificado"
+  },
+  {
+   "id": "P-MET",
+   "dispositivo": "Prótese da anca | Par articular",
+   "condicao": "alergia a metais (níquel, cobalto ou crómio)",
+   "condicao_codigo": "alergia_metais=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Segurança iónica / risco ALTR (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Mesmo mecanismo da H-MET, aplicado aos iões do par e da junção cabeça-cone.",
+   "fonte": "Hallab N, Merritt K, Jacobs JJ. J Bone Joint Surg Am 2001;83(3):428-436",
+   "doi_url": "https://doi.org/10.2106/00004623-200103000-00017",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "P-RM",
+   "dispositivo": "Prótese da anca | Par articular",
+   "condicao": "necessidade de ressonância magnética frequente",
+   "condicao_codigo": "rm_frequente=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Compatibilidade com RM (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Mesmo mecanismo da H-RM: as ligas de Co-Cr dão mais artefactos do que as de titânio. A fonte estudou próteses metálicas; a cabeça cerâmica (ZTA) não foi estudada, pelo que a ordem do critério para o par é do trabalho; fator 2 do trabalho.",
+   "fonte": "Breit HC et al. Eur Radiol Exp 2023;7(1):5",
+   "doi_url": "https://doi.org/10.1186/s41747-023-00320-5",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "P-IRC",
+   "dispositivo": "Prótese da anca | Par articular",
+   "condicao": "insuficiência renal terminal (TFG < 15 ou diálise)",
+   "condicao_codigo": "tfg<15",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Segurança iónica / risco ALTR (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "O cobalto é eliminado pelo rim. Em 5 doentes com insuficiência renal crónica e par metal-metal, o cobalto sérico foi mais de 100 vezes superior (Hur 2008); numa coorte de 1244 doentes não houve acumulação de Co nem de Cr com insuficiência ligeira a grave (Manninen 2021). Por isso a regra fica só para a fase terminal; evidência contraditória e escassa (6 doentes em G5 na coorte). Fator 2 do trabalho.",
+   "fonte": "Hur CI et al. Clin Orthop Relat Res 2008;466(3):696-699; Manninen E et al. Bone Joint J 2021;103-B(7):1231-1237",
+   "doi_url": "https://doi.org/10.1007/s11999-007-0093-3; https://doi.org/10.1302/0301-620x.103b7.bjj-2020-0836.r2",
+   "estado": "Regra do trabalho"
+  }
+ ],
+ "perfis_referencia": {}
+}

@@ -1,0 +1,38 @@
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+.pytest_cache/
+results/*.csv
+fontes/
+dist/
+build/
+
+# Ficheiros temporários de bloqueio (Word, SolidWorks e outros, com o documento aberto)
+~$*
+
+# Vídeos e apresentação com vídeos embutidos (grandes; regenerar com scripts/animacoes.py e scripts/apresentacao.py)
+apresentacao/media/*.mp4
+apresentacao/media/*.gif
+apresentacao/*.pptx
+
+# Excecao: a letra Inter (licenca OFL) usada pelos graficos
+!design/fontes/
+
+# Compilação do núcleo Rust (cargo)
+app-nativa/**/target/
+
+# Cache de imagens da apresentação no estilo B (renders reduzidos; regenerar com scripts/apresentacao_b.py)
+apresentacao/imagens_b/recursos/
+
+# Poster no estilo B: cache de imagens e HTML intermédio (caminhos locais; regenerar com scripts/poster_b.py)
+poster/recursos_b/
+poster/*.html
+
+# Resultados do SOLIDWORKS Simulation (pesados; regenerar com scripts/fea_solidworks.py estudos)
+design/cad/fea/*.CWR
+design/cad/fea/*.BD2
+design/cad/fea/*.BDF
+design/cad/fea/*.BMC
+design/cad/fea/*.gsz
+design/cad/fea/*.LOG

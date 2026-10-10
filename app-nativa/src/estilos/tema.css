@@ -1,0 +1,163 @@
+/* Tema da aplicação: só variáveis CSS (fundo, superfície, texto, texto secundário, linhas, acento).
+   Azul da FE: #0477A8 no texto azul pequeno (5,0:1 em branco), #0595D1 nos títulos grandes e nos gráficos;
+   no escuro, #4FB8EA para texto sobre #0b1b2e. Valores em "r g b" para o Tailwind aplicar transparência. */
+
+@font-face {
+  font-family: "Inter";
+  src: url("../../../design/fontes/Inter-Regular.ttf") format("truetype");
+  font-weight: 100 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../../../design/fontes/Inter-Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+:root[data-tema="claro"] {
+  --fundo: 245 247 250;
+  --superficie: 255 255 255;
+  --superficie-2: 238 242 246;
+  --texto: 15 27 42;
+  --texto-2: 74 88 104;
+  --linha: 220 227 234;
+  --acento: 5 149 209;
+  --acento-texto: 4 119 168;
+  --aviso: 154 103 0;
+  --perigo: 180 35 24;
+  --sucesso: 6 118 71;
+  --cor-topsis: #222222;
+  --cor-waspas: #6f6f6f;
+  --cor-vikor: #a8a8a8;
+  --cor-borda: #0595d1;
+  --grelha: #e3e8ee;
+  color-scheme: light;
+}
+
+:root[data-tema="escuro"] {
+  --fundo: 11 27 46;
+  --superficie: 16 36 58;
+  --superficie-2: 23 48 75;
+  --texto: 232 238 245;
+  --texto-2: 167 182 198;
+  --linha: 36 64 92;
+  --acento: 79 184 234;
+  --acento-texto: 79 184 234;
+  --aviso: 242 179 61;
+  --perigo: 249 112 102;
+  --sucesso: 71 205 137;
+  --cor-topsis: #e8eef5;
+  --cor-waspas: #a7b6c6;
+  --cor-vikor: #6b819a;
+  --cor-borda: #4fb8ea;
+  --grelha: #1d3753;
+  color-scheme: dark;
+}
+
+/* Tamanho da letra (Definições) e modo apresentação: tudo em rem acompanha. */
+html {
+  font-size: 16px;
+}
+html[data-letra="grande"] {
+  font-size: 18px;
+}
+html[data-letra="muito-grande"] {
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--fundo));
+  color: rgb(var(--texto));
+  font-family: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+/* Transição do tema em 200 ms em todas as superfícies, sem piscar. */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Movimento reduzido: sem transições nem animações CSS. */
+html[data-movimento="reduzido"] *,
+html[data-movimento="reduzido"] *::before,
+html[data-movimento="reduzido"] *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--acento));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgb(var(--acento) / 0.25);
+}
+
+/* Barras de deslocamento discretas, com as cores do tema. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--linha)) transparent;
+}
+
+.numero {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Recharts: eixos e grelhas com as cores do tema. */
+.recharts-cartesian-axis-tick-value {
+  fill: rgb(var(--texto-2));
+}
+.recharts-cartesian-grid line {
+  stroke: var(--grelha);
+}
+.recharts-default-tooltip {
+  background: rgb(var(--superficie)) !important;
+  border-color: rgb(var(--linha)) !important;
+  border-radius: 8px;
+}
+
+/* Texto de markdown simples (ecrã Porquê). */
+.prosa h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+}
+.prosa h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+.prosa p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+.prosa ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.prosa li {
+  margin: 0.35rem 0;
+  line-height: 1.55;
+}

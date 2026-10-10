@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="732.593991pt" height="305.134672pt" viewBox="0 0 732.593991 305.134672" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-06T22:25:46.498101</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 305.134672 
+L 732.593991 305.134672 
+L 732.593991 0 
+L 0 0 
+L 0 305.134672 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 143.311449 271.675453 
+L 589.711449 271.675453 
+L 589.711449 61.003453 
+L 143.311449 61.003453 
+L 143.311449 271.675453 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1"/>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'Inter'; fill: #55595e" transform="translate(131.692983 284.862953)">Leitura ampla</text>
+      <text style="font-size: 10px; font-family: 'Inter'; fill: #55595e" transform="translate(104.739858 296.962562)">(ligação direta e indireta)</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2"/>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'Inter'; fill: #55595e" transform="translate(538.954134 284.862953)">Leitura literal</text>
+      <text style="font-size: 10px; font-family: 'Inter'; fill: #55595e" transform="translate(526.861165 296.962562)">(só ligação direta)</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2"/>
+   <g id="line2d_3">
+    <path d="M 163.602358 176.623433 
+L 569.42054 246.340033 
+" clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
+    <defs>
+     <path id="mc809b70277" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #9aa0a6; stroke-opacity: 0.8"/>
+    </defs>
+    <g clip-path="url(#pcd8781b0df)">
+     <use xlink:href="#mc809b70277" x="163.602358" y="176.623433" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="246.340033" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+    </g>
+   </g>
+   <g id="line2d_4">
+    <path d="M 163.602358 262.099453 
+L 569.42054 238.132934 
+" clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#pcd8781b0df)">
+     <use xlink:href="#mc809b70277" x="163.602358" y="262.099453" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="238.132934" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+    </g>
+   </g>
+   <g id="line2d_5">
+    <path d="M 163.602358 148.765707 
+L 569.42054 79.594679 
+" clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #0072b2; stroke-width: 2.4; stroke-linecap: square"/>
+    <defs>
+     <path id="m2a6c9a692c" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #0072b2"/>
+    </defs>
+    <g clip-path="url(#pcd8781b0df)">
+     <use xlink:href="#m2a6c9a692c" x="163.602358" y="148.765707" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m2a6c9a692c" x="569.42054" y="79.594679" style="fill: #0072b2; stroke: #0072b2"/>
+    </g>
+   </g>
+   <g id="line2d_6">
+    <path d="M 163.602358 167.082613 
+L 569.42054 109.926872 
+" clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#pcd8781b0df)">
+     <use xlink:href="#mc809b70277" x="163.602358" y="167.082613" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="109.926872" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+    </g>
+   </g>
+   <g id="line2d_7">
+    <path d="M 163.602358 70.579453 
+L 569.42054 89.954681 
+" clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #e69f00; stroke-width: 2.4; stroke-linecap: square"/>
+    <defs>
+     <path id="m99e364b38a" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #e69f00"/>
+    </defs>
+    <g clip-path="url(#pcd8781b0df)">
+     <use xlink:href="#m99e364b38a" x="163.602358" y="70.579453" style="fill: #e69f00; stroke: #e69f00"/>
+     <use xlink:href="#m99e364b38a" x="569.42054" y="89.954681" style="fill: #e69f00; stroke: #e69f00"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 143.311449 271.675453 
+L 589.711449 271.675453 
+" style="fill: none; stroke: #9aa0a6; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="180.157139" transform="rotate(-0 151.427813 180.157139)">PCL  0,529</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="250.236428" transform="rotate(-0 581.595085 250.236428)">0,427  PCL</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="265.63316" transform="rotate(-0 151.427813 265.63316)">HA porosa  0,403</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="239.396704" transform="rotate(-0 581.595085 239.396704)">0,439  HA porosa</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="152.481298" transform="rotate(-0 151.427813 152.481298)">β-TCP poroso  0,571</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="83.193237" transform="rotate(-0 581.595085 83.193237)">0,673  β-TCP poroso</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="169.317415" transform="rotate(-0 151.427813 169.317415)">Vidro bioativo 45S5 poroso  0,544</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="113.823268" transform="rotate(-0 581.595085 113.823268)">0,628  Vidro bioativo 45S5 poroso</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="74.295045" transform="rotate(-0 151.427813 74.295045)">PCL/β-TCP  0,686</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="94.032961" transform="rotate(-0 581.595085 94.032961)">0,657  PCL/β-TCP</text>
+   </g>
+  </g>
+  <g id="text_13">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="71.311449" y="19.3225" transform="rotate(-0 71.311449 19.3225)">No scaffold, o vencedor depende de como se lê o problema crítico</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 10.5px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="71.311449" y="32.478738" transform="rotate(-0 71.311449 32.478738)">C do TOPSIS com o peso dos critérios do problema crítico reforçado (cenário P-foco)</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcd8781b0df">
+   <rect x="143.311449" y="61.003453" width="446.4" height="210.672"/>
+  </clipPath>
+ </defs>
+</svg>

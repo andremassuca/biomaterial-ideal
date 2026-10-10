@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissões da janela principal: só o núcleo (comandos e eventos); sem rede nem ficheiros.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

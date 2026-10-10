@@ -1,0 +1,642 @@
+{
+ "caso": "Scaffold",
+ "caso_componente": "Scaffold (regeneração óssea)",
+ "parametros": {
+  "eta": 1.0,
+  "incerteza_valor_unico": 0.1,
+  "fator_foco_problema": 2.0,
+  "teto_custo_relativo": 3.0
+ },
+ "cenarios": {
+  "A": {
+   "alternativas": [
+    "PCL",
+    "Hidroxiapatite (HA) porosa",
+    "β-TCP poroso",
+    "Vidro bioativo 45S5 poroso",
+    "Compósito PCL/β-TCP (impressão 3D)"
+   ],
+   "criterios": [
+    "Resistência à compressão (scaffold)",
+    "Módulo de compressão (scaffold)",
+    "Porosidade",
+    "Tempo de degradação",
+    "Bioatividade (ordinal 1-5)",
+    "Imprimibilidade 3D (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)"
+   ],
+   "tipos": [
+    "target",
+    "target",
+    "target",
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost"
+   ],
+   "alvos": [
+    7.0,
+    250.0,
+    70.0,
+    9.0,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.15,
+    0.1,
+    0.15,
+    0.15,
+    0.15,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "x_min": [
+    [
+     2.0,
+     20.0,
+     48.0,
+     24.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     1.6,
+     500.0,
+     55.0,
+     42.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.35,
+     100.0,
+     65.0,
+     6.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.58,
+     50.0,
+     70.0,
+     6.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     2.2,
+     22.2,
+     60.0,
+     12.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "x_max": [
+    [
+     10.0,
+     80.0,
+     77.0,
+     48.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     22.5,
+     3000.0,
+     80.0,
+     60.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     7.72,
+     1000.0,
+     92.0,
+     18.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     1.1,
+     500.0,
+     90.0,
+     24.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     6.38,
+     51.5,
+     70.0,
+     24.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     6.0,
+     50.0,
+     61.0,
+     36.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     3.4,
+     1750.0,
+     65.0,
+     60.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     2.0,
+     550.0,
+     65.0,
+     12.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.915,
+     275.0,
+     80.0,
+     16.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     4.3,
+     23.1,
+     70.0,
+     18.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  "B": {
+   "alternativas": [
+    "PCL",
+    "PLLA",
+    "PLGA 50:50",
+    "Hidroxiapatite (HA) porosa",
+    "β-TCP poroso",
+    "Vidro bioativo 45S5 poroso",
+    "Compósito PCL/β-TCP (impressão 3D)",
+    "Quitosano/HA (liofilizado)"
+   ],
+   "criterios": [
+    "Resistência à compressão (scaffold)",
+    "Módulo de compressão (scaffold)",
+    "Porosidade",
+    "Tempo de degradação",
+    "Bioatividade (ordinal 1-5)",
+    "Imprimibilidade 3D (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)"
+   ],
+   "tipos": [
+    "target",
+    "target",
+    "target",
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost"
+   ],
+   "alvos": [
+    7.0,
+    250.0,
+    70.0,
+    9.0,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.15,
+    0.1,
+    0.15,
+    0.15,
+    0.15,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "x_min": [
+    [
+     2.0,
+     20.0,
+     48.0,
+     24.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     1.0,
+     50.0,
+     60.0,
+     24.0,
+     1.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    [
+     0.5,
+     10.0,
+     73.0,
+     1.0,
+     1.0,
+     3.0,
+     2.0,
+     2.0
+    ],
+    [
+     1.6,
+     500.0,
+     55.0,
+     42.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.35,
+     100.0,
+     65.0,
+     6.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.58,
+     50.0,
+     70.0,
+     6.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     2.2,
+     22.2,
+     60.0,
+     12.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.03,
+     0.08,
+     86.9,
+     3.0,
+     3.0,
+     2.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "x_max": [
+    [
+     10.0,
+     80.0,
+     77.0,
+     48.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     10.0,
+     300.0,
+     90.0,
+     60.0,
+     1.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    [
+     3.0,
+     60.0,
+     87.0,
+     3.0,
+     1.0,
+     3.0,
+     2.0,
+     2.0
+    ],
+    [
+     22.5,
+     3000.0,
+     80.0,
+     60.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     7.72,
+     1000.0,
+     92.0,
+     18.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     1.1,
+     500.0,
+     90.0,
+     24.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     6.38,
+     51.5,
+     70.0,
+     24.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.06,
+     0.8,
+     91.3,
+     12.0,
+     3.0,
+     2.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     6.0,
+     50.0,
+     61.0,
+     36.0,
+     1.0,
+     5.0,
+     3.0,
+     1.0
+    ],
+    [
+     5.0,
+     175.0,
+     75.0,
+     42.0,
+     1.0,
+     4.0,
+     3.0,
+     1.0
+    ],
+    [
+     1.75,
+     35.0,
+     80.0,
+     2.0,
+     1.0,
+     3.0,
+     2.0,
+     2.0
+    ],
+    [
+     3.4,
+     1750.0,
+     65.0,
+     60.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     2.0,
+     550.0,
+     65.0,
+     12.0,
+     4.0,
+     2.0,
+     5.0,
+     3.0
+    ],
+    [
+     0.915,
+     275.0,
+     80.0,
+     16.0,
+     5.0,
+     2.0,
+     5.0,
+     4.0
+    ],
+    [
+     4.3,
+     23.1,
+     70.0,
+     18.0,
+     3.0,
+     5.0,
+     3.0,
+     2.0
+    ],
+    [
+     0.05,
+     0.76,
+     87.5,
+     7.5,
+     3.0,
+     2.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "propriedades_extra": {},
+ "problemas_criticos": {
+  "direta": [
+   "Porosidade",
+   "Bioatividade (ordinal 1-5)",
+   "Tempo de degradação"
+  ],
+  "indireta": [
+   "Imprimibilidade 3D (ordinal 1-5)",
+   "Resistência à compressão (scaffold)",
+   "Módulo de compressão (scaffold)"
+  ]
+ },
+ "regras": [
+  {
+   "id": "C-CARGA",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "defeito com carga",
+   "condicao_codigo": "defeito=com_carga",
+   "efeito": "leitura do problema",
+   "alvo_do_efeito": "P-foco, leitura ampla (direta + indireta)",
+   "valor": "2",
+   "justificacao": "Num defeito sob carga, o scaffold tem de suportar a função mecânica enquanto o osso se forma; a leitura ampla inclui a resistência e o módulo de compressão. Fator 2 = fator_foco_problema.",
+   "fonte": "Hollister SJ. Nat Mater 2005;4(7):518-524",
+   "doi_url": "https://doi.org/10.1038/nmat1421",
+   "estado": "Verificado"
+  },
+  {
+   "id": "C-SEMCARGA",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "defeito sem carga",
+   "condicao_codigo": "defeito=sem_carga",
+   "efeito": "leitura do problema",
+   "alvo_do_efeito": "P-foco, leitura literal (só direta)",
+   "valor": "2",
+   "justificacao": "Sem carga, o foco fica no suporte celular e na degradação (ligações diretas).",
+   "fonte": null,
+   "doi_url": null,
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "C-DIAB",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "diabetes",
+   "condicao_codigo": "diabetes=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Bioatividade (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "A diabetes reduz o número de osteoblastos e a formação de osso e atrasa a consolidação das fraturas (revisão). Com menos capacidade de formar osso, o trabalho dá mais peso a um scaffold osteocondutor; a ligação à bioatividade é do trabalho; fator 2 do trabalho.",
+   "fonte": "Jiao H; Xiao E; Graves DT. Curr Osteoporos Rep 2015;13(5):327-335",
+   "doi_url": "https://doi.org/10.1007/s11914-015-0286-8",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "C-TAB",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "tabagismo",
+   "condicao_codigo": "tabagismo=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Bioatividade (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Revisão sistemática (19 estudos): nas fraturas de ossos longos, os fumadores têm mais não união (OR ajustado 2,32). Mesmo raciocínio da C-DIAB: mais peso à osteocondução; a ligação ao critério é do trabalho; fator 2 do trabalho.",
+   "fonte": "Scolaro JA et al. J Bone Joint Surg Am 2014;96(8):674-681",
+   "doi_url": "https://doi.org/10.2106/JBJS.M.00081",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "C-OST",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "osteoporose",
+   "condicao_codigo": "osteoporose=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Bioatividade (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Revisão sistemática (93 artigos): em modelos animais a osteoporose reduz o calo e atrasa a consolidação; a evidência clínica não é convincente (2 grandes bases de dados a favor, 3 estudos contra). A ligação à bioatividade é do trabalho; fator 2 do trabalho.",
+   "fonte": "Gorter EA et al. Bone Rep 2021;15:101117",
+   "doi_url": "https://doi.org/10.1016/j.bonr.2021.101117",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "C-CORT",
+   "dispositivo": "Scaffold (regeneração óssea)",
+   "condicao": "corticoterapia prolongada (≥ 2,5 mg/dia durante mais de 3 meses)",
+   "condicao_codigo": "corticoterapia=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Bioatividade (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Em ratinhos, a prednisona prolongada inibiu a ossificação endocondral e atrasou a consolidação da fratura (Liu 2018); a definição do grupo de risco é da guideline do ACR. Só evidência animal para a consolidação; a ligação à bioatividade é do trabalho; fator 2 do trabalho.",
+   "fonte": "Liu YZ et al. Clin Interv Aging 2018;13:1465-1474; Humphrey MB et al. Arthritis Rheumatol 2023;75(12):2088-2102",
+   "doi_url": "https://doi.org/10.2147/cia.s167431; https://doi.org/10.1002/art.42646",
+   "estado": "Regra do trabalho"
+  }
+ ],
+ "perfis_referencia": {
+  "C1": {
+   "descricao": "Defeito com carga",
+   "perfil": {
+    "defeito": "com_carga"
+   }
+  },
+  "C2": {
+   "descricao": "Defeito sem carga",
+   "perfil": {
+    "defeito": "sem_carga"
+   }
+  }
+ }
+}

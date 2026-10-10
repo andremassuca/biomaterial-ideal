@@ -1,0 +1,24 @@
+{
+ "poiseuille": {
+  "erro_perfil_max": 0.01494068662078564,
+  "erro_tau": 0.00242865558199834,
+  "erro_dp": 0.004378533600230217
+ },
+ "malha_max_variacao_area": 0.014753758669443912,
+ "ciclos_max": 8.890733630895746e-10,
+ "passo_variacao_area": 0.00045611975442005903,
+ "pulsatil": {
+  "Pt-Cr": {
+   "espessura_um": 79.0,
+   "tau_media": 0.4084233489928541,
+   "fracao_baixa": 0.46531655319141874,
+   "osi_media": 0.0011852126054475733
+  },
+  "316L": {
+   "espessura_um": 135.0,
+   "tau_media": 0.23161884952168868,
+   "fracao_baixa": 0.8210091302587775,
+   "osi_media": 0.008877415319546512
+  }
+ }
+}

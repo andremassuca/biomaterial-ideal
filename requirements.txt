@@ -1,0 +1,6 @@
+# Dependências de base do pacote (cálculo e figuras), para instalar fora do ambiente local.
+# Versões iguais às do ambiente local onde os testes passam.
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+matplotlib==3.11.2

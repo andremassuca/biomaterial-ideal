@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="530.552516pt" height="316.459453pt" viewBox="0 0 530.552516 316.459453" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-08T11:50:29.323020</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 316.459453 
+L 530.552516 316.459453 
+L 530.552516 0 
+L 0 0 
+L 0 316.459453 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 89.507368 77.530937 
+L 324.454737 77.530937 
+L 324.454737 46.092485 
+L 89.507368 46.092485 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #9ea8b2"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 91.631555 121.195453 
+L 322.33055 121.195453 
+L 322.33055 89.757002 
+L 91.631555 89.757002 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #7e9db2"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 96.24411 164.859969 
+L 317.717996 164.859969 
+L 317.717996 133.421518 
+L 96.24411 133.421518 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #5f93b2"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 121.768374 208.524485 
+L 292.193731 208.524485 
+L 292.193731 177.086034 
+L 121.768374 177.086034 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #3f88b2"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 167.644715 252.189002 
+L 246.31739 252.189002 
+L 246.31739 220.75055 
+L 167.644715 220.75055 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #207db2"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 182.105207 295.853518 
+L 231.856898 295.853518 
+L 231.856898 264.415066 
+L 182.105207 264.415066 
+z
+" clip-path="url(#pa3d254083b)" style="fill: #0072b2"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="66.176946" transform="rotate(-0 338.551579 66.176946)">271 325</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="78.184992" transform="rotate(-0 338.551579 78.184992)">compostos inorgânicos no Materials Project</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="109.841462" transform="rotate(-0 338.551579 109.841462)">212 176</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="121.849508" transform="rotate(-0 338.551579 121.849508)">sem elementos tóxicos ou radioativos</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="153.505978" transform="rotate(-0 338.551579 153.505978)">124 394</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="165.514024" transform="rotate(-0 338.551579 165.514024)">estáveis</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="197.170494" transform="rotate(-0 338.551579 197.170494)">6 479</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="209.17854" transform="rotate(-0 338.551579 209.17854)">com rigidez calculada adequada</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="240.83501" transform="rotate(-0 338.551579 240.83501)">31</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="252.843056" transform="rotate(-0 338.551579 252.843056)">na base verificada, com fontes publicadas</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="338.551579" y="284.499526" transform="rotate(-0 338.551579 284.499526)">5</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="338.551579" y="296.507572" transform="rotate(-0 338.551579 296.507572)">recomendados: um por dispositivo</text>
+   </g>
+  </g>
+  <g id="text_13">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="5.76" y="19.3225" transform="rotate(-0 5.76 19.3225)">De centenas de milhares de materiais até um por dispositivo</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 10.5px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="5.76" y="33.126738" transform="rotate(-0 5.76 33.126738)">Materials Project: propriedades calculadas, só para filtrar; a decisão usa a base verificada</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa3d254083b">
+   <rect x="77.76" y="39.979453" width="446.4" height="270.72"/>
+  </clipPath>
+ </defs>
+</svg>

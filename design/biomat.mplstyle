@@ -1,0 +1,49 @@
+# Estilo dos gráficos do poster e da apresentação (matplotlib). Carregar com scripts/estilo_graficos.aplicar(),
+# que também regista a letra Inter (design/fontes) e a vírgula decimal.
+# Princípios: letra Inter, linhas finas, eixos só onde fazem falta, sem caixas, grelha discreta, rótulos diretos
+# nas séries, paleta de Okabe e Ito com cor fixa por material (scripts/figuras.py, COR_MATERIAL).
+
+font.family: Inter
+font.size: 11
+text.color: 14171a
+axes.labelcolor: 3c4046
+axes.labelsize: 11
+axes.titlesize: 13
+axes.titleweight: bold
+axes.titlelocation: left
+axes.titlepad: 10
+axes.edgecolor: 9aa0a6
+axes.linewidth: 0.8
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: True
+axes.grid.axis: y
+axes.axisbelow: True
+axes.facecolor: none
+axes.prop_cycle: cycler('color', ['0072B2', 'E69F00', '009E73', 'D55E00', '56B4E9', 'CC79A7', 'F0E442', '999999'])
+grid.color: e6e8eb
+grid.linewidth: 0.6
+lines.linewidth: 1.6
+lines.markersize: 7
+patch.linewidth: 0
+xtick.color: 55595e
+ytick.color: 55595e
+xtick.labelcolor: 3c4046
+ytick.labelcolor: 3c4046
+xtick.major.size: 3
+ytick.major.size: 0
+xtick.major.width: 0.8
+xtick.labelsize: 10
+ytick.labelsize: 10
+legend.frameon: False
+legend.fontsize: 10
+figure.facecolor: none
+figure.dpi: 150
+savefig.dpi: 300
+savefig.bbox: tight
+savefig.pad_inches: 0.08
+savefig.transparent: True
+svg.fonttype: none
+pdf.fonttype: 42
+axes.formatter.use_locale: False
+axes.unicode_minus: True

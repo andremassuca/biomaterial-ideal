@@ -1,0 +1,651 @@
+{
+ "caso": "Haste",
+ "caso_componente": "Prótese da anca | Haste femoral",
+ "parametros": {
+  "eta": 1.0,
+  "incerteza_valor_unico": 0.1,
+  "fator_foco_problema": 2.0,
+  "teto_custo_relativo": 3.0
+ },
+ "cenarios": {
+  "A": {
+   "alternativas": [
+    "Aço inox 316L",
+    "Co-Cr-Mo forjado",
+    "Ti-6Al-4V ELI",
+    "Ti cp grau 4",
+    "Ti-13Nb-13Zr"
+   ],
+   "criterios": [
+    "Módulo de Young",
+    "Limite de fadiga (10^7 ciclos)",
+    "Tensão de cedência",
+    "Resistência à corrosão (ordinal 1-5)",
+    "Densidade",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Fabricabilidade (ordinal 1-5)"
+   ],
+   "tipos": [
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit",
+    "cost",
+    "benefit"
+   ],
+   "alvos": [
+    17.0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.2,
+    0.25,
+    0.1,
+    0.15,
+    0.05,
+    0.1,
+    0.05,
+    0.1
+   ],
+   "x_min": [
+    [
+     205.0,
+     694.0,
+     755.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     220.0,
+     796.0,
+     629.0,
+     4.0,
+     8.25,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     101.0,
+     682.0,
+     848.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     610.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     79.0,
+     500.0,
+     836.0,
+     5.0,
+     4.9,
+     4.0,
+     4.0,
+     3.0
+    ]
+   ],
+   "x_max": [
+    [
+     210.0,
+     694.0,
+     765.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     230.0,
+     796.0,
+     709.0,
+     4.0,
+     8.3,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     110.0,
+     682.0,
+     850.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     622.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     84.0,
+     600.0,
+     908.0,
+     5.0,
+     5.1,
+     4.0,
+     4.0,
+     3.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     207.5,
+     694.0,
+     760.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     225.0,
+     796.0,
+     669.0,
+     4.0,
+     8.275,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     105.5,
+     682.0,
+     849.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     616.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     81.5,
+     550.0,
+     872.0,
+     5.0,
+     5.0,
+     4.0,
+     4.0,
+     3.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  },
+  "B": {
+   "alternativas": [
+    "Aço inox 316L",
+    "Co-Cr-Mo forjado",
+    "Ti-6Al-4V ELI",
+    "Ti cp grau 4",
+    "Ti-13Nb-13Zr",
+    "Ti-35Nb-7Zr-5Ta (TNZT)"
+   ],
+   "criterios": [
+    "Módulo de Young",
+    "Limite de fadiga (10^7 ciclos)",
+    "Tensão de cedência",
+    "Resistência à corrosão (ordinal 1-5)",
+    "Densidade",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Fabricabilidade (ordinal 1-5)"
+   ],
+   "tipos": [
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit",
+    "cost",
+    "benefit"
+   ],
+   "alvos": [
+    17.0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.2,
+    0.25,
+    0.1,
+    0.15,
+    0.05,
+    0.1,
+    0.05,
+    0.1
+   ],
+   "x_min": [
+    [
+     205.0,
+     694.0,
+     755.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     220.0,
+     796.0,
+     629.0,
+     4.0,
+     8.25,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     101.0,
+     682.0,
+     848.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     610.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     79.0,
+     500.0,
+     836.0,
+     5.0,
+     4.9,
+     4.0,
+     4.0,
+     3.0
+    ],
+    [
+     55.0,
+     275.0,
+     530.0,
+     5.0,
+     5.6,
+     4.0,
+     5.0,
+     2.0
+    ]
+   ],
+   "x_max": [
+    [
+     210.0,
+     694.0,
+     765.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     230.0,
+     796.0,
+     709.0,
+     4.0,
+     8.3,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     110.0,
+     682.0,
+     850.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     622.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     84.0,
+     600.0,
+     908.0,
+     5.0,
+     5.1,
+     4.0,
+     4.0,
+     3.0
+    ],
+    [
+     55.0,
+     275.0,
+     547.0,
+     5.0,
+     5.8,
+     4.0,
+     5.0,
+     2.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     207.5,
+     694.0,
+     760.0,
+     3.0,
+     8.0,
+     2.0,
+     1.0,
+     5.0
+    ],
+    [
+     225.0,
+     796.0,
+     669.0,
+     4.0,
+     8.275,
+     3.0,
+     3.0,
+     4.0
+    ],
+    [
+     105.5,
+     682.0,
+     849.0,
+     5.0,
+     4.43,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     104.1,
+     483.0,
+     616.0,
+     5.0,
+     4.51,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     81.5,
+     550.0,
+     872.0,
+     5.0,
+     5.0,
+     4.0,
+     4.0,
+     3.0
+    ],
+    [
+     55.0,
+     275.0,
+     538.5,
+     5.0,
+     5.699999999999999,
+     4.0,
+     5.0,
+     2.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "propriedades_extra": {},
+ "problemas_criticos": {
+  "direta": [
+   "Resistência à corrosão (ordinal 1-5)"
+  ],
+  "indireta": []
+ },
+ "regras": [
+  {
+   "id": "H-JOV",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "idade < 60 e atividade alta",
+   "condicao_codigo": "idade<60; atividade=alta",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Limite de fadiga (10^7 ciclos)",
+   "valor": "2",
+   "justificacao": "Mais anos e mais ciclos de carga: idade abaixo de 63 anos é fator de risco de fratura da haste (OR 1,22); o risco de revisão ao longo da vida cresce quanto mais jovem o doente (Bayliss 2017). Limiar de 60 anos e fator 2 são do trabalho.",
+   "fonte": "Turnbull GS et al. Arch Orthop Trauma Surg 2024;144(5):2421-2428; Bayliss LE et al. Lancet 2017;389:1424-1430",
+   "doi_url": "https://doi.org/10.1007/s00402-024-05281-x; https://doi.org/10.1016/S0140-6736(17)30059-4",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-OST",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "osteoporose",
+   "condicao_codigo": "osteoporose=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Módulo de Young",
+   "valor": "2",
+   "justificacao": "Com menos massa óssea, a perda óssea à volta da haste (stress shielding) é maior; o critério do módulo ganha importância. Estudo pequeno (11 fémures de autópsia).",
+   "fonte": "Sychterz CJ, Engh CA. Clin Orthop Relat Res 1996;(322):285-292",
+   "doi_url": "https://pubmed.ncbi.nlm.nih.gov/8542707/",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-IMC",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "IMC ≥ 35",
+   "condicao_codigo": "imc>=35",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Limite de fadiga (10^7 ciclos)",
+   "valor": "2",
+   "justificacao": "Mais carga por ciclo: peso acima de 80 kg é fator de risco de fratura da haste (OR 3,55). A fonte usa o peso, não o IMC; o limiar de IMC 35 é do trabalho.",
+   "fonte": "Turnbull GS et al. Arch Orthop Trauma Surg 2024;144(5):2421-2428",
+   "doi_url": "https://doi.org/10.1007/s00402-024-05281-x",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-MET",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "alergia a metais (níquel, cobalto ou crómio)",
+   "condicao_codigo": "alergia_metais=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Resistência à corrosão (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "A corrosão liberta os iões que podem desencadear hipersensibilidade; a fonte conclui que não está claro se a sensibilidade contribui para a falha.",
+   "fonte": "Hallab N, Merritt K, Jacobs JJ. J Bone Joint Surg Am 2001;83(3):428-436",
+   "doi_url": "https://doi.org/10.2106/00004623-200103000-00017",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "H-RM",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "necessidade de ressonância magnética frequente",
+   "condicao_codigo": "rm_frequente=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Compatibilidade com RM (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Os metais distorcem o campo magnético e criam artefactos à volta da haste. Em fantoma, as próteses de liga de titânio deram menos artefactos do que as de aço inox e de Co-Cr a 0,55, 1,5 e 3 T (Breit 2023) e 3 a 4 vezes menos do que as outras (Månsson 2015). A condição (RM frequente) é do trabalho; fator 2 do trabalho.",
+   "fonte": "Breit HC et al. Eur Radiol Exp 2023;7(1):5; Månsson S et al. Phys Med 2015;31(2):173-178",
+   "doi_url": "https://doi.org/10.1186/s41747-023-00320-5; https://doi.org/10.1016/j.ejmp.2014.12.001",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-CORT",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "corticoterapia prolongada (≥ 2,5 mg/dia durante mais de 3 meses)",
+   "condicao_codigo": "corticoterapia=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Módulo de Young",
+   "valor": "2",
+   "justificacao": "Os glucocorticoides causam osteoporose secundária; a guideline do ACR define o grupo de risco (mais de 3 meses com 2,5 mg/dia ou mais) e recomenda avaliar o risco de fratura. A ligação ao módulo segue o mecanismo da H-OST (menos osso, mais stress shielding) e é do trabalho; fator 2 do trabalho.",
+   "fonte": "Humphrey MB et al. Arthritis Rheumatol 2023;75(12):2088-2102 (guideline ACR 2022)",
+   "doi_url": "https://doi.org/10.1002/art.42646",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "H-IRC",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "insuficiência renal crónica (TFG < 60, estádios G3a a G5D)",
+   "condicao_codigo": "tfg<60",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Módulo de Young",
+   "valor": "2",
+   "justificacao": "A doença renal crónica altera o metabolismo mineral e ósseo; a guideline KDIGO afirma que os doentes em G3a a G5D têm mais fraturas do que a população geral. A ligação ao módulo (osso fraco, mais stress shielding) é a mesma da H-OST e é do trabalho; fator 2 do trabalho.",
+   "fonte": "KDIGO CKD-MBD Work Group. Kidney Int Suppl 2017;7(1):1-59",
+   "doi_url": "https://doi.org/10.1016/j.kisu.2017.04.001",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "H-AR",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "artrite reumatoide",
+   "condicao_codigo": "artrite_reumatoide=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "mais risco de luxação após artroplastia da anca; não depende do material da haste; se houver corticoterapia, aplica-se a H-CORT",
+   "valor": null,
+   "justificacao": "Meta-análise de 40 estudos: na artroplastia da anca, a artrite reumatoide aumenta o risco de luxação (OR ajustado 2,16) e não se encontraram diferenças na revisão tardia. Nenhum critério do material responde a este risco, por isso não altera o ranking.",
+   "fonte": "Ravi B et al. Arthritis Rheum 2012;64(12):3839-3849",
+   "doi_url": "https://doi.org/10.1002/art.37690",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-TAB",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "tabagismo",
+   "condicao_codigo": "tabagismo=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "mais descolamento asséptico e infeção; recomenda-se cessação tabágica; não depende do material da haste",
+   "valor": null,
+   "justificacao": "Meta-análise de 6 coortes (8181 doentes): nos fumadores, risco relativo de descolamento asséptico 3,05, de infeção profunda 3,71 e de revisão 2,58. O mecanismo é biológico (fixação e infeção), não de um critério do material, por isso não altera o ranking.",
+   "fonte": "Teng S et al. PLoS One 2015;10(4):e0125294",
+   "doi_url": "https://doi.org/10.1371/journal.pone.0125294",
+   "estado": "Verificado"
+  },
+  {
+   "id": "H-TI",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "alergia ao titânio confirmada por teste",
+   "condicao_codigo": "alergia_titanio_confirmada=sim",
+   "efeito": "exclusão",
+   "alvo_do_efeito": "Ti cp grau 4; Ti-13Nb-13Zr; Ti-35Nb-7Zr-5Ta (TNZT); Ti-6Al-4V ELI",
+   "valor": null,
+   "justificacao": "Revisão estruturada (PRISMA; 35 artigos, evidência fraca): não há teste de rastreio sensível e o teste epicutâneo é pouco fiável (Chen e Kurmis 2024); nos implantes dentários, os testes epicutâneo, LTT e MELISA deram resultados inconsistentes (Müller-Heupt 2022, que excluiu os implantes ortopédicos). Decisão de 8 out 2026: a exclusão só se aplica com alergia confirmada por teste e concordante com a clínica; ficam o 316L e o Co-Cr-Mo (ambos com níquel, cobalto ou crómio). A suspeita dá só uma nota (H-TI-NOTA).",
+   "fonte": "Chen A; Kurmis AP. ANZ J Surg 2024;94(11):1925-1934; Müller-Heupt LK et al. Int J Implant Dent 2022;8:29",
+   "doi_url": "https://doi.org/10.1111/ans.19167; https://doi.org/10.1186/s40729-022-00428-0",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "H-TI-NOTA",
+   "dispositivo": "Prótese da anca | Haste femoral",
+   "condicao": "suspeita de hipersensibilidade ao titânio, sem teste",
+   "condicao_codigo": "hipersens_titanio_suspeita=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "recomenda-se avaliação clínica; testes pouco fiáveis",
+   "valor": null,
+   "justificacao": "A suspeita não altera o ranking; os testes de alergia ao titânio têm fiabilidade baixa (Chen e Kurmis 2024; Müller-Heupt 2022) e os sinais clínicos devem pesar mais.",
+   "fonte": "Chen A; Kurmis AP. ANZ J Surg 2024;94(11):1925-1934; Müller-Heupt LK et al. Int J Implant Dent 2022;8:29",
+   "doi_url": "https://doi.org/10.1111/ans.19167; https://doi.org/10.1186/s40729-022-00428-0",
+   "estado": "Regra do trabalho"
+  }
+ ],
+ "perfis_referencia": {
+  "H1": {
+   "descricao": "Jovem ativo",
+   "perfil": {
+    "idade": 40,
+    "sexo": "M",
+    "atividade": "alta"
+   }
+  },
+  "H2": {
+   "descricao": "Idosa com osteoporose",
+   "perfil": {
+    "idade": 78,
+    "sexo": "F",
+    "atividade": "baixa",
+    "osteoporose": "sim"
+   }
+  },
+  "H3": {
+   "descricao": "IMC 38",
+   "perfil": {
+    "idade": 65,
+    "imc": 38
+   }
+  }
+ }
+}

@@ -1,0 +1,712 @@
+{
+ "caso": "Stent",
+ "caso_componente": "Stent vascular",
+ "parametros": {
+  "eta": 1.0,
+  "incerteza_valor_unico": 0.1,
+  "fator_foco_problema": 2.0,
+  "teto_custo_relativo": 3.0
+ },
+ "cenarios": {
+  "A": {
+   "alternativas": [
+    "Aço inox 316L",
+    "Co-Cr L605",
+    "Co-Ni-Cr-Mo MP35N",
+    "Pt-Cr"
+   ],
+   "criterios": [
+    "Índice material de recuo elástico σy/E (proxy)",
+    "Espessura típica de strut",
+    "Alongamento na rotura",
+    "Resistência à tração",
+    "Módulo de Young",
+    "Radiopacidade (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Fabricabilidade (ordinal 1-5)"
+   ],
+   "tipos": [
+    "cost",
+    "cost",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit"
+   ],
+   "alvos": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.11764705882352941,
+    0.23529411764705882,
+    0.11764705882352941,
+    0.11764705882352941,
+    0.058823529411764705,
+    0.11764705882352941,
+    0.058823529411764705,
+    0.058823529411764705,
+    0.058823529411764705,
+    0.058823529411764705
+   ],
+   "x_min": [
+    [
+     0.001025,
+     130.0,
+     40.0,
+     490.0,
+     193.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0
+    ],
+    [
+     0.0016888888888888889,
+     81.0,
+     40.0,
+     900.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0017662116040955632,
+     90.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0023645320197044333,
+     74.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0
+    ]
+   ],
+   "x_max": [
+    [
+     0.001761658031088083,
+     140.0,
+     50.0,
+     690.0,
+     200.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0
+    ],
+    [
+     0.003111111111111111,
+     81.0,
+     40.0,
+     1000.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0017662116040955632,
+     91.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0023645320197044333,
+     81.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     0.0013625,
+     135.0,
+     40.0,
+     590.0,
+     200.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0
+    ],
+    [
+     0.0021155555555555554,
+     81.0,
+     40.0,
+     996.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0017662116040955632,
+     90.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0
+    ],
+    [
+     0.0023645320197044333,
+     79.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  "B": {
+   "alternativas": [
+    "Aço inox 316L",
+    "Co-Cr L605",
+    "Co-Ni-Cr-Mo MP35N",
+    "Pt-Cr",
+    "Liga de Mg WE43 (bioabsorvível)",
+    "PLLA (bioabsorvível)"
+   ],
+   "criterios": [
+    "Índice material de recuo elástico σy/E (proxy)",
+    "Espessura típica de strut",
+    "Alongamento na rotura",
+    "Resistência à tração",
+    "Módulo de Young",
+    "Radiopacidade (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Compatibilidade com esterilização (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Fabricabilidade (ordinal 1-5)",
+    "Tempo de reabsorção"
+   ],
+   "tipos": [
+    "cost",
+    "cost",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit",
+    "target"
+   ],
+   "alvos": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    12.0
+   ],
+   "pesos": [
+    0.1,
+    0.2,
+    0.1,
+    0.1,
+    0.05,
+    0.1,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.15
+   ],
+   "x_min": [
+    [
+     0.001025,
+     130.0,
+     40.0,
+     490.0,
+     193.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0016888888888888889,
+     81.0,
+     40.0,
+     900.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0017662116040955632,
+     90.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0023645320197044333,
+     74.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0,
+     48.0
+    ],
+    [
+     0.005510204081632653,
+     120.0,
+     11.5,
+     352.0,
+     44.1,
+     1.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0,
+     12.0
+    ],
+    [
+     0.0125,
+     150.0,
+     2.0,
+     60.0,
+     2.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     3.0,
+     36.0
+    ]
+   ],
+   "x_max": [
+    [
+     0.001761658031088083,
+     140.0,
+     50.0,
+     690.0,
+     200.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.003111111111111111,
+     81.0,
+     40.0,
+     1000.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0017662116040955632,
+     91.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0023645320197044333,
+     81.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0,
+     48.0
+    ],
+    [
+     0.005510204081632653,
+     150.0,
+     11.5,
+     352.0,
+     44.1,
+     1.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0,
+     24.0
+    ],
+    [
+     0.035,
+     157.0,
+     6.0,
+     70.0,
+     4.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     3.0,
+     48.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     0.0013625,
+     135.0,
+     40.0,
+     590.0,
+     200.0,
+     3.0,
+     2.0,
+     4.0,
+     1.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0021155555555555554,
+     81.0,
+     40.0,
+     996.0,
+     225.0,
+     4.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0017662116040955632,
+     90.0,
+     40.0,
+     965.0,
+     234.4,
+     3.0,
+     3.0,
+     4.0,
+     3.0,
+     5.0,
+     48.0
+    ],
+    [
+     0.0023645320197044333,
+     79.0,
+     45.0,
+     834.0,
+     203.0,
+     5.0,
+     3.0,
+     4.0,
+     4.0,
+     4.0,
+     48.0
+    ],
+    [
+     0.005510204081632653,
+     135.0,
+     11.5,
+     352.0,
+     44.1,
+     1.0,
+     5.0,
+     4.0,
+     5.0,
+     3.0,
+     18.0
+    ],
+    [
+     0.02,
+     153.5,
+     4.0,
+     65.0,
+     3.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     3.0,
+     42.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  }
+ },
+ "propriedades_extra": {
+  "Teor de níquel": {
+   "Aço inox 316L": {
+    "min": 13.0,
+    "max": 15.0,
+    "tipico": 14.0
+   },
+   "Co-Cr L605": {
+    "min": 9.0,
+    "max": 11.0,
+    "tipico": 10.0
+   },
+   "Co-Ni-Cr-Mo MP35N": {
+    "min": 33.0,
+    "max": 37.0,
+    "tipico": 35.0
+   },
+   "Pt-Cr": {
+    "min": 9.0,
+    "max": 9.0,
+    "tipico": 9.0
+   },
+   "Liga de Mg WE43 (bioabsorvível)": {
+    "min": 0.0,
+    "max": 0.0,
+    "tipico": 0.0
+   },
+   "PLLA (bioabsorvível)": {
+    "min": 0.0,
+    "max": 0.0,
+    "tipico": 0.0
+   }
+  }
+ },
+ "problemas_criticos": {
+  "direta": [
+   "Índice material de recuo elástico σy/E (proxy)",
+   "Alongamento na rotura",
+   "Resistência à tração",
+   "Módulo de Young",
+   "Espessura típica de strut"
+  ],
+  "indireta": [
+   "Tempo de reabsorção"
+  ]
+ },
+ "regras": [
+  {
+   "id": "S-NI",
+   "dispositivo": "Stent vascular",
+   "condicao": "alergia ao níquel",
+   "condicao_codigo": "alergia_niquel=sim",
+   "efeito": "critério acrescentado",
+   "alvo_do_efeito": "Teor de níquel (custo)",
+   "valor": "0.20",
+   "justificacao": "Todas as ligas permanentes candidatas têm níquel (9 a 35 %), pelo que a exclusão esvaziaria o cenário A; entra o teor de níquel como critério de custo com peso 0,20 e os restantes passam a 0,80 do seu valor. Evidência contraditória: Köster 2000 associa a alergia à reestenose; Hillen 2002 e Thyssen 2011 não encontram associação.",
+   "fonte": "Köster R et al. Lancet 2000;356:1895-1897; Hillen U et al. Contact Dermatitis 2002;47:353-356; Thyssen JP et al. Contact Dermatitis 2011;64:138-141",
+   "doi_url": "https://doi.org/10.1016/S0140-6736(00)03262-1; https://doi.org/10.1034/j.1600-0536.2002.470607.x; https://doi.org/10.1111/j.1600-0536.2010.01857.x",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "S-VASO",
+   "dispositivo": "Stent vascular",
+   "condicao": "vaso < 3,0 mm",
+   "condicao_codigo": "vaso_mm<3.0",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Espessura típica de strut",
+   "valor": "2",
+   "justificacao": "Em vasos pequenos (< 3,0 mm) os struts finos reduziram a reestenose (28,5 % contra 36,6 %); o efeito apareceu sobretudo entre 2,75 e 2,99 mm. Kastrati 2001 já é a fonte do critério.",
+   "fonte": "Briguori C et al. J Am Coll Cardiol 2002;40(3):403-409; Kastrati A et al. Circulation 2001;103:2816-2821",
+   "doi_url": "https://doi.org/10.1016/S0735-1097(02)01989-7; https://doi.org/10.1161/01.cir.103.23.2816",
+   "estado": "Verificado"
+  },
+  {
+   "id": "S-DIAB",
+   "dispositivo": "Stent vascular",
+   "condicao": "diabetes",
+   "condicao_codigo": "diabetes=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Espessura típica de strut",
+   "valor": "2",
+   "justificacao": "A diabetes foi o preditor mais forte de reestenose após stent (OR 1,86 para reestenose binária; 1349 doentes). Como os struts finos reduzem a reestenose (fonte do critério, Kastrati 2001), o trabalho sobe o peso da espessura; a ligação diabetes-strut é do trabalho; fator 2 do trabalho.",
+   "fonte": "Kastrati A et al. J Am Coll Cardiol 1997;30(6):1428-1436",
+   "doi_url": "https://doi.org/10.1016/S0735-1097(97)00334-3",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "S-RM",
+   "dispositivo": "Stent vascular",
+   "condicao": "necessidade de ressonância magnética frequente (angio-RM de seguimento)",
+   "condicao_codigo": "rm_frequente=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Compatibilidade com RM (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "In vitro (14 stents), a composição da liga, a geometria e a orientação alteram o sinal no lúmen em angio-RM; só um stent de liga de cobalto deu vazio total de sinal; os de Nitinol e tântalo foram os melhores. A geometria pesa tanto como a liga, por isso a ligação ao critério do material é do trabalho; fator 2 do trabalho.",
+   "fonte": "Lenhart M et al. Radiology 2000;217(1):173-178",
+   "doi_url": "https://doi.org/10.1148/radiology.217.1.r00se28173",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "S-CO",
+   "dispositivo": "Stent vascular",
+   "condicao": "alergia ao cobalto confirmada por teste",
+   "condicao_codigo": "alergia_cobalto_confirmada=sim",
+   "efeito": "exclusão",
+   "alvo_do_efeito": "Co-Cr L605; Co-Ni-Cr-Mo MP35N",
+   "valor": null,
+   "justificacao": "Num estudo com teste epicutâneo (174 doentes), a alergia a metais não se associou à reestenose após o primeiro stent, mas foi preditora de nova reestenose depois de tratar uma reestenose (OR 4,39). Outro estudo (99 doentes) não encontrou associação. Excluir as ligas de cobalto não esvazia o cenário A (ficam 316L e Pt-Cr). Evidência fraca e contraditória. Decisão de 8 out 2026: a exclusão aplica-se só com alergia confirmada por teste; a suspeita sem teste não exclui (regra S-CO-NOTA).",
+   "fonte": "Iijima R et al. Int J Cardiol 2005;104(3):319-325; Slodownik D et al. Cardiovasc J Afr 2018;29(1):43-45",
+   "doi_url": "https://doi.org/10.1016/j.ijcard.2004.12.034; https://doi.org/10.5830/cvja-2017-036",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "S-CO-NOTA",
+   "dispositivo": "Stent vascular",
+   "condicao": "suspeita de hipersensibilidade ao cobalto, sem teste",
+   "condicao_codigo": "hipersens_cobalto_suspeita=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "recomenda-se avaliação clínica e teste de alergia",
+   "valor": null,
+   "justificacao": "A suspeita não altera o ranking; a evidência que liga a alergia ao cobalto à reestenose é fraca e contraditória (ver S-CO).",
+   "fonte": "Iijima R et al. Int J Cardiol 2005;104(3):319-325; Slodownik D et al. Cardiovasc J Afr 2018;29(1):43-45",
+   "doi_url": "https://doi.org/10.1016/j.ijcard.2004.12.034; https://doi.org/10.5830/cvja-2017-036",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "S-IRC",
+   "dispositivo": "Stent vascular",
+   "condicao": "insuficiência renal crónica (TFG < 60)",
+   "condicao_codigo": "tfg<60",
+   "efeito": "nota",
+   "alvo_do_efeito": "o benefício demonstrado é do stent com fármaco (DES) em relação ao metálico simples; não depende da liga",
+   "valor": null,
+   "justificacao": "Meta-análise de 38 estudos (123 396 doentes com doença renal crónica): o DES reduziu eventos cardiovasculares major (OR 0,75) e mortalidade (OR 0,81) em relação ao stent metálico simples. A comparação é entre tipos de stent, não entre ligas, por isso não altera o ranking.",
+   "fonte": "Lu R et al. J Am Heart Assoc 2016;5(11):e003990",
+   "doi_url": "https://doi.org/10.1161/jaha.116.003990",
+   "estado": "Verificado"
+  },
+  {
+   "id": "S-IDOSO",
+   "dispositivo": "Stent vascular",
+   "condicao": "idade ≥ 75 anos",
+   "condicao_codigo": "idade>=75",
+   "efeito": "nota",
+   "alvo_do_efeito": "o DES com antiagregação dupla curta é melhor do que o stent metálico simples; não depende da liga",
+   "valor": null,
+   "justificacao": "Ensaio aleatorizado SENIOR (1200 doentes com 75 anos ou mais): DES com antiagregação dupla curta reduziu o objetivo composto (RR 0,71) sem mais hemorragias. O resumo compara tipos de stent e não ligas; financiado pela Boston Scientific.",
+   "fonte": "Varenne O et al. Lancet 2018;391(10115):41-50",
+   "doi_url": "https://doi.org/10.1016/S0140-6736(17)32713-7",
+   "estado": "Verificado"
+  }
+ ],
+ "perfis_referencia": {
+  "S1": {
+   "descricao": "Alergia ao níquel",
+   "perfil": {
+    "alergia_niquel": "sim"
+   }
+  },
+  "S2": {
+   "descricao": "Vaso de 2,5 mm com alergia ao níquel",
+   "perfil": {
+    "vaso_mm": 2.5,
+    "alergia_niquel": "sim"
+   }
+  }
+ }
+}

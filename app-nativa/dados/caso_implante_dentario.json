@@ -1,0 +1,669 @@
+{
+ "caso": "Implante dentário",
+ "caso_componente": "Implante dentário",
+ "parametros": {
+  "eta": 1.0,
+  "incerteza_valor_unico": 0.1,
+  "fator_foco_problema": 2.0,
+  "teto_custo_relativo": 3.0
+ },
+ "cenarios": {
+  "A": {
+   "alternativas": [
+    "Ti cp grau 4",
+    "Ti-6Al-4V ELI",
+    "Ti-Zr (~15% Zr)",
+    "Zircónia Y-TZP",
+    "PEEK"
+   ],
+   "criterios": [
+    "Módulo de Young",
+    "Tenacidade à fratura (K_IC)",
+    "Evidência clínica de osteointegração (ordinal 1-5)",
+    "Resistência à corrosão em meio oral (ordinal 1-5)",
+    "Estética (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Maquinabilidade / fabricabilidade (ordinal 1-5)"
+   ],
+   "tipos": [
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit"
+   ],
+   "alvos": [
+    15.0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.15,
+    0.15,
+    0.25,
+    0.15,
+    0.1,
+    0.05,
+    0.1,
+    0.05
+   ],
+   "x_min": [
+    [
+     103.0,
+     50.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     110.0,
+     55.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     95.0,
+     50.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     200.0,
+     5.0,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     3.0,
+     3.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "x_max": [
+    [
+     110.0,
+     70.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     114.0,
+     75.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     105.0,
+     70.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     210.0,
+     10.0,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     4.0,
+     6.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     106.5,
+     60.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     112.0,
+     65.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     100.0,
+     60.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     205.0,
+     7.5,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     3.5,
+     4.5,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  "B": {
+   "alternativas": [
+    "Ti cp grau 4",
+    "Ti-6Al-4V ELI",
+    "Ti-Zr (~15% Zr)",
+    "Zircónia Y-TZP",
+    "PEEK"
+   ],
+   "criterios": [
+    "Módulo de Young",
+    "Tenacidade à fratura (K_IC)",
+    "Evidência clínica de osteointegração (ordinal 1-5)",
+    "Resistência à corrosão em meio oral (ordinal 1-5)",
+    "Estética (ordinal 1-5)",
+    "Compatibilidade com RM (ordinal 1-5)",
+    "Custo relativo de material e fabrico (1-5, 5 = mais caro)",
+    "Maquinabilidade / fabricabilidade (ordinal 1-5)"
+   ],
+   "tipos": [
+    "target",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "benefit",
+    "cost",
+    "benefit"
+   ],
+   "alvos": [
+    15.0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "pesos": [
+    0.15,
+    0.15,
+    0.25,
+    0.15,
+    0.1,
+    0.05,
+    0.1,
+    0.05
+   ],
+   "x_min": [
+    [
+     103.0,
+     50.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     110.0,
+     55.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     95.0,
+     50.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     200.0,
+     5.0,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     3.0,
+     3.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "x_max": [
+    [
+     110.0,
+     70.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     114.0,
+     75.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     105.0,
+     70.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     210.0,
+     10.0,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     4.0,
+     6.0,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "x_tipico": [
+    [
+     106.5,
+     60.0,
+     5.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     5.0
+    ],
+    [
+     112.0,
+     65.0,
+     2.0,
+     3.0,
+     2.0,
+     4.0,
+     2.0,
+     4.0
+    ],
+    [
+     100.0,
+     60.0,
+     4.0,
+     3.0,
+     2.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    [
+     205.0,
+     7.5,
+     3.0,
+     4.0,
+     5.0,
+     5.0,
+     4.0,
+     3.0
+    ],
+    [
+     3.5,
+     4.5,
+     1.0,
+     5.0,
+     3.0,
+     5.0,
+     2.0,
+     4.0
+    ]
+   ],
+   "ordinal": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "propriedades_extra": {},
+ "problemas_criticos": {
+  "direta": [
+   "Evidência clínica de osteointegração (ordinal 1-5)",
+   "Resistência à corrosão em meio oral (ordinal 1-5)"
+  ],
+  "indireta": [
+   "Módulo de Young"
+  ]
+ },
+ "regras": [
+  {
+   "id": "D-GENG",
+   "dispositivo": "Implante dentário",
+   "condicao": "gengiva fina (< 2 mm)",
+   "condicao_codigo": "gengiva_mm<2",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Estética (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Em mucosa fina, o titânio altera a cor da gengiva; a zircónia não altera a partir de 2 mm (estudo in vitro).",
+   "fonte": "Jung RE et al. Int J Periodontics Restorative Dent 2007;27(3):251-257",
+   "doi_url": "https://pubmed.ncbi.nlm.nih.gov/17694948/",
+   "estado": "Verificado"
+  },
+  {
+   "id": "D-BRUX",
+   "dispositivo": "Implante dentário",
+   "condicao": "bruxismo",
+   "condicao_codigo": "bruxismo=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Tenacidade à fratura (K_IC)",
+   "valor": "2",
+   "justificacao": "O bruxismo associa-se a mais falhas de implantes: HR 3,4 para a perda do implante (Chrcanovic 2016); em meta-análise, OR 4,72 por prótese e 3,83 por doente (Zhou 2016) e OR agregado 4,68 em 15 estudos (Ionfrida 2025), que aponta sobretudo complicações mecânicas da prótese. Nenhuma fonte separa a fratura do implante das outras falhas, pelo que a ligação à tenacidade é do trabalho; fator 2 do trabalho.",
+   "fonte": "Chrcanovic BR et al. J Oral Rehabil 2016;43(11):813-823; Zhou Y et al. Clin Implant Dent Relat Res 2016;18(2):410-420; Ionfrida JA et al. Dent J (Basel) 2025;13(1):11",
+   "doi_url": "https://doi.org/10.1111/joor.12431; https://doi.org/10.1111/cid.12300; https://doi.org/10.3390/dj13010011",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-TAB",
+   "dispositivo": "Implante dentário",
+   "condicao": "tabagismo",
+   "condicao_codigo": "tabagismo=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Falha de implantes de 6,35 % em fumadores contra 3,18 % em não fumadores (meta-análise, 107 estudos).",
+   "fonte": "Chrcanovic BR et al. J Dent 2015;43(5):487-498",
+   "doi_url": "https://doi.org/10.1016/j.jdent.2015.03.003",
+   "estado": "Verificado"
+  },
+  {
+   "id": "D-DIAB",
+   "dispositivo": "Implante dentário",
+   "condicao": "diabetes",
+   "condicao_codigo": "diabetes=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Mais perda óssea marginal em diabéticos; efeito na taxa de falha inconclusivo.",
+   "fonte": "Chrcanovic BR et al. J Dent Res 2014;93(9):859-867",
+   "doi_url": "https://doi.org/10.1177/0022034514538820",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-PERIO",
+   "dispositivo": "Implante dentário",
+   "condicao": "história de periodontite",
+   "condicao_codigo": "periodontite=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Evidência forte de mais peri-implantite com história de periodontite; não está estabelecido que o material altere esse risco.",
+   "fonte": "Schwarz F et al. J Clin Periodontol 2018;45(Suppl 20):S246-S266",
+   "doi_url": "https://doi.org/10.1111/jcpe.12954",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-TI",
+   "dispositivo": "Implante dentário",
+   "condicao": "alergia ao titânio confirmada por teste",
+   "condicao_codigo": "alergia_titanio_confirmada=sim",
+   "efeito": "exclusão",
+   "alvo_do_efeito": "Ti cp grau 4; Ti-6Al-4V ELI; Ti-Zr (~15% Zr)",
+   "valor": null,
+   "justificacao": "Alergia ao titânio rara: 0,6 % de 1500 doentes com teste positivo, sobretudo com sintomas ou falhas inexplicadas (Sicilia 2008). Os testes disponíveis (epicutâneo, LTT, MELISA) deram resultados inconsistentes em fiabilidade e validade e devem ser lidos com cautela (Müller-Heupt 2022). Por isso a exclusão só se aplica quando o teste positivo concorda com o quadro clínico; a suspeita sem confirmação não exclui (regra D-TI-NOTA).",
+   "fonte": "Sicilia A et al. Clin Oral Implants Res 2008;19(8):823-835; Müller-Heupt LK et al. Int J Implant Dent 2022;8:29",
+   "doi_url": "https://doi.org/10.1111/j.1600-0501.2008.01544.x; https://doi.org/10.1186/s40729-022-00428-0",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-TI-NOTA",
+   "dispositivo": "Implante dentário",
+   "condicao": "suspeita de hipersensibilidade ao titânio, sem teste",
+   "condicao_codigo": "hipersens_titanio_suspeita=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "recomenda-se avaliação clínica; testes pouco fiáveis",
+   "valor": null,
+   "justificacao": "A suspeita não altera o ranking. Os testes de alergia ao titânio têm fiabilidade e validade inconsistentes e a revisão recomenda que os sinais clínicos de inflamação sejam o critério principal (Müller-Heupt 2022); a aplicação mostra a nota para que a suspeita seja avaliada clinicamente.",
+   "fonte": "Sicilia A et al. Clin Oral Implants Res 2008;19(8):823-835; Müller-Heupt LK et al. Int J Implant Dent 2022;8:29",
+   "doi_url": "https://doi.org/10.1111/j.1600-0501.2008.01544.x; https://doi.org/10.1186/s40729-022-00428-0",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-RADIO",
+   "dispositivo": "Implante dentário",
+   "condicao": "radioterapia prévia da cabeça e pescoço",
+   "condicao_codigo": "radioterapia_cabeca_pescoco=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "A irradiação reduz a sobrevivência dos implantes (meta-análise, Chrcanovic 2016), com tendência para pior resultado com doses mais altas; noutra meta-análise de 51 estudos o risco relativo de falha foi 2,28 (Chen 2013). Fator 2 do trabalho.",
+   "fonte": "Chrcanovic BR et al. Head Neck 2016;38(3):448-481; Chen H et al. PLoS One 2013;8(8):e71955",
+   "doi_url": "https://doi.org/10.1002/hed.23875; https://doi.org/10.1371/journal.pone.0071955",
+   "estado": "Verificado"
+  },
+  {
+   "id": "D-OST",
+   "dispositivo": "Implante dentário",
+   "condicao": "osteoporose",
+   "condicao_codigo": "osteoporose=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Meta-análise (15 estudos, 8859 doentes): sem diferença na sobrevivência dos implantes (RR 1,39 por implante, não significativo), mas mais perda óssea marginal (0,18 mm). Efeito pequeno; a ligação ao critério é do trabalho; fator 2 do trabalho.",
+   "fonte": "de Medeiros FCFL et al. Int J Oral Maxillofac Surg 2018;47(4):480-491",
+   "doi_url": "https://doi.org/10.1016/j.ijom.2017.05.021",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-RM",
+   "dispositivo": "Implante dentário",
+   "condicao": "necessidade de ressonância magnética frequente (cabeça e pescoço)",
+   "condicao_codigo": "rm_frequente=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Compatibilidade com RM (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Em osso de porco a 3 T, os artefactos dos implantes de titânio estenderam-se 2,57 mm e os de zircónia 0,37 mm, sem efeito da geometria. Estudo in vitro; fator 2 do trabalho.",
+   "fonte": "Bohner L et al. Dentomaxillofac Radiol 2020;49(8):20200121",
+   "doi_url": "https://doi.org/10.1259/dmfr.20200121",
+   "estado": "Verificado"
+  },
+  {
+   "id": "D-IDOSO",
+   "dispositivo": "Implante dentário",
+   "condicao": "idade ≥ 75 anos",
+   "condicao_codigo": "idade>=75",
+   "efeito": "nota",
+   "alvo_do_efeito": "a idade avançada não reduz a sobrevivência dos implantes; não altera o ranking",
+   "valor": null,
+   "justificacao": "Revisão sistemática do consenso EAO: em doentes com 75 anos ou mais a sobrevivência foi 97,3 % a 1 ano e 96,1 % a 5 anos (Schimmel 2018); em doentes com 65 anos ou mais, 96,2 % a 5 anos (Srinivasan 2017).",
+   "fonte": "Schimmel M et al. Clin Oral Implants Res 2018;29(Suppl 16):311-330; Srinivasan M et al. Clin Oral Implants Res 2017;28(8):920-930",
+   "doi_url": "https://doi.org/10.1111/clr.13288; https://doi.org/10.1111/clr.12898",
+   "estado": "Verificado"
+  },
+  {
+   "id": "D-IRC",
+   "dispositivo": "Implante dentário",
+   "condicao": "insuficiência renal em hemodiálise",
+   "condicao_codigo": "dialise=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Revisão com guideline clínica: na insuficiência renal em diálise há lesões ósseas, infeções, risco hemorrágico e metabolismo alterado dos fármacos, o que torna o tratamento com implantes mais difícil. Não dá taxas de falha; a ligação ao critério é do trabalho; fator 2 do trabalho.",
+   "fonte": "Yuan Q et al. Int J Oral Sci 2017;9(3):125-132",
+   "doi_url": "https://doi.org/10.1038/ijos.2017.23",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-AR",
+   "dispositivo": "Implante dentário",
+   "condicao": "artrite reumatoide com doença do tecido conjuntivo associada",
+   "condicao_codigo": "artrite_reumatoide=sim; doenca_tecido_conjuntivo=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Estudo retrospetivo (34 doentes): na artrite reumatoide isolada a sobrevivência foi 100 % e a perda óssea aceitável; com doença do tecido conjuntivo associada a perda óssea marginal foi maior (3,1 contra 2,1 mm). Estudo pequeno; a artrite reumatoide isolada não muda o ranking; fator 2 do trabalho.",
+   "fonte": "Krennmair G et al. J Clin Periodontol 2010;37(10):928-936",
+   "doi_url": "https://doi.org/10.1111/j.1600-051x.2010.01606.x",
+   "estado": "Regra do trabalho"
+  },
+  {
+   "id": "D-CORT",
+   "dispositivo": "Implante dentário",
+   "condicao": "corticoterapia prolongada (≥ 2,5 mg/dia durante mais de 3 meses)",
+   "condicao_codigo": "corticoterapia=sim",
+   "efeito": "peso multiplicado",
+   "alvo_do_efeito": "Evidência clínica de osteointegração (ordinal 1-5)",
+   "valor": "2",
+   "justificacao": "Os glucocorticoides causam osteoporose secundária (guideline do ACR); por analogia com a D-OST, o trabalho sobe o peso da osteointegração. Não se encontrou fonte que ligue a corticoterapia à falha de implantes dentários; fator 2 do trabalho.",
+   "fonte": "Humphrey MB et al. Arthritis Rheumatol 2023;75(12):2088-2102; fonte específica para implantes dentários [confirmar]",
+   "doi_url": "https://doi.org/10.1002/art.42646",
+   "estado": "A verificar"
+  },
+  {
+   "id": "D-HTA",
+   "dispositivo": "Implante dentário",
+   "condicao": "hipertensão arterial",
+   "condicao_codigo": "hipertensao=sim",
+   "efeito": "nota",
+   "alvo_do_efeito": "sem efeito conhecido na sobrevivência dos implantes; não altera o ranking",
+   "valor": null,
+   "justificacao": "A revisão do consenso EAO refere que na doença cardiovascular a sobrevivência pode ser igual ou superior à de doentes saudáveis. O resumo fala de doença cardiovascular e não de hipertensão em particular [confirmar no texto completo].",
+   "fonte": "Schimmel M et al. Clin Oral Implants Res 2018;29(Suppl 16):311-330 [confirmar]",
+   "doi_url": "https://doi.org/10.1111/clr.13288",
+   "estado": "A verificar"
+  }
+ ],
+ "perfis_referencia": {
+  "D1": {
+   "descricao": "Gengiva fina",
+   "perfil": {
+    "gengiva_mm": 1.5
+   }
+  },
+  "D2": {
+   "descricao": "Bruxismo",
+   "perfil": {
+    "bruxismo": "sim"
+   }
+  },
+  "D3": {
+   "descricao": "Alergia ao titânio confirmada por teste",
+   "perfil": {
+    "alergia_titanio_confirmada": "sim"
+   }
+  }
+ }
+}

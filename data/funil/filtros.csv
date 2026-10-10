@@ -1,0 +1,5 @@
+parametro,valor,unidade,justificacao,fonte,estado
+e_hull_max,0.025,eV/átomo,"Estável ou quase estável: energia acima do casco convexo até cerca de kT a 25 °C (0,0257 eV). Limiar de triagem do trabalho.",Valor de desenho,Valor de desenho
+densidade_max,17,g/cm³,"Exclui os materiais muito densos (acima de 17 g/cm³), que aumentam a massa do implante sem benefício mecânico.",Valor de desenho,Valor de desenho
+modulo_min,10,GPa,"Material estrutural: módulo de Young calculado de pelo menos 10 GPa.",Valor de desenho,Valor de desenho
+modulo_max,450,GPa,"Exclui os materiais ultrarrígidos (acima de 450 GPa), muito mais rígidos do que o osso.",Valor de desenho,Valor de desenho

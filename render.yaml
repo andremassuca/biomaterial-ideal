@@ -1,0 +1,3 @@
+# Render: sem serviço por agora. A aplicação é só nativa (Tauri: Windows e Android);
+# a aplicação web anterior (Streamlit) saiu do repositório a 5 out 2026.
+services: []

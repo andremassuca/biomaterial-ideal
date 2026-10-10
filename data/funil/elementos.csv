@@ -1,0 +1,119 @@
+Z,simbolo,nome_pt,estado_padrao,radioativo,nota_radioativo,classe_ich_q3d,pde_parenteral_ug_dia,iarc,iarc_elemento,fonte,estado
+1,H,hidrogénio,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+2,He,hélio,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+3,Li,lítio,sólido,não,,3,250,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+4,Be,berílio,sólido,não,,,,1 (berílio e compostos de berílio),1,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+5,B,boro,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+6,C,carbono,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+7,N,azoto,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+8,O,oxigénio,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+9,F,flúor,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+10,Ne,néon,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+11,Na,sódio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+12,Mg,magnésio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+13,Al,alumínio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+14,Si,silício,sólido,não,,,,"1 (poeira de sílica cristalina, quartzo ou cristobalite); 2A (whiskers de carboneto de silício); 2B (carboneto de silício fibroso)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+15,P,fósforo,sólido,não,,,,"1 (fósforo-32, como fosfato; só o radionuclido)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+16,S,enxofre,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+17,Cl,cloro,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+18,Ar,árgon,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+19,K,potássio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+20,Ca,cálcio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+21,Sc,escândio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+22,Ti,titânio,sólido,não,,,,2B (dióxido de titânio),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+23,V,vanádio,sólido,não,,2A,10,2B (pentóxido de vanádio),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+24,Cr,crómio,sólido,não,,3,1100,1 (compostos de crómio(VI)); crómio metálico e compostos de crómio(III) no grupo 3,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+25,Mn,manganês,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+26,Fe,ferro,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+27,Co,cobalto,sólido,não,,2A,5,2A (cobalto metálico sem carboneto de tungsténio nem outras ligas metálicas; cobalto metálico com carboneto de tungsténio; sais solúveis de cobalto(II)); 2B (óxido de cobalto(II); corpos estranhos implantados de cobalto metálico),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+28,Ni,níquel,sólido,não,,2A,20,"1 (compostos de níquel); 2B (níquel metálico; corpos estranhos implantados de níquel metálico e de liga em pó com 66-67 % Ni, 13-16 % Cr e 7 % Fe)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+29,Cu,cobre,sólido,não,,3,300,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+30,Zn,zinco,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+31,Ga,gálio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+32,Ge,germânio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+33,As,arsénio,sólido,não,,1,15,1 (arsénio e compostos inorgânicos de arsénio),1,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+34,Se,selénio,sólido,não,,2B,80,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+35,Br,bromo,líquido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+36,Kr,crípton,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+37,Rb,rubídio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+38,Sr,estrôncio,sólido,não,,,,"1 (produtos de cisão, incluindo estrôncio-90; só o radionuclido)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+39,Y,ítrio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+40,Zr,zircónio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+41,Nb,nióbio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+42,Mo,molibdénio,sólido,não,,3,1500,2B (trióxido de molibdénio),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+43,Tc,tecnécio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+44,Ru,ruténio,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+45,Rh,ródio,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+46,Pd,paládio,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+47,Ag,prata,sólido,não,,2B,15,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+48,Cd,cádmio,sólido,não,,1,2,1 (cádmio e compostos de cádmio),1,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+49,In,índio,sólido,não,,,,2A (fosfeto de índio); 2B (óxido de índio e estanho),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+50,Sn,estanho,sólido,não,,3,600,2B (óxido de índio e estanho),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+51,Sb,antimónio,sólido,não,,3,90,2A (antimónio trivalente),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+52,Te,telúrio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+53,I,iodo,sólido,não,,,,"1 (radioiodos, incluindo iodo-131; só os radionuclidos)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+54,Xe,xénon,gás,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+55,Cs,césio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+56,Ba,bário,sólido,não,,3,700,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+57,La,lantânio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+58,Ce,cério,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+59,Pr,praseodímio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+60,Nd,neodímio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+61,Pm,promécio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+62,Sm,samário,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+63,Eu,európio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+64,Gd,gadolínio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+65,Tb,térbio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+66,Dy,disprósio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+67,Ho,hólmio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+68,Er,érbio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+69,Tm,túlio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+70,Yb,itérbio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+71,Lu,lutécio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+72,Hf,háfnio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+73,Ta,tântalo,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+74,W,tungsténio,sólido,não,,,,"2A (cobalto metálico com carboneto de tungsténio); 2B (liga de tungsténio de qualidade militar, com níquel e cobalto)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+75,Re,rénio,sólido,não,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+76,Os,ósmio,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+77,Ir,irídio,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+78,Pt,platina,sólido,não,,2B,10,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+79,Au,ouro,sólido,não,,2B,300,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+80,Hg,mercúrio,líquido,não,,1,3,2B (compostos de metilmercúrio); mercúrio e compostos inorgânicos de mercúrio no grupo 3,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+81,Tl,tálio,sólido,não,,2B,8,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1",Verificado
+82,Pb,chumbo,sólido,não,,1,5,2A (compostos inorgânicos de chumbo); 2B (chumbo),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); ICH Q3D(R2) 2022, Tabelas 5.1 e A.2.1; IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+83,Bi,bismuto,sólido,não,não (praticamente estável: o Bi-209 decai por emissão alfa com meia-vida da ordem de 10^19 anos),,,,,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); CIAAW (bismuto); de Marcillac et al., Nature 2003;422:876-878, doi:10.1038/nature01541",Verificado
+84,Po,polónio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+85,At,ástato,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+86,Rn,rádon,gás,sim,,,,1 (radão-222 e produtos de decaimento),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+87,Fr,frâncio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+88,Ra,rádio,sólido,sim,,,,"1 (rádio-224, rádio-226 e rádio-228 e produtos de decaimento)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+89,Ac,actínio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+90,Th,tório,sólido,sim,,,,1 (tório-232 e produtos de decaimento),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+91,Pa,protactínio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+92,U,urânio,sólido,sim,,,,"1 (urânio, mistura de isótopos; remete para radionuclidos emissores alfa depositados internamente)",,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+93,Np,neptúnio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+94,Pu,plutónio,sólido,sim,,,,1 (plutónio),,"PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos); IARC Monographs, lista de classificações, vol. 1-142 (consulta 8 out 2026)",Verificado
+95,Am,amerício,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+96,Cm,cúrio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+97,Bk,berquélio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+98,Cf,califórnio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+99,Es,einsténio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),Verificado
+100,Fm,férmio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+101,Md,mendelévio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+102,No,nobélio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+103,Lr,laurêncio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+104,Rf,rutherfórdio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+105,Db,dúbnio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+106,Sg,seabórgio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+107,Bh,bóhrio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+108,Hs,hássio,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+109,Mt,meitnério,sólido,sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+110,Ds,darmstácio,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+111,Rg,roentgénio,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+112,Cn,copernício,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+113,Nh,nipónio,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+114,Fl,fleróvio,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+115,Mc,moscóvio,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+116,Lv,livermório,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+117,Ts,tenesso,sólido (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"
+118,Og,oganésson,gás (previsto),sim,,,,,,PubChem Periodic Table (estado padrão); CIAAW (elementos radioativos),"Verificado; estado físico A verificar (Z ≥ 100: sem determinação experimental, valor do PubChem)"

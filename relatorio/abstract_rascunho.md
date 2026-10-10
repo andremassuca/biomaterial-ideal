@@ -1,0 +1,11 @@
+# Abstract
+
+**Introduction:** Selecting the material of an implant requires balancing mechanical, biological, clinical and economic requirements that often conflict, and no single material is ideal for every application.
+
+**Methods:** Target-based multi-criteria decision-making (TOPSIS, WASPAS and VIKOR) was applied to material selection for a femoral stem, a coronary stent and a bone scaffold, with a semi-quantitative analysis of the hip bearing couple and a dental implant. The most influential values were verified in primary sources, with explicit rules for product form and porosity. Robustness was assessed by Monte Carlo simulation and sensitivity scenarios, including a stronger weight on the criteria linked to each device's critical problem and a budget ceiling. The implementation was validated by reproducing a published study.
+
+**Results:** For the femoral stem, Ti-6Al-4V ELI ranked first with all three methods, in both scenarios and in at least 9,999 of the 10,000 Monte Carlo repetitions. For the bearing couple, ceramic-on-ceramic (ZTA/ZTA) obtained the best score in the semi-quantitative analysis focused on wear. For the stent, platinum-chromium and cobalt-chromium L605 were very close, with the order depending on the scenario and the method; platinum-chromium ranked first more often in the reference Monte Carlo simulation. For the scaffold, the 3D-printed PCL/β-TCP composite was favoured when mechanical support was included, and porous β-TCP when only cell support and degradation were prioritised. For the dental implant, commercially pure grade 4 titanium obtained the best score in every version of the semi-quantitative analysis. Data verification changed the scaffold's winner, and reproducing the published study revealed an inconsistency between its data and its reported results.
+
+**Conclusion:** A multi-criteria ranking is no more reliable than the data, weights and assumptions behind it. Rather than identifying a universally ideal biomaterial, this work proposes a traceable process to separate stable choices from those that depend on uncertain data or specific priorities.
+
+**Keywords:** biomaterials; multi-criteria decision-making; target-based criteria; robustness analysis; hip prosthesis; coronary stent; bone scaffold; dental implant.

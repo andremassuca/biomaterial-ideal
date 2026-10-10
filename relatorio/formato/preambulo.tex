@@ -1,0 +1,24 @@
+% Preâmbulo LaTeX do relatório (entra no cabeçalho YAML do RELATORIO.md, em header-includes).
+% Títulos a negrito: 14 pt (nível 1), 12 pt (nível 2), 11 pt (nível 3).
+\usepackage{titlesec}
+\titleformat*{\section}{\fontsize{14}{17}\selectfont\bfseries}
+\titleformat*{\subsection}{\fontsize{12}{14.5}\selectfont\bfseries}
+\titleformat*{\subsubsection}{\normalsize\bfseries}
+% Legendas por cima, "Tabela n." / "Figura n." a negrito e o texto em itálico.
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\floatsetup[table]{capposition=top}
+\usepackage{caption}
+\captionsetup{labelfont=bf,textfont=it,labelsep=period,justification=justified,singlelinecheck=false}
+% Tabelas a 10 pt, cabeçalho cinzento claro, linhas horizontais finas.
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+\usepackage{colortbl}
+\definecolor{cabecalho}{gray}{0.88}
+\setlength{\heavyrulewidth}{0.6pt}
+\setlength{\lightrulewidth}{0.4pt}
+\let\toprulebase\toprule
+\renewcommand{\toprule}{\toprulebase\rowcolor{cabecalho}}
+% Índice até ao nível 2; espaço simples depois do ponto final.
+\setcounter{tocdepth}{2}
+\frenchspacing
