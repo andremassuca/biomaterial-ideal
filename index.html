@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biomaterial Ideal</title>
+    <script>
+      // Aplica o tema guardado antes do primeiro desenho, para não piscar.
+      (function () {
+        try {
+          var t = localStorage.getItem("biomat.tema") || "sistema";
+          var escuro = t === "escuro" || (t === "sistema" && matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.dataset.tema = escuro ? "escuro" : "claro";
+        } catch (e) {
+          document.documentElement.dataset.tema = "claro";
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-Dc6ElKR0.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-nJ-s1oBH.css">
+  </head>
+  <body>
+    <div id="raiz"></div>
+  </body>
+</html>
