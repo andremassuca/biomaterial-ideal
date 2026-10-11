@@ -439,7 +439,7 @@ def figura_mapas(puls: dict) -> None:
         ax.set_xlim(r["z0"] * 1000 - 0.6, r["z1"] * 1000 + 1.5)
         a = RAIO_MM * np.pi / N_LOSANGOS
         ax.set_ylim(-a, a)
-        ax.set_title(f"{mat}: struts de {fmt(r['espessura_um'], 0)} µm; área abaixo de 0,4 Pa "
+        ax.set_title(f"{rotulo_espessura(mat, r['espessura_um'])}; área abaixo de 0,4 Pa "
                      f"{fmt(100 * r['fracao_baixa'], 0)} %", fontsize=10, loc="left")
         ax.set_ylabel("Arco (mm)")
     axs[-1].set_xlabel("Comprimento ao longo da artéria (mm); o sangue corre da esquerda para a direita")
@@ -479,7 +479,7 @@ def figura_mapas_diap(puls: dict) -> Path:
         ax.set_xlim(r["z0"] * 1000 - 0.4, r["z1"] * 1000 + 1.2)
         ax.set_ylim(-2 * a, 2 * a)
         ax.set_yticks([])
-        ax.set_title(f"{NOMES_DIAP[mat]}: struts de {fmt(r['espessura_um'], 0)} µm", fontsize=14, loc="left")
+        ax.set_title(rotulo_espessura(mat, r["espessura_um"]), fontsize=14, loc="left")
         for lado in ("top", "right", "left"):
             ax.spines[lado].set_visible(False)
     axs[-1].set_xlabel("Ao longo da artéria (mm); o sangue corre da esquerda para a direita", fontsize=12)
@@ -491,7 +491,17 @@ def figura_mapas_diap(puls: dict) -> Path:
     return destino
 
 
-NOMES_DIAP = {"Pt-Cr": "Platina-crómio (Pt-Cr)", "316L": "Aço inoxidável (316L)"}
+ESPESSURA_ROTULO = {"Pt-Cr": ("Strut fino", "DES atual"), "316L": ("Strut grosso", "1.ª geração")}
+
+
+def rotulo_espessura(mat: str, espessura_um: float) -> str:
+    """Título de cada mapa pela espessura do strut (o efeito é da espessura, não da liga).
+
+    Em linguagem simples: os dois casos simulados diferem só na espessura do strut (79 µm, a do Pt-Cr na base,
+    e 135 µm, a do 316L de 1.ª geração); o título diz a espessura e a geração, não o material.
+    """
+    nome, geracao = ESPESSURA_ROTULO.get(mat, ("Strut", mat))
+    return f"{nome}, {fmt(espessura_um, 0)} µm ({geracao})"
 
 
 def main() -> None:

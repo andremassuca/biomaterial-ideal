@@ -1,6 +1,6 @@
 # Anexo C. Rubricas das escalas ordinais
 
-As escalas ordinais vão de 1 a 5 (5 = melhor, exceto no custo relativo, em que 5 = mais caro). As rubricas são as da base de dados (data/leia_me.md). Só se descrevem os níveis definidos na base; os restantes não têm descrição própria. A fonte de cada nota, por material, está na base de dados.
+As escalas ordinais vão de 1 a 5 (5 = melhor, exceto no custo relativo, em que 5 = mais caro). As rubricas são as da base de dados (data/leia_me.md). Só se descrevem os níveis definidos na base. Os níveis intermédios (em geral 2 e 4), quando não têm descrição própria, usam-se quando o material fica entre duas descrições (por exemplo, corrosão 4 no Co-Cr-Mo e fabricabilidade 4 no Co-Cr-Mo, no Ti cp grau 4 e no Pt-Cr); a justificação e a fonte de cada nota, por material, estão na base de dados.
 
 ## C.1 Resistência à corrosão
 
@@ -68,7 +68,7 @@ Usada no implante dentário.
 
 ## C.7 Bioatividade
 
-Usada no scaffold ósseo, segundo a classificação de Hench.
+Usada no scaffold ósseo, com as classes de bioatividade A (osteoprodutiva) e B (osteocondutora).
 
 | Nota | Descrição |
 |---|---|

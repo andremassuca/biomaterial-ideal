@@ -1,0 +1,28 @@
+caso,criterio,dimensao,nota
+Prótese da anca | Haste femoral,Módulo de Young,mecânica,Propriedade mecânica do material; o alvo responde ao stress shielding mas a grandeza é mecânica
+Prótese da anca | Haste femoral,"Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)",mecânica,Propriedade mecânica; correlacionada com a tensão de cedência (risco de dupla contagem)
+Prótese da anca | Haste femoral,Tensão de cedência,mecânica,Propriedade mecânica; correlacionada com a fadiga
+Prótese da anca | Haste femoral,Resistência à corrosão (ordinal 1-5),biológica,Libertação iónica e resposta do tecido
+Prótese da anca | Haste femoral,Densidade,mecânica,Propriedade física do material em bruto; agrupada com as mecânicas (decisão de desenho)
+Prótese da anca | Haste femoral,Compatibilidade com RM (ordinal 1-5),clínica,Seguimento do doente por imagem
+Prótese da anca | Haste femoral,"Custo relativo de material e fabrico (1-5, 5 = mais caro)",económica,Perspetiva do hospital
+Prótese da anca | Haste femoral,Fabricabilidade (ordinal 1-5),económica,Fabrico e processamento: custo e viabilidade de produção
+Stent vascular,Índice material de recuo elástico σy/E (proxy),mecânica,Índice calculado a partir da cedência e do módulo (dupla contagem possível com o módulo)
+Stent vascular,Espessura típica de strut,mecânica,Grandeza geométrica que depende da resistência e da rigidez da liga; a justificação clínica (reestenose) é indireta (decisão de desenho)
+Stent vascular,Alongamento na rotura,mecânica,Ductilidade para a expansão sem fratura
+Stent vascular,Resistência à tração,mecânica,Resistência radial e fadiga pulsátil
+Stent vascular,Módulo de Young,mecânica,Rigidez radial; também entra no índice σy/E
+Stent vascular,Radiopacidade (ordinal 1-5),clínica,Visibilidade do dispositivo durante a intervenção
+Stent vascular,Compatibilidade com RM (ordinal 1-5),clínica,Seguimento do doente por imagem
+Stent vascular,Compatibilidade com esterilização (ordinal 1-5),económica,Etapa de processamento do fabrico (decisão de desenho)
+Stent vascular,"Custo relativo de material e fabrico (1-5, 5 = mais caro)",económica,Perspetiva do hospital
+Stent vascular,Fabricabilidade (ordinal 1-5),económica,Fabrico e processamento: corte laser e tubo fino
+Stent vascular,Tempo de reabsorção (só cenário B),biológica,Resposta do organismo ao material ao longo do tempo (só no cenário B)
+Scaffold (regeneração óssea),Resistência à compressão (scaffold),mecânica,Suporte mecânico do defeito ósseo; correlacionada com o módulo e a porosidade
+Scaffold (regeneração óssea),Módulo de compressão (scaffold),mecânica,Rigidez do scaffold; correlacionado com a resistência
+Scaffold (regeneração óssea),Porosidade,biológica,Arquitetura para invasão óssea e vascularização; também condiciona a resistência (decisão de desenho)
+Scaffold (regeneração óssea),Tempo de degradação,biológica,Ritmo de substituição pelo osso novo
+Scaffold (regeneração óssea),Bioatividade (ordinal 1-5),biológica,Osteocondução e ligação ao osso
+Scaffold (regeneração óssea),Imprimibilidade 3D (ordinal 1-5),económica,Fabrico e controlo da arquitetura porosa
+Scaffold (regeneração óssea),Compatibilidade com esterilização (ordinal 1-5),económica,Etapa de processamento do fabrico (decisão de desenho)
+Scaffold (regeneração óssea),"Custo relativo de material e fabrico (1-5, 5 = mais caro)",económica,Perspetiva do hospital

@@ -10,6 +10,6 @@ Cenário A, 10000 iterações, seed 42; mesma incerteza dos valores únicos do r
 | Stent | TOPSIS | Pt-Cr (69,7 %) | Pt-Cr (75,2 %) |
 | Stent | WASPAS | Pt-Cr (55,9 %) | Co-Cr L605 (52,7 %) |
 | Stent | VIKOR | Pt-Cr (58,1 %) | Pt-Cr (62,8 %) |
-| Scaffold | TOPSIS | β-TCP poroso (52,2 %) | β-TCP poroso (54,2 %) |
-| Scaffold | WASPAS | Compósito PCL/β-TCP (impressão 3D) (68,3 %) | Compósito PCL/β-TCP (impressão 3D) (76,7 %) |
-| Scaffold | VIKOR | Compósito PCL/β-TCP (impressão 3D) (46,3 %) | Compósito PCL/β-TCP (impressão 3D) (57,8 %) |
+| Scaffold | TOPSIS | β-TCP poroso (66,9 %) | β-TCP poroso (84,6 %) |
+| Scaffold | WASPAS | β-TCP poroso (46,1 %) | β-TCP poroso (56,9 %) |
+| Scaffold | VIKOR | β-TCP poroso (54,0 %) | β-TCP poroso (71,2 %) |

@@ -25,13 +25,13 @@ def numeros():
 
 
 def test_ler_numeros_reproduz_os_valores_do_relatorio(numeros):
-    # 111 verificados: 109 desde as correções de fontes de 8 out (bloco 2) e mais 2 com a tração do 316L e do Ti grau 4
-    # da haste (Okazaki 2012, aprovada a 9 out); o relatório v9 tem 95
-    assert numeros.n_valores == 300 and numeros.n_verificados == 111
+    # 114 verificados de 300 depois do bloco 2 da verificação das fontes do scaffold (11 out); o Pt-Cr 480 MPa
+    # passou a "A verificar"
+    assert numeros.n_valores == 300 and numeros.n_verificados == 114
     assert round(numeros.c_haste, 3) == 0.752
     assert numeros.mc_haste == {"TOPSIS": 9999, "WASPAS": 10000, "VIKOR": 10000}
     assert round(numeros.dc_stent["A"], 3) == 0.022 and round(numeros.dc_stent["B"], 3) == 0.002
-    assert round(numeros.dc_scaffold["A"], 3) == 0.051 and round(numeros.dc_scaffold["B"], 3) == 0.085
+    assert round(numeros.dc_scaffold["A"], 3) == 0.019 and round(numeros.dc_scaffold["B"], 3) == 0.016
     assert (round(numeros.mc_stent_ptcr[0]), round(numeros.mc_stent_ptcr[1])) == (56, 70)
     assert numeros.vencedor_dentario == "Ti cp grau 4"
     assert round(100 * numeros.extra["p_alvo"], 1) == 59.9
@@ -47,6 +47,16 @@ def test_xml_timing_tem_entradas_video_automatico_e_nos_de_media():
     assert '<p:bldP spid="5"' in s and '<p:bldP spid="6"' not in s
     ids = [int(x.split('"')[1]) for x in s.split('cTn id=')[1:]]
     assert len(ids) == len(set(ids))
+
+
+def test_xml_timing_de_abertura_poe_o_video_primeiro_e_as_entradas_no_fim():
+    s = ap.etree.tostring(ap.xml_timing([5, 6], [(9, 15000, True)], {5}, atraso_entradas=15000,
+                                        atraso_video=0)).decode()
+    assert '<p:cond delay="15000"/>' in s and '<p:cond delay="15250"/>' in s
+    video = s.split('presetClass="mediacall"')[1]
+    assert video.split("<p:cond ")[1].startswith('delay="0"')
+    padrao = ap.etree.tostring(ap.xml_timing([5, 6], [(9, 15000, True)], {5})).decode()
+    assert '<p:cond delay="800"/>' in padrao  # sem atrasos: o vídeo depois das duas entradas
 
 
 def test_xml_transicao_morph_tem_alternativa_fade():

@@ -7,8 +7,11 @@
 // Por omissão grava em ../design/video/demo_app_60s.mp4. O ffmpeg vem da variável FFMPEG, do PATH ou do pacote
 // imageio-ffmpeg do Python indicado na variável PYTHON.
 //
-// Guião: Início; haste femoral (três métodos e consenso); doente com o perfil "jovem ativo", que troca o vencedor
-// do TOPSIS; Monte Carlo em direto da haste; stent.
+// Guião por omissão: Início; haste femoral (três métodos e consenso); doente com o perfil "jovem ativo", que troca
+// o vencedor do TOPSIS; Monte Carlo em direto da haste; stent.
+// Com GUIAO=perfil: Início; caso de base do scaffold ósseo; doente com o perfil C1 (defeito com carga), que põe o
+// compósito PCL/β-TCP em 1.º também no TOPSIS, e com o perfil C2 (defeito sem carga), que põe o β-TCP poroso em 1.º no
+// VIKOR e no consenso (results/perfis_referencia.csv). O vídeo é cortado a DURACAO segundos (60 por omissão).
 import { execFileSync, spawn } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -22,6 +25,8 @@ const PORTA = Number(process.env.PORTA ?? 4318);
 const URL_APP = `http://127.0.0.1:${PORTA}/biomaterial-ideal/`;
 const LARGURA = 1920;
 const ALTURA = 1080;
+const GUIAO = process.env.GUIAO ?? "completo";
+const DURACAO = Number(process.env.DURACAO ?? 60);
 
 /** Caminho do ffmpeg: variável FFMPEG, PATH, ou o binário do imageio-ffmpeg (Python da variável PYTHON). */
 function ffmpeg() {
@@ -150,6 +155,76 @@ async function guiao(page) {
   return marcas;
 }
 
+/** Abre o perfil de exemplo do scaffold (C1 ou C2) a partir do passo "Dispositivo" do ecrã Doente. */
+async function perfilScaffold(page, id) {
+  await page.getByRole("list", { name: "Passos" }).getByRole("button", { name: /Dispositivo/ }).click();
+  await pausa(page, 600);
+  const perfil = page.getByRole("button", { name: new RegExp(`^${id}:`) });
+  await mostrar(page, perfil);
+  await perfil.click();
+  await page.getByText("Com os dados do doente").waitFor();
+  await page.locator("main .animate-pulse").first().waitFor({ state: "detached", timeout: 15_000 }).catch(() => {});
+}
+
+/**
+ * Guião curto (dados de 11 out, bloco 2): "depende da carga". Caso de base do scaffold (TOPSIS dá o β-TCP poroso;
+ * WASPAS e VIKOR dão o compósito); perfil C1 (defeito com carga), que põe o compósito em 1.º também no TOPSIS; perfil
+ * C2 (defeito sem carga), que põe o β-TCP poroso em 1.º no VIKOR e no consenso (results/perfis_referencia.csv).
+ */
+async function guiaoPerfil(page) {
+  const marcas = [];
+  const t0 = Date.now();
+  const marca = (nome) => marcas.push([nome, (Date.now() - t0) / 1000]);
+
+  // 1. Início (cerca de 5 s)
+  marca("início");
+  await legenda(page, "Biomaterial Ideal: escolha multicritério de biomateriais (TOPSIS, WASPAS, VIKOR)");
+  await pausa(page, 5000);
+
+  // 2. Caso de base do scaffold ósseo (cerca de 11 s)
+  marca("scaffold");
+  await menu(page, "Scaffold ósseo");
+  await page.getByRole("region", { name: "Ranking TOPSIS" }).waitFor();
+  await mostrar(page, page.getByRole("region", { name: "Ranking TOPSIS" }));
+  await legenda(page, "Scaffold ósseo, caso de base: renhido entre o compósito PCL/β-TCP e o β-TCP poroso");
+  await pausa(page, 5500);
+  await legenda(page, "O TOPSIS põe o β-TCP poroso em 1.º; o WASPAS e o VIKOR põem o compósito");
+  await pausa(page, 5000);
+
+  // 3. Perfil C1, defeito com carga (cerca de 18 s)
+  marca("C1");
+  await menu(page, "Doente");
+  await legenda(page, "Doente: o mesmo scaffold com um perfil de exemplo");
+  await page.locator("main").getByRole("button", { name: /Scaffold ósseo/ }).click();
+  await pausa(page, 2500);
+  await perfilScaffold(page, "C1");
+  await legenda(page, "Perfil C1, defeito com carga: a resistência e o módulo de compressão passam a contar mais");
+  await pausa(page, 5000);
+  await legenda(page, "O compósito PCL/β-TCP passa a 1.º também no TOPSIS");
+  await pausa(page, 4500);
+  await mostrar(page, page.getByText("Lado a lado com o caso de base"));
+  await legenda(page, "Lado a lado com o caso de base: posição em cada método, antes e depois");
+  await pausa(page, 4500);
+
+  // 4. Perfil C2, defeito sem carga (cerca de 18 s)
+  marca("C2");
+  await perfilScaffold(page, "C2");
+  await legenda(page, "Perfil C2, defeito sem carga: o foco fica no suporte celular e na degradação");
+  await pausa(page, 5500);
+  await mostrar(page, page.getByText("Lado a lado com o caso de base"));
+  await legenda(page, "O β-TCP poroso passa a 1.º no VIKOR e no consenso de Borda");
+  await pausa(page, 6000);
+  await mostrar(page, page.getByText("O que mudou face ao caso de base"));
+  await legenda(page, "Cada alteração aparece com a regra que a provocou");
+  await pausa(page, 3000);
+
+  // 5. Fim: a frase do scaffold
+  marca("fim");
+  await legenda(page, "Depende da carga: compósito quando o defeito suporta carga; β-TCP poroso quando não suporta");
+  while ((Date.now() - t0) / 1000 < DURACAO + 1.5) await pausa(page, 250);
+  return marcas;
+}
+
 async function main() {
   const dist = join(AQUI, "..", "dist-web", "index.html");
   if (!existsSync(dist)) throw new Error("falta dist-web: correr primeiro `npm run build:web`");
@@ -174,7 +249,7 @@ async function main() {
     await page.getByRole("navigation", { name: "Ecrãs" }).waitFor();
     await pausa(page, 800);
     const corte = (Date.now() - inicioGravacao) / 1000;
-    const marcas = await guiao(page);
+    const marcas = GUIAO === "perfil" ? await guiaoPerfil(page) : await guiao(page);
     await context.close();
     await browser.close();
     if (erros.length) throw new Error(`erros na consola durante a gravação:\n${erros.join("\n")}`);
@@ -189,6 +264,7 @@ async function main() {
         "-y", "-loglevel", "error",
         "-ss", corte.toFixed(2),
         "-i", join(pastaVideo, webm),
+        ...(GUIAO === "perfil" ? ["-t", String(DURACAO)] : []),
         "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-r", "30",
         "-movflags", "+faststart", "-an",
         SAIDA,

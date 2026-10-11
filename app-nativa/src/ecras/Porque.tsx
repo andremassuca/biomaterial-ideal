@@ -7,6 +7,7 @@ import { ConteudoSeparador, ListaSeparadores, Opcoes, Separador, Separadores } f
 import { APP, CASOS, CFD, QUANTITATIVOS, TITULO_CASO, nomeSimples, resolverMaterial, type IdCaso } from "@/lib/dados";
 import { num, pct, valor } from "@/lib/formato";
 import { avaliarCaso, mensagemErro, modoNucleo } from "@/lib/nucleo";
+import { textoPublico } from "@/lib/publico";
 import { normalizarColuna, topsisPassos } from "@/lib/topsis";
 import type { RespostaCaso } from "@/lib/tipos";
 
@@ -46,10 +47,10 @@ export function Porque() {
         titulo="Porquê"
         subtitulo="Cada ferramenta explicada em linguagem simples, com um exemplo feito com os dados do trabalho."
       />
-      <Separadores defaultValue="vencedor" orientation="vertical" className="grid gap-6 lg:grid-cols-[240px_1fr]">
-        <ListaSeparadores className="h-fit flex-col items-stretch">
+      <Separadores defaultValue="vencedor" orientation="vertical" className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[240px_1fr]">
+        <ListaSeparadores className="flex h-fit w-full flex-col items-stretch">
           {TEMAS.map(([v, t]) => (
-            <Separador key={v} value={v} className="text-left">
+            <Separador key={v} value={v} className="whitespace-normal text-left">
               {t}
             </Separador>
           ))}
@@ -178,8 +179,8 @@ function Vencedor() {
         {contrib.map(({ c, d }) => {
           const larg = Math.min(100, (Math.abs(d) / Math.max(...contrib.map((x) => Math.abs(x.d)), 1e-12)) * 100);
           return (
-            <li key={c} className="grid grid-cols-[1fr_120px_64px] items-center gap-3 text-sm">
-              <span>{c}</span>
+            <li key={c} className="grid grid-cols-[minmax(0,1fr)_64px_52px] items-center gap-2 text-sm sm:grid-cols-[minmax(0,1fr)_120px_64px] sm:gap-3">
+              <span className="[overflow-wrap:anywhere]">{c}</span>
               <span className="relative h-2 rounded-full bg-superficie2">
                 <span className={`absolute h-2 rounded-full ${d >= 0 ? "bg-acento" : "bg-aviso"}`} style={{ width: `${larg}%` }} />
               </span>
@@ -449,6 +450,10 @@ function FeaHaste() {
             do fémur intacto. Uma razão de 1 é como o osso natural; stress shielding = 1 − razão. Hipóteses: modelo linear e
             estático, osso isotrópico, interface colada. É uma extensão exploratória: interessa a ordem dos materiais.
           </p>
+          <p>
+            A energia de deformação é um indicador mecânico de redistribuição de carga, não uma previsão de perda óssea nem
+            de descolamento. A interface colada não modela micromovimento.
+          </p>
         </>
       }
     >
@@ -473,7 +478,10 @@ function FeaHaste() {
       />
       {fea.comparacao && (
         <>
-          <p className="mb-2 mt-4 text-sm">Confirmação com outra ferramenta (fémur simplificado): a ordem dos materiais é a mesma.</p>
+          <p className="mb-2 mt-4 text-sm">
+            Verificação numérica cruzada com outra ferramenta (fémur simplificado): a ordem dos materiais é a mesma. É
+            verificação entre programas, não validação experimental.
+          </p>
           <Tabela
             cabecalho={["Material", "G1 Python", "G1 SOLIDWORKS", "G7 Python", "G7 SOLIDWORKS"]}
             linhas={fea.comparacao.map((c) => [
@@ -506,6 +514,10 @@ function CfdStent() {
           <p>
             Compara-se um stent de struts finos com um de struts grossos, com o mesmo desenho, e mede-se a fração da parede
             com tensão de corte baixa ao longo do ciclo cardíaco.
+          </p>
+          <p>
+            Tensão de corte baixa: abaixo de 0,4 Pa, um limiar operacional deste estudo. Geometria idealizada, sem lesão,
+            parede rígida. É um indicador do fluxo, não uma previsão de reestenose.
           </p>
         </>
       }
@@ -572,7 +584,7 @@ function MassaIoes() {
       )}
       {APP.textos.ioes && (
         <div className="mt-4 border-t border-linha pt-4">
-          <Markdown texto={APP.textos.ioes} />
+          <Markdown texto={textoPublico(APP.textos.ioes)} />
         </div>
       )}
     </Tema>

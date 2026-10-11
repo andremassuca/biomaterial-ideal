@@ -9,7 +9,7 @@ Células a verificar: 29 (0 mudam o vencedor com ±20 %).
 
 | # | Cenário | Material | Critério | Tipo | Típico | ΔC material | ΔC máx. | Muda vencedor | Fonte atual |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | A | Ti-13Nb-13Zr | Limite de fadiga (10^7 ciclos) | quantitativo | 550,0000 | 0,117 | 0,117 | não | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
+| 1 | A | Ti-13Nb-13Zr | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | quantitativo | 550,0000 | 0,117 | 0,117 | não | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
 | 2 | A | Ti-6Al-4V ELI | Resistência à corrosão (ordinal 1-5) | ordinal | 5,0000 | 0,065 | 0,065 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | 3 | A | Ti cp grau 4 | Resistência à corrosão (ordinal 1-5) | ordinal | 5,0000 | 0,057 | 0,057 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | 4 | A | Ti-13Nb-13Zr | Resistência à corrosão (ordinal 1-5) | ordinal | 5,0000 | 0,050 | 0,050 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
@@ -79,21 +79,21 @@ Células a verificar: 30 (3 mudam o vencedor com ±20 %).
 
 ## Scaffold
 
-Vencedor do TOPSIS: cenário A: Compósito PCL/β-TCP (impressão 3D); cenário B: Compósito PCL/β-TCP (impressão 3D).
-Células a verificar: 38 (0 mudam o vencedor com ±20 %).
+Vencedor do TOPSIS: cenário A: β-TCP poroso; cenário B: Compósito PCL/β-TCP (impressão 3D).
+Células a verificar: 35 (4 mudam o vencedor com ±20 %).
 
 | # | Cenário | Material | Critério | Tipo | Típico | ΔC material | ΔC máx. | Muda vencedor | Fonte atual |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | A | Hidroxiapatite (HA) porosa | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 5,0000 | 0,042 | 0,042 | não | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
-| 2 | A | Vidro bioativo 45S5 poroso | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 5,0000 | 0,025 | 0,029 | não | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
-| 3 | B | Quitosano/HA (liofilizado) | Bioatividade (ordinal 1-5) | ordinal | 3,0000 | 0,022 | 0,022 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 4 | A | Compósito PCL/β-TCP (impressão 3D) | Resistência à compressão (scaffold) | quantitativo | 4,3000 | 0,020 | 0,020 | não | Kawai T et al. J Orthop Res 2018;36:1002-1011; Wong WS et al. Cureus 2025;17:e86272 |
-| 5 | A | Compósito PCL/β-TCP (impressão 3D) | Imprimibilidade 3D (ordinal 1-5) | ordinal | 5,0000 | 0,020 | 0,020 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 6 | A | PCL | Imprimibilidade 3D (ordinal 1-5) | ordinal | 5,0000 | 0,019 | 0,019 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 7 | A | PCL | Resistência à compressão (scaffold) | quantitativo | 6,0000 | 0,019 | 0,024 | não | Woodruff MA, Hutmacher DW. Prog Polym Sci 2010;35:1217-1256 (PCL) |
-| 8 | A | PCL | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 3,0000 | 0,018 | 0,029 | não | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
-| 9 | B | PLLA | Imprimibilidade 3D (ordinal 1-5) | ordinal | 4,0000 | 0,017 | 0,017 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 10 | A | Vidro bioativo 45S5 poroso | Porosidade | quantitativo | 80,0000 | 0,017 | 0,043 | não | Karageorgiou V, Kaplan D. Biomaterials 2005;26:5474-5491 (porosidade) |
+| 1 | A | Hidroxiapatite (HA) porosa | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 5,0000 | 0,042 | 0,042 | sim → Compósito PCL/β-TCP (impressão 3D) | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
+| 2 | A | Vidro bioativo 45S5 poroso | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 5,0000 | 0,025 | 0,029 | sim → Compósito PCL/β-TCP (impressão 3D) | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
+| 3 | A | PCL | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 3,0000 | 0,018 | 0,021 | sim → Compósito PCL/β-TCP (impressão 3D) | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
+| 4 | A | Vidro bioativo 45S5 poroso | Porosidade | quantitativo | 80,0000 | 0,017 | 0,043 | sim → Compósito PCL/β-TCP (impressão 3D) | Karageorgiou V, Kaplan D. Biomaterials 2005;26:5474-5491 (porosidade) |
+| 5 | A | Hidroxiapatite (HA) porosa | Porosidade | quantitativo | 65,0000 | 0,025 | 0,025 | não | FDA 510(k) K023998 (Tabela 1: Pro Osteon 200); Hoogendoorn HA et al. Clin Orthop Relat Res 1984;187:281-288 |
+| 6 | A | Compósito PCL/β-TCP (impressão 3D) | Imprimibilidade 3D (ordinal 1-5) | ordinal | 5,0000 | 0,022 | 0,022 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 7 | B | Quitosano/HA (liofilizado) | Bioatividade (ordinal 1-5) | ordinal | 3,0000 | 0,022 | 0,022 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 8 | A | PCL | Imprimibilidade 3D (ordinal 1-5) | ordinal | 5,0000 | 0,019 | 0,019 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 9 | A | PCL | Resistência à compressão (scaffold) | quantitativo | 6,0000 | 0,019 | 0,024 | não | Woodruff MA, Hutmacher DW. Prog Polym Sci 2010;35:1217-1256 (PCL) |
+| 10 | B | PLLA | Imprimibilidade 3D (ordinal 1-5) | ordinal | 4,0000 | 0,017 | 0,017 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | 11 | A | β-TCP poroso | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 3,0000 | 0,015 | 0,015 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
 | 12 | B | PLLA | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 3,0000 | 0,013 | 0,013 | não | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
 | 13 | B | PLGA 50:50 | Imprimibilidade 3D (ordinal 1-5) | ordinal | 3,0000 | 0,013 | 0,013 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
@@ -101,24 +101,21 @@ Células a verificar: 38 (0 mudam o vencedor com ±20 %).
 | 15 | B | Quitosano/HA (liofilizado) | Compatibilidade com esterilização (ordinal 1-5) | ordinal | 3,0000 | 0,012 | 0,012 | não | ISO 11137 (radiação) / ISO 11135 (EtO); Kurtz 2016 para UHMWPE: confirmar |
 | 16 | A | β-TCP poroso | Imprimibilidade 3D (ordinal 1-5) | ordinal | 2,0000 | 0,012 | 0,012 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | 17 | B | PLGA 50:50 | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 2,0000 | 0,010 | 0,010 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
-| 18 | A | Compósito PCL/β-TCP (impressão 3D) | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 2,0000 | 0,010 | 0,010 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
+| 18 | A | Compósito PCL/β-TCP (impressão 3D) | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 2,0000 | 0,009 | 0,009 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
 | 19 | B | Quitosano/HA (liofilizado) | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 2,0000 | 0,009 | 0,009 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
-| 20 | A | Compósito PCL/β-TCP (impressão 3D) | Tempo de degradação | quantitativo | 18,0000 | 0,009 | 0,009 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 21 | B | PLLA | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,008 | 0,008 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 22 | A | Vidro bioativo 45S5 poroso | Imprimibilidade 3D (ordinal 1-5) | ordinal | 2,0000 | 0,008 | 0,011 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 23 | A | Hidroxiapatite (HA) porosa | Imprimibilidade 3D (ordinal 1-5) | ordinal | 2,0000 | 0,007 | 0,011 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 24 | B | PLGA 50:50 | Resistência à compressão (scaffold) | quantitativo | 1,7500 | 0,006 | 0,006 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 25 | B | PLGA 50:50 | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,006 | 0,008 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 26 | A | β-TCP poroso | Tempo de degradação | quantitativo | 12,0000 | 0,005 | 0,005 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 27 | B | PLLA | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 1,0000 | 0,004 | 0,004 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
-| 28 | B | Quitosano/HA (liofilizado) | Tempo de degradação | quantitativo | 7,5000 | 0,004 | 0,004 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 29 | A | β-TCP poroso | Módulo de compressão (scaffold) | quantitativo | 550,0000 | 0,003 | 0,003 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 30 | B | PLGA 50:50 | Tempo de degradação | quantitativo | 2,0000 | 0,002 | 0,002 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 31 | A | Hidroxiapatite (HA) porosa | Módulo de compressão (scaffold) | quantitativo | 1750,0000 | 0,002 | 0,003 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 32 | A | Vidro bioativo 45S5 poroso | Módulo de compressão (scaffold) | quantitativo | 275,0000 | 0,001 | 0,001 | não | Hench LL. J Am Ceram Soc 1991;74:1487-1510 (vidros bioativos) |
-| 33 | B | PLGA 50:50 | Módulo de compressão (scaffold) | quantitativo | 35,0000 | 0,000 | 0,000 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| 34 | A | PCL | Módulo de compressão (scaffold) | quantitativo | 50,0000 | 0,000 | 0,000 | não | Woodruff MA, Hutmacher DW. Prog Polym Sci 2010;35:1217-1256 (PCL) |
-| 35 | A | Vidro bioativo 45S5 poroso | Bioatividade (ordinal 1-5) | ordinal | 5,0000 | 0,000 | 0,040 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 36 | A | Vidro bioativo 45S5 poroso | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 4,0000 | 0,000 | 0,019 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
-| 37 | A | PCL | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,000 | 0,005 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| 38 | A | PCL | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 1,0000 | 0,000 | 0,003 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
+| 20 | B | PLLA | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,008 | 0,008 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 21 | A | Vidro bioativo 45S5 poroso | Imprimibilidade 3D (ordinal 1-5) | ordinal | 2,0000 | 0,008 | 0,011 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 22 | A | Hidroxiapatite (HA) porosa | Imprimibilidade 3D (ordinal 1-5) | ordinal | 2,0000 | 0,007 | 0,011 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 23 | B | PLGA 50:50 | Resistência à compressão (scaffold) | quantitativo | 1,7500 | 0,006 | 0,006 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| 24 | B | PLGA 50:50 | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,006 | 0,008 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 25 | B | PLLA | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 1,0000 | 0,004 | 0,004 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
+| 26 | B | Quitosano/HA (liofilizado) | Tempo de degradação | quantitativo | 7,5000 | 0,004 | 0,004 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| 27 | B | PLGA 50:50 | Tempo de degradação | quantitativo | 2,0000 | 0,002 | 0,002 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| 28 | A | Hidroxiapatite (HA) porosa | Módulo de compressão (scaffold) | quantitativo | 1750,0000 | 0,002 | 0,003 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| 29 | A | Vidro bioativo 45S5 poroso | Módulo de compressão (scaffold) | quantitativo | 275,0000 | 0,001 | 0,001 | não | Hench LL. J Am Ceram Soc 1991;74:1487-1510 (vidros bioativos) |
+| 30 | B | PLGA 50:50 | Módulo de compressão (scaffold) | quantitativo | 35,0000 | 0,000 | 0,000 | não | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| 31 | A | PCL | Módulo de compressão (scaffold) | quantitativo | 50,0000 | 0,000 | 0,000 | não | Woodruff MA, Hutmacher DW. Prog Polym Sci 2010;35:1217-1256 (PCL) |
+| 32 | A | Vidro bioativo 45S5 poroso | Bioatividade (ordinal 1-5) | ordinal | 5,0000 | 0,000 | 0,040 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 33 | A | Vidro bioativo 45S5 poroso | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 4,0000 | 0,000 | 0,019 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |
+| 34 | A | PCL | Bioatividade (ordinal 1-5) | ordinal | 1,0000 | 0,000 | 0,004 | não | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
+| 35 | A | PCL | Custo relativo de material e fabrico (1-5, 5 = mais caro) | ordinal | 1,0000 | 0,000 | 0,003 | não | Índice relativo de material e fabrico (rubrica no LEIA-ME); não representa preço hospitalar |

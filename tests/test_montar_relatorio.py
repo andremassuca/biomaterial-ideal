@@ -175,3 +175,38 @@ def test_tabela_1_pela_ordem_dos_capitulos():
 
 def test_percentagem_inquebravel():
     assert mr.percentagem_inquebravel("46,3 % e 82 %; 100%") == "46,3 % e 82 %; 100%"
+
+
+def test_linha_em_branco_antes_das_listas():
+    t = "Texto:\n- um\n- dois\n\nOutro:\n1. a\n2. b\n| x |\n|---|\n```\nc:\n- d\n```"
+    r = mr.linha_em_branco_antes_das_listas(t)
+    assert "Texto:\n\n- um\n- dois" in r and "Outro:\n\n1. a\n2. b" in r
+    assert "c:\n- d" in r  # dentro de um bloco de código fica igual
+    assert mr.linha_em_branco_antes_das_listas(r) == r
+
+
+def test_relatorio_montado_tem_listas_separadas_do_paragrafo():
+    texto = mr.montar()
+    corpo = texto.split("\n---\n", 2)[-1]
+    linhas = corpo.split("\n")
+    em_codigo = False
+    for i, l in enumerate(linhas[1:], 1):
+        if l.lstrip().startswith("```"):
+            em_codigo = not em_codigo
+        if not em_codigo and mr.ITEM_LISTA.match(l) and not l.startswith(" "):
+            ant = linhas[i - 1]
+            assert not ant.strip() or mr.ITEM_LISTA.match(ant) or ant.startswith((" ", "|")), (ant, l)
+
+
+def test_numero_das_tabelas_no_texto_bate_com_a_ordem_das_legendas():
+    """Cada "Tabela n" de uma frase de chamada refere-se à legenda que vem a seguir, que é a n-ésima do corpo."""
+    texto = mr.montar().split("# Referências", 1)[0]
+    for m in re.finditer(r"(?:A Tabela|estão na Tabela) (\d+)", texto):
+        antes = texto[:m.start()].count("\nTable: ")
+        assert antes + 1 == int(m.group(1)), m.group(0)
+
+
+def test_largura_figura_estreita_as_figuras_3_e_4():
+    assert mr.largura_figura("fig_c_monte_carlo") == "70%"
+    assert mr.largura_figura("fig_d_vencedor_eta") == "75%"
+    assert mr.largura_figura("fig_b_posicoes") == "100%"

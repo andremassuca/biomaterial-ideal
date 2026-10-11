@@ -1,9 +1,9 @@
 <!-- gerado por scripts/tabelas_relatorio.py; não editar à mão -->
 # Anexo B. Base de dados completa
 
-Valores de data/materiais.csv (versão usada neste relatório). Valor: mínimo a máximo da base; Típico: o valor usado nos métodos. Estados: "Verificado" (confirmado na fonte indicada), "Verificado (fornecedor)" (ficha técnica de fornecedor), "Verificado (derivado)" (calculado a partir de valores publicados na fonte), "Verificado (composição química)" (deduzido da composição do material), "Verificado (composição nominal)" (deduzido da composição nominal publicada da liga) e "A verificar" (valor de partida ainda não confirmado na fonte original). As notas de cada valor estão na base de dados.
+Valores de data/materiais.csv (versão usada neste relatório). Valor: mínimo a máximo da base; Típico: o valor usado nos métodos. Estados: "Verificado" (confirmado na fonte indicada), "Verificado (fornecedor)" (ficha técnica de fornecedor), "Verificado (derivado)" (calculado a partir de valores publicados na fonte), "Verificado (composição química)" (deduzido da composição do material), "Verificado (composição nominal)" (deduzido da composição nominal publicada da liga), "Valor de modelação" (número fixado por uma regra do trabalho, sem fonte numérica própria; por exemplo, o tempo de degradação da HA e o tempo de reabsorção das ligas permanentes do stent) e "A verificar" (valor de partida ainda não confirmado na fonte original). As notas de cada valor estão na base de dados.
 
-Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 29; Verificado (derivado): 4; Verificado (composição nominal): 1; Verificado (composição química): 1 (total: 300).
+Contagem por estado: A verificar: 180; Verificado: 80; Verificado (fornecedor): 28; Valor de modelação: 6; Verificado (derivado): 4; Verificado (composição nominal): 1; Verificado (composição química): 1 (total: 300).
 
 ## Prótese da anca
 
@@ -12,37 +12,37 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Aço inox 316L | Módulo de Young | GPa | 205 a 210 | 207,5 | Verificado | Navarro M, Michiardi A, Castaño O, Planell JA. Biomaterials in orthopaedics. J R Soc Interface 2008;5(27):1137-1158 (https://doi.org/10.1098/rsif.2008.0151) |
 | Aço inox 316L | Tensão de cedência | MPa | 755 a 765 | 760 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Aço inox 316L | Resistência à tração | MPa | 859 a 897 | 878 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
-| Aço inox 316L | Limite de fadiga (10^7 ciclos) | MPa | 694 | 694 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
+| Aço inox 316L | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 694 | 694 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Aço inox 316L | Densidade | g/cm³ | 8 | 8 | Verificado (fornecedor) | Alleima, ficha 316LVM (https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-316lvm-for-medical-applications/) |
 | Aço inox 316L | Resistência à corrosão (ordinal 1-5) |  | 3 | 3 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Co-Cr-Mo forjado | Módulo de Young | GPa | 220 a 230 | 225 | Verificado | Navarro M, Michiardi A, Castaño O, Planell JA. Biomaterials in orthopaedics. J R Soc Interface 2008;5(27):1137-1158 (https://doi.org/10.1098/rsif.2008.0151) |
 | Co-Cr-Mo forjado | Tensão de cedência | MPa | 629 a 709 | 669 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Co-Cr-Mo forjado | Resistência à tração | MPa | 1000 a 1300 | 1150 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
-| Co-Cr-Mo forjado | Limite de fadiga (10^7 ciclos) | MPa | 796 | 796 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
+| Co-Cr-Mo forjado | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 796 | 796 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Co-Cr-Mo forjado | Densidade | g/cm³ | 8,25 a 8,3 | 8,275 | Verificado (fornecedor) | Alleima, ficha Alleima F1537 (barra); Fort Wayne Metals, FWM 1537 alloy (https://www.alleima.com/en/technical-center/material-datasheets/bar-and-hollow-bar/bar/alleima-f1537/) |
 | Co-Cr-Mo forjado | Resistência à corrosão (ordinal 1-5) |  | 4 | 4 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Ti-6Al-4V ELI | Módulo de Young | GPa | 101 a 110 | 105,5 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-6Al-4V ELI | Tensão de cedência | MPa | 848 a 850 | 849 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Ti-6Al-4V ELI | Resistência à tração | MPa | 860 a 965 | 912,5 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
-| Ti-6Al-4V ELI | Limite de fadiga (10^7 ciclos) | MPa | 682 | 682 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
+| Ti-6Al-4V ELI | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 682 | 682 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Ti-6Al-4V ELI | Densidade | g/cm³ | 4,43 | 4,43 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti-6Al-4V ELI | Resistência à corrosão (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Ti cp grau 4 | Módulo de Young | GPa | 104,1 | 104,1 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti cp grau 4 | Tensão de cedência | MPa | 610 a 622 | 616 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Ti cp grau 4 | Resistência à tração | MPa | 692 a 708 | 700 | Verificado | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
-| Ti cp grau 4 | Limite de fadiga (10^7 ciclos) | MPa | 483 | 483 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
+| Ti cp grau 4 | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 483 | 483 | Verificado (derivado) | Okazaki Y. Comparison of Fatigue Properties and Fatigue Crack Growth Rates of Various Implantable Metals. Materials 2012;5:2981 (https://doi.org/10.3390/ma5122981) |
 | Ti cp grau 4 | Densidade | g/cm³ | 4,51 | 4,51 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti cp grau 4 | Resistência à corrosão (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Ti-13Nb-13Zr | Módulo de Young | GPa | 79 a 84 | 81,5 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-13Nb-13Zr | Tensão de cedência | MPa | 836 a 908 | 872 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-13Nb-13Zr | Resistência à tração | MPa | 973 a 1037 | 1005 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
-| Ti-13Nb-13Zr | Limite de fadiga (10^7 ciclos) | MPa | 500 a 600 | 550 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
+| Ti-13Nb-13Zr | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 500 a 600 | 550 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
 | Ti-13Nb-13Zr | Densidade | g/cm³ | 4,9 a 5,1 | 5 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
 | Ti-13Nb-13Zr | Resistência à corrosão (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Ti-35Nb-7Zr-5Ta (TNZT) | Módulo de Young | GPa | 55 | 55 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-35Nb-7Zr-5Ta (TNZT) | Tensão de cedência | MPa | 530 a 547 | 538,5 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-35Nb-7Zr-5Ta (TNZT) | Resistência à tração | MPa | 590 a 600 | 595 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
-| Ti-35Nb-7Zr-5Ta (TNZT) | Limite de fadiga (10^7 ciclos) | MPa | 275 | 275 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
+| Ti-35Nb-7Zr-5Ta (TNZT) | Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | MPa | 275 | 275 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-35Nb-7Zr-5Ta (TNZT) | Densidade | g/cm³ | 5,6 a 5,8 | 5,7 | A verificar | Geetha M et al. Prog Mater Sci 2009;54:397-425 |
 | Ti-35Nb-7Zr-5Ta (TNZT) | Resistência à corrosão (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | CoCrMo / UHMWPE convencional (MoP) | Taxa de desgaste linear | mm/ano | 0,04 a 0,106 | 0,077 | Verificado | Teeter MG, Yuan X, Somerville LE, MacDonald SJ, McCalden RW, Naudie DD. Thirteen-year wear rate comparison of highly crosslinked and conventional polyethylene in total hip arthroplasty. Can J Surg 2017;60(3):212-216 (https://doi.org/10.1503/cjs.005216) |
@@ -102,14 +102,14 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 ## Implante dentário
 
 | Material | Propriedade | Unidade | Valor | Típico | Estado | Fonte |
-|------------|---------------------|----------|-------|-------|-------------|-----------------------------------------------------------------|
-| Ti cp grau 4 | Módulo de Young | GPa | 103 a 110 | 106,5 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
+|------------|---------------------|----------|-------|-------|-------------|------------------------------------------------------------------|
+| Ti cp grau 4 | Módulo de Young | GPa | 104,1 | 104,1 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti cp grau 4 | Resistência mecânica (tração/flexão) | MPa | 550 a 680 | 615 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti cp grau 4 | Tenacidade à fratura (K_IC) | MPa·m^0.5 | 50 a 70 | 60 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti cp grau 4 | Densidade | g/cm³ | 4,51 | 4,51 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti cp grau 4 | Estética (ordinal 1-5) |  | 2 | 2 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Ti cp grau 4 | Evidência clínica de osteointegração (ordinal 1-5) |  | 5 | 5 | Verificado | Adell R et al. Int J Oral Maxillofac Implants 1990;5:347-359 (PMID 2094653); Howe MS et al. J Dent 2019;84:9-21 (https://doi.org/10.1016/j.jdent.2019.03.008) |
-| Ti-6Al-4V ELI | Módulo de Young | GPa | 110 a 114 | 112 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
+| Ti-6Al-4V ELI | Módulo de Young | GPa | 101 a 110 | 105,5 | Verificado | Li Y et al. Materials 2014;7:1709 (New Developments of Ti-Based Alloys for Biomedical Applications) (https://doi.org/10.3390/ma7031709) |
 | Ti-6Al-4V ELI | Resistência mecânica (tração/flexão) | MPa | 860 a 965 | 912,5 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti-6Al-4V ELI | Tenacidade à fratura (K_IC) | MPa·m^0.5 | 55 a 75 | 65 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
 | Ti-6Al-4V ELI | Densidade | g/cm³ | 4,43 | 4,43 | A verificar | Niinomi M. Mater Sci Eng A 1998;243:231-236 |
@@ -157,14 +157,14 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 ## Stent vascular
 
 | Material | Propriedade | Unidade | Valor | Típico | Estado | Fonte |
-|--------------------|--------------------|--------|----------------|-------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------------|--------------------|--------|----------------|-------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Aço inox 316L | Módulo de Young | GPa | 193 a 200 | 200 | Verificado (fornecedor) | Alleima, ficha 316LVM (propriedades físicas: 200 GPa a 20 °C) (https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-316lvm-for-medical-applications/) |
 | Aço inox 316L | Tensão de cedência | MPa | 205 a 340 | 272,5 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Aço inox 316L | Resistência à tração | MPa | 490 a 690 | 590 | Verificado (fornecedor) | Alleima, ficha 316LVM (tubo de parede fina recozido) (https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-316lvm-for-medical-applications/) |
 | Aço inox 316L | Alongamento na rotura | % | 40 a 50 | 40 | Verificado (fornecedor) | Alleima, ficha 316LVM (tubo de parede fina recozido); patente US 6780261 B2 (Scimed), tubo de stent totalmente recozido (https://patents.google.com/patent/US6780261B2/en) |
 | Aço inox 316L | Densidade | g/cm³ | 8 | 8 | Verificado (fornecedor) | Alleima, ficha 316LVM (https://www.alleima.com/en/technical-center/material-datasheets/tube-and-pipe-seamless/alleima-316lvm-for-medical-applications/) |
 | Aço inox 316L | Espessura típica de strut | µm | 130 a 140 | 135 | Verificado | Nikam N, Steinberg TB, Steinberg DH. Med Devices (Auckl) 2014;7:165-178 (Tabela 1) (https://doi.org/10.2147/MDER.S31869) |
-| Aço inox 316L | Tempo de reabsorção | meses |  |  | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
+| Aço inox 316L | Tempo de reabsorção | meses |  |  | Valor de modelação | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Aço inox 316L | Tipo de expansão |  | balão |  | A verificar |  |
 | Co-Cr L605 | Módulo de Young | GPa | 225 | 225 | Verificado (fornecedor) | Lamineries Matthey, ficha Alloy L-605 v26E (fita recozida, declara ASTM F90); Haynes International, HAYNES 25 (chapa solubilizada); Fort Wayne Metals, L-605 alloy (barra e fio) (https://www.matthey.ch/fileadmin/user_upload/downloads/fichetechnique/EN/Alloy_L-605_v26E.pdf) |
 | Co-Cr L605 | Tensão de cedência | MPa | 380 a 700 | 476 | Verificado (fornecedor) | Lamineries Matthey, ficha Alloy L-605 v26E (fita recozida, declara ASTM F90); Haynes International, HAYNES 25 (chapa solubilizada); Fort Wayne Metals, L-605 alloy (barra e fio) (https://www.matthey.ch/fileadmin/user_upload/downloads/fichetechnique/EN/Alloy_L-605_v26E.pdf) |
@@ -172,7 +172,7 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Co-Cr L605 | Alongamento na rotura | % | 40 | 40 | Verificado (fornecedor) | Lamineries Matthey, ficha Alloy L-605 v26E (fita recozida, declara ASTM F90); Fort Wayne Metals, L-605 alloy (fio) (https://www.matthey.ch/fileadmin/user_upload/downloads/fichetechnique/EN/Alloy_L-605_v26E.pdf) |
 | Co-Cr L605 | Densidade | g/cm³ | 9,07 a 9,27 | 9,27 | Verificado (fornecedor) | Lamineries Matthey, ficha Alloy L-605 v26E (fita); Haynes International, HAYNES 25 (https://www.matthey.ch/fileadmin/user_upload/downloads/fichetechnique/EN/Alloy_L-605_v26E.pdf) |
 | Co-Cr L605 | Espessura típica de strut | µm | 81 | 81 | Verificado | Macaya-Ten F et al. REC Interv Cardiol 2024 (Tabela 3); Brami P et al. J Clin Med 2023 (https://doi.org/10.24875/RECICE.M24000463) |
-| Co-Cr L605 | Tempo de reabsorção | meses |  |  | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
+| Co-Cr L605 | Tempo de reabsorção | meses |  |  | Valor de modelação | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Co-Cr L605 | Tipo de expansão |  | balão |  | A verificar |  |
 | Co-Ni-Cr-Mo MP35N | Módulo de Young | GPa | 234,4 | 234,4 | Verificado (fornecedor) | K-Tube, MP35N Technical Data Sheet (tubo miniatura para stents) (https://www.k-tube.com/wp-content/uploads/2025/12/MP35N-K-Tube-Technical-Data-Sheet.pdf) |
 | Co-Ni-Cr-Mo MP35N | Tensão de cedência | MPa | 414 | 414 | Verificado (fornecedor) | Ulbrich, MP35N Wire UNS R30035 (fio recozido, valor típico; declara ASTM F562) (https://www.ulbrich.com/uploads/data-sheets/MP35N-Wire-UNS-R30035.pdf) |
@@ -180,15 +180,15 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Co-Ni-Cr-Mo MP35N | Alongamento na rotura | % | 40 | 40 | Verificado (fornecedor) | K-Tube, MP35N Technical Data Sheet (tubo miniatura para stents); Ulbrich, MP35N Wire UNS R30035 (fio, declara ASTM F562) (https://www.k-tube.com/wp-content/uploads/2025/12/MP35N-K-Tube-Technical-Data-Sheet.pdf) |
 | Co-Ni-Cr-Mo MP35N | Densidade | g/cm³ | 8,43 | 8,43 | Verificado (fornecedor) | Ulbrich, MP35N Wire UNS R30035 (declara ASTM F562) (https://www.ulbrich.com/uploads/data-sheets/MP35N-Wire-UNS-R30035.pdf) |
 | Co-Ni-Cr-Mo MP35N | Espessura típica de strut | µm | 90 a 91 | 90 | Verificado | Brami P et al. J Clin Med 2023; Macaya-Ten F et al. REC Interv Cardiol 2024 (Tabela 3) (https://doi.org/10.3390/jcm12216711) |
-| Co-Ni-Cr-Mo MP35N | Tempo de reabsorção | meses |  |  | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
+| Co-Ni-Cr-Mo MP35N | Tempo de reabsorção | meses |  |  | Valor de modelação | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Co-Ni-Cr-Mo MP35N | Tipo de expansão |  | balão |  | A verificar |  |
 | Pt-Cr | Módulo de Young | GPa | 203 | 203 | A verificar | Huibregtse B, Granada JF. New DES platforms: does the metal alloy matter? Cardiac Interventions Today 2011 jul/ago (Tabela 1, p. 36); Samant S et al. Sci Rep 2021 (doi:10.1038/s41598-021-87908-2), Informação suplementar, Tabela 1 (https://assets.bmctoday.net/citoday/pdfs/cit0811_f2granada.pdf) |
-| Pt-Cr | Tensão de cedência | MPa | 480 | 480 | Verificado | O'Brien BJ, Stinson JS, Larsen SR, Eppihimer MJ, Carroll WM. A platinum-chromium steel for cardiovascular stents. Biomaterials 2010;31:3755-3761 (https://doi.org/10.1016/j.biomaterials.2010.01.146) |
+| Pt-Cr | Tensão de cedência | MPa | 480 | 480 | A verificar | O'Brien BJ, Stinson JS, Larsen SR, Eppihimer MJ, Carroll WM. A platinum-chromium steel for cardiovascular stents. Biomaterials 2010;31:3755-3761 (https://doi.org/10.1016/j.biomaterials.2010.01.146) |
 | Pt-Cr | Resistência à tração | MPa | 834 | 834 | A verificar | Huibregtse B, Granada JF. New DES platforms: does the metal alloy matter? Cardiac Interventions Today 2011 jul/ago (Tabela 1, p. 36); Samant S et al. Sci Rep 2021 (doi:10.1038/s41598-021-87908-2), Informação suplementar, Tabela 1 (https://assets.bmctoday.net/citoday/pdfs/cit0811_f2granada.pdf) |
 | Pt-Cr | Alongamento na rotura | % | 45 | 45 | A verificar | Samant S et al. Sci Rep 2021 (doi:10.1038/s41598-021-87908-2), Informação suplementar, Tabela 1 (https://doi.org/10.1038/s41598-021-87908-2) |
 | Pt-Cr | Densidade | g/cm³ | 9,9 | 9,9 | Verificado | Allocco DJ et al. Trials 2010;11:1 (PMC2826324) (https://doi.org/10.1186/1745-6215-11-1) |
 | Pt-Cr | Espessura típica de strut | µm | 74 a 81 | 79 | Verificado (fornecedor) | Boston Scientific, SYNERGY Product Spec Sheet (https://www.bostonscientific.com/content/dam/bostonscientific/Interventional%20Cardiology/portfolio-group/Stents/Synergy/legacy-resource-center/SYNERGY-Product-Spec-Sheet.pdf) |
-| Pt-Cr | Tempo de reabsorção | meses |  |  | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
+| Pt-Cr | Tempo de reabsorção | meses |  |  | Valor de modelação | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Pt-Cr | Tipo de expansão |  | balão |  | A verificar |  |
 | Nitinol (autoexpansível) | Módulo de Young | GPa | 40 a 75 | 57,5 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Nitinol (autoexpansível) | Tensão de cedência | MPa | 350 a 600 | 475 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
@@ -196,7 +196,7 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Nitinol (autoexpansível) | Alongamento na rotura | % | 10 a 15 | 12,5 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Nitinol (autoexpansível) | Densidade | g/cm³ | 6,45 | 6,45 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Nitinol (autoexpansível) | Espessura típica de strut | µm | 100 a 150 | 125 | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
-| Nitinol (autoexpansível) | Tempo de reabsorção | meses |  |  | A verificar | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
+| Nitinol (autoexpansível) | Tempo de reabsorção | meses |  |  | Valor de modelação | Hanawa T. J Artif Organs 2009;12:73-79 (metais para stents) |
 | Nitinol (autoexpansível) | Tipo de expansão |  | autoexpansível |  | A verificar |  |
 | Liga de Mg WE43 (bioabsorvível) | Módulo de Young | GPa | 44,1 | 44,1 | Verificado (fornecedor) | Luxfer MEL Technologies, Datasheet 490, Elektron 43 Extruded Products (barra extrudida, T5) (https://www.luxfermeltechnologies.com/wp-content/uploads/2026/05/DS-490-Elektron-43-0526.pdf) |
 | Liga de Mg WE43 (bioabsorvível) | Tensão de cedência | MPa | 243 | 243 | Verificado (fornecedor) | Luxfer MEL Technologies, Datasheet 490, Elektron 43 Extruded Products (barra extrudida, T5) (https://www.luxfermeltechnologies.com/wp-content/uploads/2026/05/DS-490-Elektron-43-0526.pdf) |
@@ -207,10 +207,10 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Liga de Mg WE43 (bioabsorvível) | Tempo de reabsorção | meses | 12 a 24 | 18 | Verificado | Joner M et al. EuroIntervention 2018 (DREAMS 2G/Magmaris, porco); Seguchi M et al. EuroIntervention 2023;19:e167 (pré-clínico, mini-porcos) (https://doi.org/10.4244/EIJ-D-17-00708) |
 | Liga de Mg WE43 (bioabsorvível) | Tipo de expansão |  | balão |  | A verificar |  |
 | PLLA (bioabsorvível) | Módulo de Young | GPa | 2 a 4 | 3 | Verificado | Ang HY et al. J Thorac Dis 2017;9(Suppl 9):S923-S934 (doi:10.21037/jtd.2017.06.30, PMC5583085), Tabela 1 (PLLA; adaptada de Ang HY et al. Int J Cardiol 2017;228:931-939) (https://doi.org/10.21037/jtd.2017.06.30) |
-| PLLA (bioabsorvível) | Tensão de cedência | MPa | 50 a 70 | 60 | A verificar | Ensaios ABSORB / comunicação FDA 2017 (Absorb BVS) |
+| PLLA (bioabsorvível) | Tensão de cedência | MPa | 50 a 70 | 60 | A verificar | [fonte a indicar] (antes: ensaios ABSORB / comunicação FDA 2017) |
 | PLLA (bioabsorvível) | Resistência à tração | MPa | 60 a 70 | 65 | Verificado | Ang HY et al. J Thorac Dis 2017;9(Suppl 9):S923-S934 (doi:10.21037/jtd.2017.06.30, PMC5583085), Tabela 1 (PLLA; adaptada de Ang HY et al. Int J Cardiol 2017;228:931-939) (https://doi.org/10.21037/jtd.2017.06.30) |
 | PLLA (bioabsorvível) | Alongamento na rotura | % | 2 a 6 | 4 | Verificado | Ang HY et al. J Thorac Dis 2017;9(Suppl 9):S923-S934 (doi:10.21037/jtd.2017.06.30, PMC5583085), Tabela 1 (PLLA; adaptada de Ang HY et al. Int J Cardiol 2017;228:931-939) (https://doi.org/10.21037/jtd.2017.06.30) |
-| PLLA (bioabsorvível) | Densidade | g/cm³ | 1,25 a 1,29 | 1,27 | A verificar | Ensaios ABSORB / comunicação FDA 2017 (Absorb BVS) |
+| PLLA (bioabsorvível) | Densidade | g/cm³ | 1,25 a 1,29 | 1,27 | A verificar | [fonte a indicar] (antes: ensaios ABSORB / comunicação FDA 2017) |
 | PLLA (bioabsorvível) | Espessura típica de strut | µm | 150 a 157 | 153,5 | Verificado | FDA, painel consultivo de 15 mar 2016, apresentação 'FDA Review of P150023' (diapositivo 14: ~150 µm); Ang HY et al. J Thorac Dis 2017 (Tabelas 2 e 5: 157 µm) (https://www.fda.gov/media/96690/download) |
 | PLLA (bioabsorvível) | Tempo de reabsorção | meses | 36 a 48 | 42 | Verificado | FDA SSED PMA P150023 (Absorb GT1); Gogas BD et al. Int J Cardiovasc Imaging 2012 (https://www.accessdata.fda.gov/cdrh_docs/pdf15/P150023B.pdf) |
 | PLLA (bioabsorvível) | Tipo de expansão |  | balão |  | A verificar |  |
@@ -280,14 +280,14 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | PLGA 50:50 | Imprimibilidade 3D (ordinal 1-5) |  | 3 | 3 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Hidroxiapatite (HA) porosa | Resistência à compressão (scaffold) | MPa | 1,6 a 22,5 | 3,4 | Verificado | Liang H et al. Int J Bioprint 2022;8(1):502; Zhang P, Zhou Q, He R. Materials 2024;17:6092 (Tabela 1) (https://doi.org/10.18063/ijb.v8i1.502) |
 | Hidroxiapatite (HA) porosa | Módulo de compressão (scaffold) | MPa | 500 a 3000 | 1750 | A verificar | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
-| Hidroxiapatite (HA) porosa | Porosidade | % | 55 a 80 | 65 | Verificado (fornecedor) | FDA 510(k) K023998 (Tabela 1: Pro Osteon 200); Hoogendoorn HA et al. Clin Orthop Relat Res 1984;187:281-288 (https://www.accessdata.fda.gov/cdrh_docs/pdf2/K023998.pdf) |
-| Hidroxiapatite (HA) porosa | Tempo de degradação | meses | 42 a 60 | 60 | Verificado | Hoogendoorn HA et al. Clin Orthop Relat Res 1984;187:281-288; Oonishi H et al. J Biomed Mater Res 2000;51:37-46 (https://doi.org/10.1097/00003086-198407000-00043) |
+| Hidroxiapatite (HA) porosa | Porosidade | % | 55 a 80 | 65 | A verificar | FDA 510(k) K023998 (Tabela 1: Pro Osteon 200); Hoogendoorn HA et al. Clin Orthop Relat Res 1984;187:281-288 (https://www.accessdata.fda.gov/cdrh_docs/pdf2/K023998.pdf) |
+| Hidroxiapatite (HA) porosa | Tempo de degradação | meses | 42 a 60 | 60 | Valor de modelação | Hoogendoorn HA et al. Clin Orthop Relat Res 1984;187:281-288; Oonishi H et al. J Biomed Mater Res 2000;51:37-46 (https://doi.org/10.1097/00003086-198407000-00043) |
 | Hidroxiapatite (HA) porosa | Bioatividade (ordinal 1-5) |  | 4 | 4 | Verificado | Grandfield K et al. J R Soc Interface 2010;7:1497-1501; rubrica segundo a classificação de Hench (LEIA-ME) (https://doi.org/10.1098/rsif.2010.0213) |
 | Hidroxiapatite (HA) porosa | Imprimibilidade 3D (ordinal 1-5) |  | 2 | 2 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | β-TCP poroso | Resistência à compressão (scaffold) | MPa | 0,35 a 7,72 | 2 | Verificado | Montelongo SA et al. J Mater Sci Mater Med 2021;32:94; Xulin H et al. Int J Bioprint 2023;9(2):673; Hashimoto K, Oikawa H, Shibata H. Int J Mol Sci 2024;25:5363 (https://doi.org/10.1007/s10856-021-06569-9) |
-| β-TCP poroso | Módulo de compressão (scaffold) | MPa | 100 a 1000 | 550 | A verificar | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| β-TCP poroso | Módulo de compressão (scaffold) | MPa | 546 | 546 | Verificado | Montelongo SA et al. J Mater Sci Mater Med 2021;32:94 (Resultados, grupo da ponta de 200 µm) (https://doi.org/10.1007/s10856-021-06569-9) |
 | β-TCP poroso | Porosidade | % | 65 a 92 | 65 | Verificado (fornecedor) | FDA 510(k) K120152 (Cerasorb Plus); FDA 510(k) K032409 (Vitoss); Furusawa T et al. Int J Implant Dent 2016;2:4 (https://fda.innolitics.com/device/K120152) |
-| β-TCP poroso | Tempo de degradação | meses | 6 a 18 | 12 | A verificar | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| β-TCP poroso | Tempo de degradação | meses | 5 a 26 | 12,7 | Verificado | Hirata M et al. Int Orthop 2006;30:510-513 (Resultados) (https://doi.org/10.1007/s00264-006-0156-1) |
 | β-TCP poroso | Bioatividade (ordinal 1-5) |  | 4 | 4 | Verificado | Kotani S et al. J Biomed Mater Res 1991;25:1303-1315; rubrica segundo a classificação de Hench (LEIA-ME) (https://doi.org/10.1002/jbm.820251010) |
 | β-TCP poroso | Imprimibilidade 3D (ordinal 1-5) |  | 2 | 2 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Vidro bioativo 45S5 poroso | Resistência à compressão (scaffold) | MPa | 0,58 a 1,1 | 0,915 | Verificado | Baino F, Fiume E. Materials 2019;12:3244 (Tabela 1) (https://doi.org/10.3390/ma12193244) |
@@ -296,10 +296,10 @@ Contagem por estado: A verificar: 189; Verificado: 76; Verificado (fornecedor): 
 | Vidro bioativo 45S5 poroso | Tempo de degradação | meses | 6 a 24 | 16 | Verificado | Tadjoedin ES et al. Clin Oral Implants Res 2002;13:428-436; Tadjoedin ES et al. Clin Oral Implants Res 2000;11:334-344 (https://doi.org/10.1034/j.1600-0501.2002.130412.x) |
 | Vidro bioativo 45S5 poroso | Bioatividade (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Vidro bioativo 45S5 poroso | Imprimibilidade 3D (ordinal 1-5) |  | 2 | 2 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
-| Compósito PCL/β-TCP (impressão 3D) | Resistência à compressão (scaffold) | MPa | 2,2 a 6,38 | 4,3 | A verificar | Kawai T et al. J Orthop Res 2018;36:1002-1011; Wong WS et al. Cureus 2025;17:e86272 (https://doi.org/10.1002/jor.23673) |
+| Compósito PCL/β-TCP (impressão 3D) | Resistência à compressão (scaffold) | MPa | 2,2 | 2,2 | Verificado | Kawai T et al. J Orthop Res 2018;36:1002-1011 (secção 3.4 e Figura 2C) (https://doi.org/10.1002/jor.23673) |
 | Compósito PCL/β-TCP (impressão 3D) | Módulo de compressão (scaffold) | MPa | 22,2 a 51,5 | 23,1 | Verificado | Reichert JC et al. Int Orthop 2011;35:1229-1236; Kawai T et al. J Orthop Res 2018;36:1002-1011 (https://doi.org/10.1007/s00264-010-1146-x) |
 | Compósito PCL/β-TCP (impressão 3D) | Porosidade | % | 60 a 70 | 70 | Verificado | Sparks DS et al. Sci Adv 2023;9:eadd6071; Nam JH et al. J Periodontal Implant Sci 2023;53:218-232 (https://doi.org/10.1126/sciadv.add6071) |
-| Compósito PCL/β-TCP (impressão 3D) | Tempo de degradação | meses | 12 a 24 | 18 | A verificar | Rezwan K et al. Biomaterials 2006;27:3413-3431 (scaffolds ósseos) |
+| Compósito PCL/β-TCP (impressão 3D) | Tempo de degradação | meses | 26 | 26 | Verificado | Zhong M et al. Regen Biomater 2026;13:rbag176 (Discussão e Figura 7E-F) (https://doi.org/10.1093/rb/rbag176) |
 | Compósito PCL/β-TCP (impressão 3D) | Bioatividade (ordinal 1-5) |  | 3 | 3 | Verificado | Bruyas A et al. J Mater Res 2018;33:1948-1959; rubrica segundo a classificação de Hench (LEIA-ME) (https://doi.org/10.1557/jmr.2018.112) |
 | Compósito PCL/β-TCP (impressão 3D) | Imprimibilidade 3D (ordinal 1-5) |  | 5 | 5 | A verificar | Escala ordinal definida no trabalho (rubrica em LEIA-ME): justificar com literatura |
 | Quitosano/HA (liofilizado) | Resistência à compressão (scaffold) | MPa | 0,03 a 0,06 | 0,05 | Verificado | Gaihre B, Jayasuriya AC. Mater Sci Eng C 2018;91:330-339 (https://doi.org/10.1016/j.msec.2018.05.060) |

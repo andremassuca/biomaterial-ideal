@@ -23,3 +23,8 @@ def test_todos_os_delta_c_do_relatorio_batem_com_os_resultados():
     assert res, "não se encontrou nenhum ΔC nos rascunhos"
     falhas = [(o.ficheiro, o.linha, o.valor, d) for o, d, ok in res if not ok]
     assert not falhas, f"ΔC escritos à mão que não batem com results/pontuacoes.csv: {falhas}"
+
+
+def test_caso_da_primeira_celula_de_uma_tabela():
+    assert vd.caso_da_linha("conclusao_rascunho.md", "| Stent: Pt-Cr e L605 | ΔC = 0,022 (A) |") == "Stent"
+    assert vd.caso_da_linha("conclusao_rascunho.md", "| FEA: hastes | x |") is None

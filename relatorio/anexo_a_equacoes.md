@@ -1,7 +1,7 @@
 # Anexo A. Equações dos métodos
 
 As equações seguem Petković et al. 2025, com a numeração do artigo entre parênteses retos. São as que
-estão implementadas em src/biomat_mcdm/ e foram validadas contra os resultados publicados nos casos de
+estão implementadas em src/biomat_mcdm/ e foram verificadas contra os resultados publicados nos casos de
 estudo 1 e 2 do artigo (secção 3). Notação: $x_{ij}$ é o valor do material $i$ ($i = 1, \dots, m$) no
 critério $j$ ($j = 1, \dots, n$); $w_j$ é o peso do critério $j$, com $\sum_j w_j = 1$.
 
@@ -96,7 +96,7 @@ sobre o 2.º ($P_{(2)} - P_{(1)} \ge 1/(m-1)$) e seja também o melhor em $S$ ou
   independente em $[0{,}8; 1{,}2]$, e os pesos são renormalizados: $w'_j = w_j u_j / \sum_k w_k u_k$.
 - **P-foco:** os pesos dos critérios ligados ao problema crítico de cada dispositivo são multiplicados por
   2 e todos os pesos são renormalizados.
-- **Concordância entre métodos:** coeficiente de correlação de Spearman entre as ordenações.
+- **Concordância entre métodos:** coeficiente de correlação de Spearman entre as ordenações (valores na secção 9.3).
 
 ## A.7 Consenso de Borda
 

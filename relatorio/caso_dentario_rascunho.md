@@ -53,7 +53,7 @@ O implante é permanente e bioinerte no volume, com uma superfície tratada para
 
 ### 6. Riscos de corrosão, desgaste ou degradação
 
-- **Peri-implantite:** inflamação bacteriana dos tecidos à volta do implante, com perda de osso; é a principal causa de falha tardia.
+- **Peri-implantite:** inflamação bacteriana dos tecidos à volta do implante, com perda de osso; é uma das causas de falha tardia.
 - **Perda óssea marginal** à volta do colo do implante.
 - **Fratura do implante ou do parafuso do pilar** por fadiga.
 - **Corrosão e desgaste na ligação implante-pilar**, com libertação de partículas.
@@ -62,19 +62,19 @@ O implante é permanente e bioinerte no volume, com uma superfície tratada para
 
 ### 7. Resposta do organismo
 
-Depois da inserção forma-se um coágulo na interface, seguido de inflamação inicial e de formação de osso novo diretamente sobre a superfície do implante, sem tecido fibroso intermédio: é a osteointegração, descrita por Brånemark. A estabilidade primária (mecânica, no momento da cirurgia) é progressivamente substituída pela estabilidade secundária (biológica): em modelo animal, o osso em contacto com as espiras é reabsorvido e substituído por osso novo entre a 1.ª e a 2.ª semana, e a osteointegração prossegue ao longo das semanas seguintes (Berglundh et al. 2003). Os tecidos moles formam uma barreira à volta do colo do implante, essencial para evitar a infeção.
+Depois da inserção forma-se um coágulo na interface, seguido de inflamação inicial e de formação de osso novo diretamente sobre a superfície do implante, sem tecido fibroso intermédio: é a osteointegração, descrita pelo grupo de Brånemark (Adell et al. 1990). A estabilidade primária (mecânica, no momento da cirurgia) é progressivamente substituída pela estabilidade secundária (biológica): em modelo animal, o osso em contacto com as espiras é reabsorvido e substituído por osso novo entre a 1.ª e a 2.ª semana, e a osteointegração prossegue ao longo das semanas seguintes (Berglundh et al. 2003). Os tecidos moles formam uma barreira à volta do colo do implante, essencial para evitar a infeção.
 
 ### 8. Vantagem face aos materiais atuais
 
 O caso foi tratado de forma semiquantitativa, porque as escalas ordinais têm cerca de 70 % do peso; o ranking apresenta-se como indicação, não como resultado quantitativo.
 
-O **titânio comercialmente puro de grau 4** ficou em 1.º lugar com os três métodos em todas as versões da análise, incluindo com o peso da osteointegração e da corrosão duplicado. É a escolha de referência: tem a evidência clínica mais longa e mais sólida de osteointegração, com sobrevivência de cerca de 96 % aos 10 anos numa meta-análise (Howe et al. 2019) e séries de milhares de implantes acompanhados durante 15 anos (Adell et al. 1990).
+O **titânio comercialmente puro de grau 4** ficou em 1.º lugar com os três métodos em todas as versões da análise, incluindo com o peso da osteointegração e da corrosão duplicado. É a escolha de referência: tem a evidência clínica mais longa e mais sólida de osteointegração, com sobrevivência de cerca de 96 % aos 10 anos numa meta-análise (Howe et al. 2019) e séries de milhares de implantes acompanhados durante 15 anos (Adell et al. 1990; implantes de titânio comercialmente puro de superfície maquinada, anteriores às superfícies rugosas atuais).
 
 A liga **Ti-Zr** ficou em 2.º lugar. Num ensaio aleatorizado teve sobrevivência semelhante à do titânio de grau 4 aos 10 anos, mas com poucos doentes (Müller et al. 2024); é uma alternativa sobretudo em implantes de diâmetro reduzido, em que a maior resistência da liga é útil (Altuna et al. 2016); o ensaio de Müller et al. (2024) usou implantes de 3,3 mm de diâmetro.
 
 A **zircónia Y-TZP** é a alternativa quando a estética é prioritária, em gengiva fina ou na zona anterior, ou quando há suspeita de hipersensibilidade ao titânio. Não sofre corrosão eletroquímica, mas envelhece em meio húmido (Chevalier 2009) e a sua evidência clínica é mais curta (Pieralli et al. 2017) e varia muito entre sistemas (Herber et al. 2025; Steyer et al. 2021).
 
-O PEEK fica em 3.º lugar com o TOPSIS, pelo módulo próximo do osso e por não corroer, mas fica excluído na prática pela falta de evidência clínica de osteointegração (só existem estudos pré-clínicos). A liga Ti-6Al-4V, comum noutros implantes, não tem estudos clínicos dedicados no corpo do implante dentário.
+O PEEK fica em 3.º lugar com o TOPSIS, pelo módulo próximo do osso e por não corroer, mas fica excluído na prática pela falta de evidência clínica de osteointegração (só existem estudos pré-clínicos). A liga Ti-6Al-4V ELI, comum noutros implantes, também é usada no corpo do implante dentário, mas na literatura consultada neste trabalho tem menos evidência clínica de longo prazo nessa aplicação do que o titânio comercialmente puro de grau 4. Por isso manteve a nota 2 na evidência clínica de osteointegração (Anexo C), uma escolha conservadora; o uso comercial da liga no corpo do implante não está em causa.
 
 O resultado depende também do sistema concreto (desenho da rosca, tratamento da superfície, ligação ao pilar) e de fatores do doente (densidade óssea, higiene oral, tabagismo, historial periodontal); a matriz compara materiais, não sistemas comerciais.
 
@@ -88,9 +88,16 @@ O resultado depende também do sistema concreto (desenho da rosca, tratamento da
 - **Fadiga dinâmica do conjunto implante-pilar:** ISO 14801:2016.
 - **Biocompatibilidade:** série ISO 10993.
 - **Materiais:** ASTM F67-24 ou ISO 5832-2:2025 (titânio comercialmente puro) e ISO 13356:2015 (zircónia Y-TZP para implantes).
+- **Corrosão:** polarização em saliva artificial, incluindo saliva com fluoretos em meio ácido, por causa do limiar de cerca de 30 ppm de HF a partir do qual o filme passivo do titânio é destruído (Nakagawa et al. 1999); tribocorrosão da ligação implante-pilar.
+- **Envelhecimento da zircónia:** envelhecimento acelerado em autoclave e medição da fração de fase monoclínica antes e depois.
+- **Osteointegração pré-clínica:** modelo animal com histomorfometria (contacto osso-implante) e torque de remoção.
 - **Clínica:** ensaios clínicos com seguimento da sobrevivência do implante e da perda óssea marginal a 5-10 anos.
 
 ### 11. Propriedades que caracterizam cada material face à aplicação
+
+<!-- incluir: tabelas/dentario_propriedades.md -->
+
+As técnicas de caracterização, com o princípio de cada uma, estão na secção 2.11. Nos materiais propostos, as propriedades a medir são as seguintes.
 
 - **Rugosidade da superfície:** perfilometria ou interferometria (parâmetro Sa).
 - **Microscopia eletrónica (SEM)** e **XPS**, para a morfologia e a química da superfície.

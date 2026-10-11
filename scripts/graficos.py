@@ -94,20 +94,31 @@ def _titulo(fig, titulo, subtitulo, t):
 def fig_espectro(pt: pd.DataFrame, tema="clara"):
     t = eg.aplicar(tema)
     d = dados_espectro(pt)
-    fig, ax = plt.subplots(figsize=(8.0, 3.1))
+    fig, ax = plt.subplots(figsize=(8.0, 3.4))
     ordem = {"Haste": 2, "Stent": 1, "Scaffold": 0}
     xmax = max(0.12, d["delta_c"].max() * 1.15)
     ax.axvspan(0, LIMIAR_EMPATE, color=t["grelha"], lw=0, zorder=0)
     ax.text(LIMIAR_EMPATE / 2, 2.62, "empate\n(ΔC < 0,01)", ha="center", va="bottom", fontsize=8.5, color=t["texto2"])
+    cor = "#0072B2"  # uma só cor (R66): o cenário vê-se pela forma do ponto, A cheio e B vazio
+    fundo = t["fundo"] if tema == "escura" else "white"
     for _, r in d.iterrows():
         y = ordem[r["caso"]] + (0.14 if r["cenario"] == "A" else -0.14)
-        cor = COR_MATERIAL[r["caso"]][r["vencedor"]]
         ax.plot([0, r["delta_c"]], [y, y], color=cor, lw=1.2, alpha=0.5, solid_capstyle="round")
-        ax.scatter([r["delta_c"]], [y], s=46, color=cor, zorder=3, edgecolor=t["fundo"] if tema == "escura" else "white",
-                   linewidth=1.2)
-        ax.annotate(f"{r['cenario']}: {curto(r['vencedor'])}  ΔC = {eg.numero(r['delta_c'], 3)}",
+        if r["cenario"] == "A":
+            ax.scatter([r["delta_c"]], [y], s=30, color=cor, zorder=3)
+        else:
+            ax.scatter([r["delta_c"]], [y], s=46, facecolor=fundo, edgecolor=cor, linewidth=1.8, zorder=3)
+        extra = f" (empate com {curto(r['segundo'])})" if r["delta_c"] < LIMIAR_EMPATE else ""
+        ax.annotate(f"{r['cenario']}: {curto(r['vencedor'])}  ΔC = {eg.numero(r['delta_c'], 3)}{extra}",
                     xy=(r["delta_c"], y), xytext=(8, 0), textcoords="offset points", va="center", fontsize=9,
                     color=t["texto"])
+    from matplotlib.lines import Line2D
+    ax.legend(handles=[Line2D([], [], marker="o", ls="", color=cor, markersize=6, label="A: base"),
+                       Line2D([], [], marker="o", ls="", markerfacecolor=fundo, markeredgecolor=cor, markeredgewidth=1.8,
+                              markersize=7, label="B: com materiais em investigação")],
+              loc="lower right", bbox_to_anchor=(1.0, 1.0), ncol=2, frameon=False, fontsize=8.5)
+    fig.text(0.0, -0.09, "Par articular e implante dentário: semiquantitativos (notas de 1 a 5), sem ΔC.",
+             ha="left", va="top", fontsize=8, color=t["texto2"], transform=fig.transFigure)
     ax.set_yticks([2, 1, 0], ["Haste femoral", "Stent", "Scaffold ósseo"])
     ax.set_xlim(0, xmax)
     ax.set_ylim(-0.6, 2.9)

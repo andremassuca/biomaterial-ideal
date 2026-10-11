@@ -1,7 +1,7 @@
 """Monta relatorio/RELATORIO.md a partir dos rascunhos, das tabelas geradas e das figuras.
 
 Ordem: primeira página (logótipos, unidade curricular, título, autor, resumo estruturado e palavras-chave),
-abstract (página 2), índice, 1 Introdução (com a Tabela 1, resumo dos casos), 2 Métodos, 3 Validação,
+abstract (página 2), índice, 1 Introdução (com a Tabela 1, resumo dos casos), 2 Métodos, 3 Verificação da implementação,
 4-7 Casos (anca, stent, scaffold, implante dentário), 8 Extensões exploratórias, 9 Discussão, 10 Conclusões,
 Referências, Normas e
 legislação citadas, Anexos A, B (só a contagem por estado) e C (rubricas das escalas ordinais) e Glossário.
@@ -49,14 +49,17 @@ LEGENDAS = {
     "fig_e_resumo": "Resumo dos três casos quantitativos: vencedor por método, robustez no Monte Carlo das "
                     "propriedades e cenários em que o vencedor muda.",
     "fig_f_semiquantitativos": "Valores por critério nos casos semiquantitativos (par articular e implante "
-                               "dentário), cenário A; cor do pior (claro) ao melhor (escuro) em cada critério.",
+                               "dentário), cenário A; cor do pior (claro) ao melhor (escuro) em cada critério. O "
+                               "desgaste do ZTA/HXLPE vem de um estudo em doentes com menos de 30 anos (pior caso) e "
+                               "não é diretamente comparável com o do CoCrMo/HXLPE.",
     "funil": "Funil da triagem: dos compostos do Materials Project aos materiais da base verificada e à "
-             "recomendação por dispositivo (números de results/funil.md).",
+             "recomendação por dispositivo (números no anexo digital).",
     "fea/sed_corte_coronal": "Energia de deformação no osso num corte coronal do fémur, no pico da marcha: fémur "
                              "intacto e com as hastes de aço 316L, Co-Cr-Mo, Ti-6Al-4V ELI e Ti-6Al-4V poroso "
                              "(17 GPa) (simulação exploratória, secção 8.3).",
     "cfd/tawss_mapas": "Tensão de corte na parede média no ciclo (TAWSS) na parede da artéria aberta como uma "
-                       "folha, com os struts finos (Pt-Cr, 79 µm) e grossos (316L, 135 µm); o sangue corre da "
+                       "folha, com struts de 79 µm (DES atual, espessura típica do Pt-Cr) e de 135 µm (1.ª geração, "
+                       "espessura típica do 316L): efeito da espessura do strut, não da liga; o sangue corre da "
                        "esquerda para a direita (simulação exploratória, secção 8.4).",
 }
 # Figuras fora de results/figures (caminho relativo a relatorio/); as outras são results/figures/<nome>.png.
@@ -113,8 +116,22 @@ def tabela_gerada(nome: str, num: Numerador) -> str:
     """Conteúdo de relatorio/tabelas/<nome>.md, com legenda e frase de chamada quando é tabela."""
     corpo = "\n".join(l for l in ler(f"tabelas/{nome}.md").splitlines() if not l.startswith("<!--")).strip()
     chave, tipo = nome.rsplit("_", 1)
-    if tipo == "robustez":
+    # robustez e análises complementares (retirar, dimensões, ajuste mínimo): tabelas com notas, sem numeração
+    if tipo in ("robustez", "retirar", "dimensoes", "minimo"):
         return corpo
+    if tipo == "spearman":
+        n = num.nova_tabela()
+        return (f"A Tabela {n} mostra o coeficiente de Spearman entre os três métodos.\n\n"
+                + com_legenda(corpo, "Coeficiente de correlação de Spearman (ρ) entre as ordenações dos três métodos, "
+                                     "nos cenários A, B e sem critérios ordinais (Q)."))
+    if tipo == "propriedades":
+        n = num.nova_tabela()
+        # muitas colunas de materiais: letra mais pequena no PDF, como na tabela de comparação de estudos
+        return ("\\begingroup\\renewcommand{\\small}{\\footnotesize}\n\n"
+                + f"A Tabela {n} mostra os valores de cada propriedade usada na comparação, por candidato.\n\n"
+                + com_legenda(corpo, f"Propriedades que caracterizam os candidatos (valor típico usado nos métodos): "
+                                     f"{NOMES_TABELA[chave]}.")
+                + "\n\n\\endgroup")
     if nome == "comparacao_estudos":
         num.nova_tabela()
         # oito colunas de texto: letra mais pequena no PDF (o preâmbulo põe as tabelas longas em \small; aqui o
@@ -153,6 +170,19 @@ def lista_pt(nums: list[int]) -> str:
     return "Figuras " + ", ".join(map(str, nums[:-1])) + f" e {nums[-1]}"
 
 
+# Figuras mais estreitas do que a página: as Figuras 3 e 4 cabem assim na mesma página (sem meia página em branco).
+LARGURAS = {"fig_c_monte_carlo": "70%", "fig_d_vencedor_eta": "75%"}
+
+
+def largura_figura(nome: str) -> str:
+    """Largura de uma figura no relatório: 100 % por omissão, ou a de LARGURAS.
+
+    Em linguagem simples: duas figuras altas seguidas ficavam cada uma sozinha numa página; mais estreitas, cabem
+    as duas na mesma página.
+    """
+    return LARGURAS.get(nome, "100%")
+
+
 def bloco_figuras(nomes: list[str], num: Numerador) -> str:
     """Um bloco de marcadores de figura seguidos: uma frase de chamada e as figuras novas, com legenda."""
     novas, vistas = [], []
@@ -168,17 +198,23 @@ def bloco_figuras(nomes: list[str], num: Numerador) -> str:
     out = [" ".join(frases)]
     for n, nome in novas:
         caminho = CAMINHOS.get(nome, f"{FIGURAS}/{nome}.png")
-        out.append(f"![{LEGENDAS[nome]}]({caminho}){{width=100%}}")
+        out.append(f"![{LEGENDAS[nome]}]({caminho}){{width={largura_figura(nome)}}}")
     return "\n\n".join(out)
 
 
 def substituir_marcadores(texto: str, num: Numerador) -> str:
-    # "Tabela [n]" no texto refere-se à primeira tabela incluída a seguir no mesmo bloco.
-    if "Tabela [n]" in texto:
-        texto = texto.replace("Tabela [n]", f"Tabela {num.tabela + 1}")
-    # "Tabela [n+1]": a segunda tabela do mesmo bloco (no capítulo 8, a da massa vem depois da da CFD)
-    texto = texto.replace("Tabela [n+1]", f"Tabela {num.tabela + 2}")
-    texto = INCLUIR.sub(lambda m: tabela_gerada(m["nome"], num), texto)
+    # "Tabela [n]" no texto refere-se à primeira tabela que vem a seguir; "Tabela [n+1]" à segunda (no capítulo 8,
+    # a da massa vem depois da da CFD). O texto é lido por partes, entre tabelas incluídas, para que um "[n]" depois
+    # de uma tabela incluída já conte com ela.
+    out = []
+    for parte in re.split(r"(<!-- incluir: tabelas/[\w]+\.md -->)", texto):
+        m = INCLUIR.fullmatch(parte)
+        if m:
+            out.append(tabela_gerada(m["nome"], num))
+        else:
+            out.append(parte.replace("Tabela [n+1]", f"Tabela {num.tabela + 2}")
+                       .replace("Tabela [n]", f"Tabela {num.tabela + 1}"))
+    texto = "".join(out)
     # Figuras seguidas no mesmo bloco: uma só frase de chamada no início.
     return BLOCO_FIGURAS.sub(lambda m: bloco_figuras(FIGURA.findall(m.group(0)), num) + "\n\n", texto)
 
@@ -192,6 +228,28 @@ def ordem_dos_capitulos(linhas: list[str]) -> list[str]:
         caso = l.split("|")[1].lower()
         return next((i for i, c in enumerate(ORDEM_CAPITULOS) if c in caso), len(ORDEM_CAPITULOS))
     return sorted(linhas, key=chave)
+
+
+ITEM_LISTA = re.compile(r"^\s*(?:[-*+]|\d+\.)\s")
+
+
+def linha_em_branco_antes_das_listas(texto: str) -> str:
+    """Põe uma linha em branco antes de cada lista que venha logo a seguir a um parágrafo.
+
+    Em linguagem simples: o pandoc só reconhece uma lista se houver uma linha em branco antes dela; sem isso,
+    os itens saem no PDF e no Word como texto corrido com " - " a meio da frase. Não mexe em blocos de código
+    (```), em tabelas nem em itens seguidos da mesma lista.
+    """
+    out: list[str] = []
+    em_codigo = False
+    for linha in texto.split("\n"):
+        if linha.lstrip().startswith("```"):
+            em_codigo = not em_codigo
+        elif (not em_codigo and ITEM_LISTA.match(linha) and out and out[-1].strip()
+              and not ITEM_LISTA.match(out[-1]) and not out[-1].startswith((" ", "\t", "|"))):
+            out.append("")
+        out.append(linha)
+    return "\n".join(out)
 
 
 def percentagem_inquebravel(texto: str) -> str:
@@ -408,8 +466,10 @@ def montar(word: bool = False) -> str:
     partes_corpo = []
     for c in corpo:
         partes_corpo.append(substituir_marcadores(c, num))
-        if c.startswith("# 8. Extensões"):
-            # tabelas escritas à mão no rascunho (legenda "Table: ..."): contam para a numeração das seguintes
+        # tabelas escritas à mão no rascunho (legenda "Table: ...", por exemplo nos capítulos 2 e 8): contam para a
+        # numeração das seguintes (cada capítulo com tabelas à mão não tem tabelas geradas depois delas). A Tabela 1,
+        # na introdução, já foi contada por tabela_resumo.
+        if not c.startswith("# 1."):
             num.tabela += sum(1 for l in c.splitlines() if l.startswith("Table: "))
     texto = "\n\n".join(partes_corpo)
     anexo_a = ler("anexo_a_equacoes.md")
@@ -431,7 +491,9 @@ def montar(word: bool = False) -> str:
               titulos_com_ponto(texto), "# Referências\n\n" + lista_referencias(refs, citadas, word),
               "# Normas e legislação citadas\n\n" + lista_normas, titulos_com_ponto(anexo_a), anexo_b, anexo_c,
               "# Glossário" + resto]
-    final = substituir_passo_cfd(substituir_numeros_da_base("\n\n".join(partes) + "\n"))
+    # o cabeçalho YAML fica como está; no resto, cada lista leva uma linha em branco antes (senão sai como texto corrido)
+    final = substituir_passo_cfd(substituir_numeros_da_base(
+        partes[0] + "\n\n" + linha_em_branco_antes_das_listas("\n\n".join(partes[1:])) + "\n"))
     return para_word(final) if word else percentagem_inquebravel(final)
 
 

@@ -44,7 +44,7 @@ Saem os materiais incompatíveis com o método; "com restrições" e "A verifica
 | Caso | Cenário | Método | Saem | Vencedor antes (T/W/V) | Vencedor depois (T/W/V) |
 |---|---|---|---|---|---|
 | Stent | B | vapor | Liga de Mg WE43 (bioabsorvível); PLLA (bioabsorvível) | Co-Cr L605 / Co-Cr L605 / Co-Cr L605 | Pt-Cr / Co-Cr L605 / Pt-Cr |
-| Scaffold | A | vapor | PCL; Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) / Compósito PCL/β-TCP (impressão 3D) / Compósito PCL/β-TCP (impressão 3D) | Vidro bioativo 45S5 poroso / β-TCP poroso / β-TCP poroso |
+| Scaffold | A | vapor | PCL; Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso / Compósito PCL/β-TCP (impressão 3D) / Compósito PCL/β-TCP (impressão 3D) | Vidro bioativo 45S5 poroso / β-TCP poroso / β-TCP poroso |
 | Scaffold | B | vapor | PCL; PLLA; PLGA 50:50; Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) / Compósito PCL/β-TCP (impressão 3D) / Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso / β-TCP poroso / β-TCP poroso |
 
 Combinações sem linha: nenhum material incompatível (o ranking não muda).

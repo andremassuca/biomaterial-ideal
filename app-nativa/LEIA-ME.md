@@ -27,7 +27,7 @@ Ferramenta educativa de exploração de critérios. Não é um dispositivo médi
     para o exemplo passo a passo (`topsis.ts`), definições, cores (Okabe e Ito) e formatação em português.
   - `componentes/`: ranking animado, espectro de confiança, gráfico do Monte Carlo, visualizador 3D, leitor de
     markdown simples e controlos (`ui/`).
-  - `ecras/`: Início, Caso (haste, stent, scaffold), Gibson e Ashby, Fichas, Base de triagem, Doente, Filtros, Porquê,
+  - `ecras/`: Início, Como funciona (explicação para quem chega pelo QR do poster), Caso (haste, stent, scaffold), Gibson e Ashby, Fichas, Base de triagem, Doente, Filtros, Porquê,
     Definições e Sobre.
   - `estilos/tema.css`: variáveis do tema claro e escuro (só variáveis CSS) e a letra Inter.
 - Letra Inter: lida de `design/fontes/` pelo `tema.css` (o Vite junta-a ao build, com caminhos relativos).

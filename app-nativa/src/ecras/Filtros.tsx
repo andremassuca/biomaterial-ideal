@@ -8,6 +8,7 @@ import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/u
 import { Interruptor, Opcoes } from "@/componentes/ui/controlos";
 import { APP, CASOS, TITULO_CASO, cenarios, descricaoCenario, nomeSimples, type IdCaso } from "@/lib/dados";
 import { avaliarCaso, mensagemErro } from "@/lib/nucleo";
+import { textoPublico } from "@/lib/publico";
 import type { FiltroMaterial, RespostaCaso } from "@/lib/tipos";
 import { cn } from "@/lib/utils";
 
@@ -89,7 +90,7 @@ export function Filtros() {
         titulo="Filtros de requisito"
         subtitulo="Requisitos que um material tem de cumprir antes de entrar na comparação. Nos rankings do relatório não entram como critérios com peso; aqui pode ver o efeito de cada um."
       />
-      <div className="grid gap-6 xl:grid-cols-[360px_1fr]">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[360px_1fr]">
         <div className="space-y-4">
           <Cartao>
             <TituloCartao>Caso</TituloCartao>
@@ -254,7 +255,7 @@ function LinhaMaterial({ material, motivos }: { material: string; motivos?: stri
         <div className="mt-2 space-y-2 rounded-md bg-superficie2 p-3">
           <Fonte referencia={`RM: ${f.fonte_rm || "sem fonte"}`} className="flex" />
           <Fonte referencia={`Esterilização: ${f.fonte_esterilizacao || "sem fonte"}`} className="flex" />
-          {f.notas && <p className="text-xs leading-relaxed text-texto2">{f.notas}</p>}
+          {f.notas && <p className="text-xs leading-relaxed text-texto2">{textoPublico(f.notas)}</p>}
           <p className="text-xs text-texto2">Estado: {f.estado}</p>
         </div>
       )}

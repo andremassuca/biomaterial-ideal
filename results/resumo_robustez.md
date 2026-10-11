@@ -158,39 +158,39 @@ Vencedor no cenário A: TOPSIS Pt-Cr; WASPAS Co-Cr L605; VIKOR Pt-Cr
 
 ## Scaffold
 
-Vencedor no cenário A: TOPSIS Compósito PCL/β-TCP (impressão 3D); WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR Compósito PCL/β-TCP (impressão 3D)
+Vencedor no cenário A: TOPSIS β-TCP poroso; WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR Compósito PCL/β-TCP (impressão 3D)
 
 ### Vencedor por cenário e método
 
 | Cenário | Variante | TOPSIS | WASPAS | VIKOR | ρ mín. entre métodos |
 |---|---|---|---|---|---|
-| A | A | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
+| A | A | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
 | B | B | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,81 |
-| Q | sem ordinais | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 1,00 |
-| η | η = 0,0 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| η | η = 0,1 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 1,00 |
-| η | η = 0,2 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 1,00 |
-| η | η = 0,3 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 1,00 |
-| η | η = 0,4 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
+| Q | sem ordinais | PCL | Compósito PCL/β-TCP (impressão 3D) | PCL | 0,70 |
+| η | η = 0,0 | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
+| η | η = 0,1 | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
+| η | η = 0,2 | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
+| η | η = 0,3 | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
+| η | η = 0,4 | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
 | η | η = 0,5 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
 | η | η = 0,6 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
 | η | η = 0,7 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| η | η = 0,8 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
-| η | η = 0,9 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
-| η | η = 1,0 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| T-scaffold | Resistência à compressão: 2 | β-TCP poroso | β-TCP poroso | β-TCP poroso | 0,80 |
-| T-scaffold | Resistência à compressão: 12 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| T-scaffold | Módulo de compressão: 50 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
-| T-scaffold | Módulo de compressão: 500 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| T-scaffold | Porosidade: 50 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| T-scaffold | Porosidade: 90 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,60 |
-| T-scaffold | Tempo de degradação: x0,5 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
+| η | η = 0,8 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,50 |
+| η | η = 0,9 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,50 |
+| η | η = 1,0 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
+| T-scaffold | Resistência à compressão: 2 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso | 0,80 |
+| T-scaffold | Resistência à compressão: 12 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
+| T-scaffold | Módulo de compressão: 50 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,50 |
+| T-scaffold | Módulo de compressão: 500 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso | 0,80 |
+| T-scaffold | Porosidade: 50 | β-TCP poroso | PCL | β-TCP poroso | 0,70 |
+| T-scaffold | Porosidade: 90 | Vidro bioativo 45S5 poroso | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,00 |
+| T-scaffold | Tempo de degradação: x0,5 | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
 | T-scaffold | Tempo de degradação: x2,0 | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
-| C-custo | custo baixo (0,01) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 1,00 |
-| C-custo | custo elevado (0,25) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| P-foco | direta | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso | 0,80 |
+| C-custo | custo baixo (0,01) | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,70 |
+| C-custo | custo elevado (0,25) | PCL | PCL | PCL | 0,90 |
+| P-foco | direta | β-TCP poroso | Compósito PCL/β-TCP (impressão 3D) | β-TCP poroso | 0,60 |
 | P-foco | direta + indireta | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,90 |
-| O-orçamento | custo ≤ 3 (sai: Vidro bioativo 45S5 poroso) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | Compósito PCL/β-TCP (impressão 3D) | 0,80 |
+| O-orçamento | custo ≤ 3 (sai: Vidro bioativo 45S5 poroso) | Compósito PCL/β-TCP (impressão 3D) | PCL | Compósito PCL/β-TCP (impressão 3D) | 0,40 |
 
 ### Monte Carlo: % de 1.º lugar
 
@@ -198,29 +198,54 @@ Vencedor no cenário A: TOPSIS Compósito PCL/β-TCP (impressão 3D); WASPAS Com
 
 | Material | TOPSIS | WASPAS | VIKOR |
 |---|---|---|---|
-| β-TCP poroso | 52,2 % | 24,8 % | 38,6 % |
-| Compósito PCL/β-TCP (impressão 3D) | 39,0 % | 68,3 % | 46,3 % |
-| Vidro bioativo 45S5 poroso | 8,8 % | 5,6 % | 15,1 % |
-| PCL | 0,0 % | 1,3 % | 0,0 % |
-| Hidroxiapatite (HA) porosa | 0,0 % | 0,0 % | 0,0 % |
+| β-TCP poroso | 66,9 % | 46,1 % | 54,0 % |
+| Vidro bioativo 45S5 poroso | 25,2 % | 18,4 % | 29,3 % |
+| Compósito PCL/β-TCP (impressão 3D) | 7,2 % | 27,5 % | 16,7 % |
+| PCL | 0,4 % | 8,0 % | 0,0 % |
+| Hidroxiapatite (HA) porosa | 0,2 % | 0,0 % | 0,0 % |
 
 **W pesos ±20 %**
 
 | Material | TOPSIS | WASPAS | VIKOR |
 |---|---|---|---|
-| Compósito PCL/β-TCP (impressão 3D) | 95,7 % | 100,0 % | 99,6 % |
-| β-TCP poroso | 4,3 % | 0,0 % | 0,4 % |
+| β-TCP poroso | 74,5 % | 0,1 % | 16,5 % |
+| Compósito PCL/β-TCP (impressão 3D) | 23,9 % | 98,7 % | 68,0 % |
+| PCL | 1,6 % | 1,2 % | 15,6 % |
 | Hidroxiapatite (HA) porosa | 0,0 % | 0,0 % | 0,0 % |
-| PCL | 0,0 % | 0,0 % | 0,0 % |
 | Vidro bioativo 45S5 poroso | 0,0 % | 0,0 % | 0,0 % |
 
 ### Onde o vencedor muda (face ao cenário A)
 
-- T-scaffold, Resistência à compressão: 2, TOPSIS: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
-- T-scaffold, Resistência à compressão: 2, WASPAS: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
+- B, B, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- Q, sem ordinais, TOPSIS: β-TCP poroso → PCL
+- Q, sem ordinais, VIKOR: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,0, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,0, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,1, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,1, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,2, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,2, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,3, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,3, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,4, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,4, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- η, η = 0,5, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,6, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- η, η = 0,7, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
 - T-scaffold, Resistência à compressão: 2, VIKOR: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
-- P-foco, direta, TOPSIS: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
+- T-scaffold, Módulo de compressão: 500, VIKOR: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
+- T-scaffold, Porosidade: 50, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- T-scaffold, Porosidade: 50, VIKOR: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
+- T-scaffold, Porosidade: 90, TOPSIS: β-TCP poroso → Vidro bioativo 45S5 poroso
+- T-scaffold, Porosidade: 90, WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- T-scaffold, Tempo de degradação: x2,0, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- C-custo, custo elevado (0,25), TOPSIS: β-TCP poroso → PCL
+- C-custo, custo elevado (0,25), WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
+- C-custo, custo elevado (0,25), VIKOR: Compósito PCL/β-TCP (impressão 3D) → PCL
 - P-foco, direta, VIKOR: Compósito PCL/β-TCP (impressão 3D) → β-TCP poroso
+- P-foco, direta + indireta, TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- O-orçamento, custo ≤ 3 (sai: Vidro bioativo 45S5 poroso), TOPSIS: β-TCP poroso → Compósito PCL/β-TCP (impressão 3D)
+- O-orçamento, custo ≤ 3 (sai: Vidro bioativo 45S5 poroso), WASPAS: Compósito PCL/β-TCP (impressão 3D) → PCL
 
 ## Par articular (SEMIQUANTITATIVO: ordinais > 50 % do peso; só indicação)
 

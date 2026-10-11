@@ -8,7 +8,7 @@ import pytest
 from biomat_mcdm.io import build_problem, load_parametros
 from biomat_mcdm import perfis as pf
 
-FADIGA = "Limite de fadiga (10^7 ciclos)"
+FADIGA = "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)"
 
 
 def test_ler_regras_tem_as_44_regras_e_colunas():

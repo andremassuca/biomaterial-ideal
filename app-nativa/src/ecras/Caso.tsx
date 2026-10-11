@@ -7,7 +7,7 @@ import { RankingAnimado } from "@/componentes/RankingAnimado";
 import { Botao } from "@/componentes/ui/botao";
 import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/ui/cartao";
 import { Cursor, Dica, Opcoes, Progresso } from "@/componentes/ui/controlos";
-import { APP, CASOS, TITULO_CASO, cenarios, descricaoCenario, type IdCaso } from "@/lib/dados";
+import { APP, CASOS, RECOMENDACAO, TITULO_CASO, cenarios, descricaoCenario, type IdCaso } from "@/lib/dados";
 import { num, pct, valor } from "@/lib/formato";
 import { avaliarCaso, mensagemErro, modoNucleo, monteCarlo, pararMonteCarlo } from "@/lib/nucleo";
 import type { Problema, RespostaCaso, ResumoMonteCarlo } from "@/lib/tipos";
@@ -78,6 +78,12 @@ export function Caso({ id }: { id: IdCaso }) {
         }
       />
       <p className="-mt-4 text-xs text-texto2">{descricaoCenario(cenario)}</p>
+      {RECOMENDACAO[id] && (
+        <p className="rounded-lg border border-linha bg-superficie px-4 py-3 text-sm" data-recomendacao>
+          <strong>Recomendação: </strong>
+          {RECOMENDACAO[id]}
+        </p>
+      )}
 
       {modoNucleo() === "topsis" && (
         <Informacao>
@@ -86,7 +92,7 @@ export function Caso({ id }: { id: IdCaso }) {
         </Informacao>
       )}
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_380px]">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1fr_380px]">
         <div className="space-y-6">
           <Cartao>
             <TituloCartao>Ranking</TituloCartao>

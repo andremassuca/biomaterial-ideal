@@ -44,7 +44,8 @@ def test_incompativeis_e_metodo_desconhecido(tabela):
 def test_cenario_esterilizacao_scaffold_a_vapor():
     r = fl.cenario_esterilizacao("Scaffold", "vapor", "A")
     assert "Compósito PCL/β-TCP (impressão 3D)" in r["saem"]
-    assert r["antes"]["TOPSIS"] == "Compósito PCL/β-TCP (impressão 3D)"
+    # bloco 2 (11 out): no cenário A o TOPSIS já dá o β-TCP antes do filtro; o WASPAS dá o compósito
+    assert r["antes"]["TOPSIS"] == "β-TCP poroso" and r["antes"]["WASPAS"] == "Compósito PCL/β-TCP (impressão 3D)"
     assert r["depois"]["WASPAS"] == "β-TCP poroso"
 
 

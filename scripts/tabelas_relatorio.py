@@ -4,6 +4,11 @@ Para cada caso (haste, par articular, stent, scaffold, implante dentário):
   relatorio/tabelas/<chave>_criterios.md    critério, tipo, alvo, peso e justificação (criterios.csv)
   relatorio/tabelas/<chave>_resultados.md   pontuação e posição nos três métodos, cenários A e B, com o ΔC
   relatorio/tabelas/<chave>_robustez.md     Monte Carlo, η e P-foco em frases curtas geradas dos resultados
+Só para os casos quantitativos (haste, stent, scaffold; cenário A), de results/robustez_extra_*.csv
+(correr antes scripts/robustez_extra.py):
+  relatorio/tabelas/<chave>_retirar.md        retirar uma alternativa de cada vez (reversão de ranking)
+  relatorio/tabelas/<chave>_dimensoes.md      dupla contagem: pesos redistribuídos dentro de cada dimensão
+  relatorio/tabelas/<chave>_ajuste_minimo.md  pesos e valores mais sensíveis (menor ajuste que troca o 1.º)
 Os casos quantitativos leem results/pontuacoes.csv, results/monte_carlo.csv e results/rankings_cenarios.csv
 (correr antes scripts/run_all.py); os semiquantitativos calculam as pontuações com as mesmas funções e
 leem results/semiquantitativos.csv.
@@ -12,14 +17,18 @@ Uso: python scripts/tabelas_relatorio.py
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
 import pandas as pd
 
-from biomat_mcdm.io import DATA, build_problem
+from biomat_mcdm.io import DATA, build_problem, load_data
 from biomat_mcdm.pipeline import METODOS, consenso_borda, fmt_pt, rank_all_methods
 
 RAIZ = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ / "scripts"))
+import robustez_extra as rx  # noqa: E402
+
 RESULTS = RAIZ / "results"
 DESTINO = RAIZ / "relatorio" / "tabelas"
 LIMIAR_EMPATE = 0.01  # ΔC (TOPSIS) abaixo do qual dois materiais contam como empatados
@@ -169,25 +178,63 @@ def gama_eta(eta: pd.DataFrame, vencedor_base: str) -> str:
     return ", ".join(f"η = {fmt_pt(v, 1)}" for v in vals)
 
 
+def linha_monte_carlo(mc: pd.DataFrame, rotulo: str) -> str:
+    """Frase com a % (ou o número) de iterações em 1.º lugar de cada material, para uma análise de Monte Carlo.
+
+    Em linguagem simples: `mc` são as linhas de results/monte_carlo.csv de um caso e de uma análise (propriedades
+    ou pesos); quando o vencedor fica em 1.º quase sempre, diz-se "9 999 das 10 000" em vez de "99,99 %".
+    """
+    piv = mc.pivot(index="material", columns="metodo", values="pct_primeiro")[METODOS]
+    piv = piv[piv.max(axis=1) >= 1].sort_values("TOPSIS", ascending=False)
+    n_iter = int(mc["n_iter"].iloc[0])
+    n = contagem(100, n_iter)
+    if piv.iloc[0].min() >= 99.9:
+        a, row = piv.index[0], piv.iloc[0]
+        return (f"- {rotulo} ({n} iterações, cenário A), repetições em 1.º lugar (TOPSIS / WASPAS / VIKOR): "
+                f"{a} {' / '.join(contagem(v, n_iter) for v in row)} das {n}.")
+    return (f"- {rotulo} ({n} iterações, cenário A), % de 1.º lugar (TOPSIS / WASPAS / VIKOR): "
+            + "; ".join(f"{a} {' / '.join(pct(v) for v in row)}" for a, row in piv.iterrows()) + ".")
+
+
+NOMES_CENARIOS = {"Q": "Sem critérios ordinais (Q)", "T-haste": "Valores-alvo (T)", "T-scaffold": "Valores-alvo (T)",
+                  "R-sentinela": "Tempo de reabsorção dos permanentes (R-sentinela, cenário B)"}
+
+
+def linhas_cenarios(rk: pd.DataFrame) -> list[str]:
+    """Frases com o vencedor por método nos cenários Q, T e R-sentinela de um caso (de rankings_cenarios.csv).
+
+    Em linguagem simples: quando todas as variantes de um cenário dão os mesmos vencedores, fica uma só frase
+    com as variantes entre parênteses; senão, uma frase por variante.
+    """
+    L = []
+    for cen in NOMES_CENARIOS:
+        g = rk[rk["cenario"] == cen]
+        if g.empty:
+            continue
+        variantes = list(dict.fromkeys(g["variante"]))
+        venc = {v: tuple(vencedor(g[(g["variante"] == v) & (g["metodo"] == m)]) for m in METODOS) for v in variantes}
+        nome = NOMES_CENARIOS[cen]
+        # variantes com os mesmos vencedores ficam juntas na mesma frase (pela ordem em que aparecem)
+        grupos: dict[tuple, list[str]] = {}
+        for v in variantes:
+            grupos.setdefault(venc[v], []).append(v)
+        for w, vs in grupos.items():
+            cab = nome if cen == "Q" else f"{nome}, {'; '.join(vs)}"
+            L.append(f"- {cab}: " + "; ".join(f"{m} {x}" for m, x in zip(METODOS, w)) + ".")
+    return L
+
+
 def robustez_linhas(chave: str, results: Path = RESULTS) -> list[str]:
     """Frases curtas, geradas dos resultados, para a secção "Robustez" de cada caso."""
     caso, rotulo, quant = CASOS[chave]
     L = []
     if quant:
         mc = pd.read_csv(results / "monte_carlo.csv")
-        mc = mc[(mc["caso"] == rotulo) & (mc["analise"] == "MC propriedades")]
-        piv = mc.pivot(index="material", columns="metodo", values="pct_primeiro")[METODOS]
-        piv = piv[piv.max(axis=1) >= 1].sort_values("TOPSIS", ascending=False)
-        n_iter = int(mc["n_iter"].iloc[0])
-        n = contagem(100, n_iter)
-        if piv.iloc[0].min() >= 99.9:
-            # vencedor quase sempre em 1.º: número de repetições em vez de percentagem
-            a, row = piv.index[0], piv.iloc[0]
-            L.append(f"- Monte Carlo das propriedades ({n} iterações, cenário A), repetições em 1.º lugar (TOPSIS / "
-                     f"WASPAS / VIKOR): {a} {' / '.join(contagem(v, n_iter) for v in row)} das {n}.")
-        else:
-            L.append(f"- Monte Carlo das propriedades ({n} iterações, cenário A), % de 1.º lugar (TOPSIS / WASPAS / "
-                     "VIKOR): " + "; ".join(f"{a} {' / '.join(pct(v) for v in row)}" for a, row in piv.iterrows()) + ".")
+        mc = mc[mc["caso"] == rotulo]
+        L.append(linha_monte_carlo(mc[mc["analise"] == "MC propriedades"], "Monte Carlo das propriedades"))
+        pesos = mc[mc["analise"].str.startswith("W pesos")]
+        if not pesos.empty:
+            L.append(linha_monte_carlo(pesos, "Monte Carlo dos pesos, ±20 %"))
         rk = pd.read_csv(results / "rankings_cenarios.csv")
         rk = rk[rk["caso"] == rotulo]
         base = {m: vencedor(rk[(rk["cenario"] == "A") & (rk["metodo"] == m)]) for m in METODOS}
@@ -203,7 +250,89 @@ def robustez_linhas(chave: str, results: Path = RESULTS) -> list[str]:
     for (cen, var), g in foco.groupby(["cenario", "variante"], sort=False):
         rot = f"P-foco ({var})" if cen == "P-foco" else f"Sensibilidade ({var})"
         L.append(f"- {rot}: " + "; ".join(f"{m} {vencedor(g[g['metodo'] == m])}" for m in METODOS) + ".")
+    if quant:
+        L += linhas_cenarios(rk)
     return L
+
+
+def tabela_spearman(results: Path = RESULTS) -> pd.DataFrame:
+    """ρ de Spearman entre os pares de métodos, nos cenários A, B e Q, para os três casos quantitativos.
+
+    Em linguagem simples: mede quanto as ordenações de dois métodos se parecem (1 = iguais); vem de
+    results/spearman.csv, calculado pelo run_all.py.
+    """
+    sp = pd.read_csv(results / "spearman.csv")
+    pares = ["TOPSIS-WASPAS", "TOPSIS-VIKOR", "WASPAS-VIKOR"]
+    nomes = {"A": "A", "B": "B", "Q": "Q (sem ordinais)"}
+    linhas = []
+    for caso in ("Haste", "Stent", "Scaffold"):
+        for cen, rot in nomes.items():
+            g = sp[(sp["caso"] == caso) & (sp["cenario"] == cen)].set_index("par")["rho"]
+            if g.empty:
+                continue
+            linhas.append({"Caso": caso, "Cenário": rot,
+                           **{p.replace("-", " / "): fmt_pt(float(g[p]), 2) for p in pares}})
+    return pd.DataFrame(linhas)
+
+
+def tabela_propriedades(chave: str, data_dir: Path = DATA) -> pd.DataFrame:
+    """Propriedades que caracterizam os candidatos: valor típico de cada critério, por material (cenário B).
+
+    Em linguagem simples: é a matriz de decisão que entra nos métodos (todos os candidatos, incluindo os de
+    investigação), com uma linha por critério e uma coluna por material. Os valores ainda "A verificar" levam *;
+    os valores de modelação levam †: os que não existem na base (ou têm o típico vazio) e foram preenchidos pelo
+    pior valor observado, e os que têm o estado "Valor de modelação".
+    """
+    caso = CASOS[chave][0]
+    p = build_problem(caso, "B", data_dir)
+    mat, crit = load_data(data_dir)
+    mat = mat[mat["caso_componente"] == caso]
+    crit = crit[crit["caso_componente"] == caso]
+    unid = {c.replace(" (só cenário B)", ""): u for c, u in zip(crit["criterio"], crit["unidade"])}
+    linhas = []
+    for j, cr in enumerate(p.criteria):
+        u = unid.get(cr, "-")
+        nome = cr if u in ("-", "", "unidade") or pd.isna(u) else f"{cr} ({u})"
+        linha = {"Propriedade": nome.replace("10^7", "10⁷").replace("K_IC", "K~IC~").replace("m^0.5", "m^1/2^")}
+        for i, a in enumerate(p.alternatives):
+            v = float(p.X[i, j])
+            casas = 4 if abs(v) < 0.1 and v != 0 else (3 if abs(v) < 1 else 2)
+            txt = num(v, casas)
+            if "," in txt:
+                txt = txt.rstrip("0").rstrip(",")
+            reg = mat[(mat["material"] == a) & (mat["propriedade"] == cr)]
+            if reg.empty or pd.isna(reg["tipico"].iloc[0]) or str(reg["estado"].iloc[0]) == "Valor de modelação":
+                txt += " †"
+            elif not str(reg["estado"].iloc[0]).startswith("Verificado"):
+                txt += " *"
+            linha[a] = txt
+        linhas.append(linha)
+    return pd.DataFrame(linhas)
+
+
+NOTA_PROPRIEDADES = ("Valor típico da base de dados (o mesmo que entra nos métodos), com todos os candidatos (cenário B); "
+                     "escalas ordinais de 1 a 5 (Anexo C). * valor ainda \"A verificar\"; † valor de modelação (número "
+                     "fixado por uma regra do trabalho, secção 2.4). Mínimos, máximos e fontes no anexo digital.")
+
+NOTAS_PROPRIEDADES_CASO = {
+    "haste": "Na haste, a resistência à fadiga (σmax, R = 0,1) dos quatro materiais ensaiados por Okazaki (2012) é a tensão máxima a 10⁷ "
+             "ciclos num ensaio de tração-tração (R = 0,1); a amplitude correspondente é 0,45 vezes esse valor, por "
+             "isso pode ficar acima da tensão de cedência (Co-Cr-Mo).",
+    "stent": "Os 48 meses de reabsorção das ligas permanentes são o pior valor observado (máximo do PLLA), atribuído "
+             "a materiais que não reabsorvem (secção 9.9); não são um tempo de reabsorção.",
+    "scaffold": "O tempo de degradação da HA é um valor de modelação: a HA praticamente não reabsorve, e o número "
+                "não tem fonte própria.",
+}
+
+
+def nota_propriedades(chave: str) -> str:
+    """Legenda da tabela de propriedades de um caso: a nota comum e, se houver, a nota própria do caso.
+
+    Em linguagem simples: explica os símbolos (* e †) e, na haste, no stent e no scaffold, o valor que um leitor
+    podia ler mal (a fadiga acima da cedência no Co-Cr-Mo; os 48 meses dos metais; a HA).
+    """
+    extra = NOTAS_PROPRIEDADES_CASO.get(chave)
+    return NOTA_PROPRIEDADES + (" " + extra if extra else "")
 
 
 def tabela_dados(caso: str, data_dir: Path = DATA) -> pd.DataFrame:
@@ -240,7 +369,9 @@ def anexo_b(data_dir: Path = DATA) -> str:
          "valor usado nos métodos. Estados: \"Verificado\" (confirmado na fonte indicada), \"Verificado "
          "(fornecedor)\" (ficha técnica de fornecedor), \"Verificado (derivado)\" (calculado a partir de valores "
          "publicados na fonte), \"Verificado (composição química)\" (deduzido da composição do material), "
-         "\"Verificado (composição nominal)\" (deduzido da composição nominal publicada da liga) e \"A verificar\" (valor de partida ainda não confirmado "
+         "\"Verificado (composição nominal)\" (deduzido da composição nominal publicada da liga), \"Valor de modelação\" "
+         "(número fixado por uma regra do trabalho, sem fonte numérica própria; por exemplo, o tempo de degradação da "
+         "HA e o tempo de reabsorção das ligas permanentes do stent) e \"A verificar\" (valor de partida ainda não confirmado "
          "na fonte original). As notas de cada valor estão na base de dados.", ""]
     contagem = m["estado"].value_counts()
     L += ["Contagem por estado: " + "; ".join(f"{k}: {v}" for k, v in contagem.items()) + f" (total: {len(m)}).", ""]
@@ -268,7 +399,9 @@ def anexo_b_resumo(data_dir: Path = DATA) -> str:
         "Estados: \"Verificado\" (confirmado na fonte indicada), \"Verificado (fornecedor)\" (ficha técnica de "
         "fornecedor), \"Verificado (derivado)\" (calculado a partir de valores publicados na fonte), \"Verificado "
         "(composição química)\" (deduzido da composição do material), \"Verificado (composição nominal)\" "
-        "(deduzido da composição nominal publicada da liga) e \"A verificar\" (valor de partida ainda não "
+        "(deduzido da composição nominal publicada da liga), \"Valor de modelação\" (número fixado por uma regra do "
+        "trabalho, sem fonte numérica própria; por exemplo, o tempo de degradação da HA, que praticamente não "
+        "reabsorve, e o tempo de reabsorção das ligas permanentes do stent) e \"A verificar\" (valor de partida ainda não "
         "confirmado na fonte original).", "",
         "**Tabela B.1.** Número de valores da base de dados por caso e por estado.", "", md(tab)])
 
@@ -304,22 +437,81 @@ def tabela_estudos() -> pd.DataFrame:
     return pd.DataFrame(ESTUDOS, columns=COLUNAS_ESTUDOS)
 
 
+N_PESOS_AJUSTE = 4    # pesos mais sensíveis na tabela do ajuste mínimo
+N_VALORES_AJUSTE = 6  # valores mais sensíveis na tabela do ajuste mínimo
+
+
+def ler_robustez_extra(rotulo: str, cenario: str = "A", results: Path = RESULTS) -> dict[str, pd.DataFrame]:
+    """Linhas de um caso e cenário nos quatro ficheiros results/robustez_extra_*.csv.
+
+    Em linguagem simples: vai buscar os resultados já calculados por scripts/robustez_extra.py
+    (retirar uma alternativa, dimensões, ajuste dos pesos e dos valores) só do caso pedido.
+    """
+    out = {}
+    for k in ("retirar", "dimensoes", "pesos", "valores"):
+        df = pd.read_csv(results / f"robustez_extra_{k}.csv")
+        out[k] = df[(df["caso"] == rotulo) & (df["cenario"] == cenario)].reset_index(drop=True)
+    return out
+
+
+def texto_retirar(rotulo: str, results: Path = RESULTS) -> str:
+    """Tabela "retirar uma alternativa" (cenário A) com a frase sobre o 1.º lugar entre os restantes."""
+    t = ler_robustez_extra(rotulo, "A", results)
+    return (md(rx.tabela_retirar(t["retirar"])) + "\n\nCenário A, valores típicos, η = 1. Cada linha refaz o "
+            "ranking sem o material indicado; \"sim\" quer dizer que pelo menos um par dos restantes troca de ordem. "
+            + rx.frase_vencedor_retirar(t["retirar"]))
+
+
+def texto_dimensoes(rotulo: str, results: Path = RESULTS) -> str:
+    """Tabela da dupla contagem (cenário A): pesos iguais dentro da dimensão e Monte Carlo de Dirichlet."""
+    t = ler_robustez_extra(rotulo, "A", results)
+    dm = t["dimensoes"]
+    n = contagem(100, int(dm["n_iter"].iloc[0]))
+    return ("Peso total por dimensão (fixo): " + dm["pesos_dimensao"].iloc[0] + ".\n\n" + md(rx.tabela_dimensoes(dm))
+            + f"\n\nCenário A, η = 1. Monte Carlo: {n} repartições ao acaso do peso de cada dimensão pelos seus "
+            f"critérios (Dirichlet, α = 1, seed {int(dm['seed'].iloc[0])}); mapa critério → dimensão em "
+            "data/dimensoes_criterios.csv.")
+
+
+def texto_ajuste(rotulo: str, results: Path = RESULTS) -> str:
+    """Tabelas curtas do menor ajuste que troca o 1.º lugar (cenário A): valores e pesos mais sensíveis."""
+    t = ler_robustez_extra(rotulo, "A", results)
+    L = ["Valores típicos mais sensíveis (variação de um só valor; ordinais em passos inteiros):", "",
+         md(rx.tabela_valores(t["valores"], N_VALORES_AJUSTE)), ""]
+    pw = t["pesos"]
+    trocam = min(N_PESOS_AJUSTE, int(rx.mais_sensiveis(pw, ["criterio"])["var_min"].notna().sum()))
+    if trocam:
+        L += ["Pesos mais sensíveis (variação relativa de um só peso; os outros renormalizados):", "",
+              md(rx.tabela_pesos(pw, trocam)), ""]
+    resto = pw["criterio"].nunique() - trocam
+    frase = f"Cenário A, η = 1; procura até ±{round(100 * rx.LIMITE_VALOR)} % nos valores e ±{round(100 * rx.LIMITE_PESO)} % nos pesos. "
+    if resto:
+        frase += f"Os outros {resto} pesos não aparecem na tabela (menos sensíveis ou sem troca). "
+    L.append(frase + rx.frase_empate_topsis(pw, t["valores"]))
+    return "\n".join(L)
+
+
 def gerar(destino: Path = DESTINO, data_dir: Path = DATA, results: Path = RESULTS) -> list[Path]:
-    """Escreve as três tabelas de cada caso; devolve os caminhos."""
+    """Escreve as tabelas de cada caso (e as três da robustez complementar nos quantitativos); devolve os caminhos."""
     destino.mkdir(parents=True, exist_ok=True)
     feitos = []
-    for chave, (caso, _, quant) in CASOS.items():
+    for chave, (caso, rotulo, quant) in CASOS.items():
         pt = pontuacoes(chave, data_dir, results)
         aviso = "" if quant else "\n\nSemiquantitativo: escalas ordinais com mais de 50 % do peso; o ranking é uma indicação."
         textos = {"criterios": md(tabela_criterios(caso, data_dir)) + nota_pesos(caso, data_dir),
                   "resultados": md(tabela_resultados(pt)) + "\n\n" + frase_delta(pt) + aviso,
-                  "robustez": "\n".join(robustez_linhas(chave, results))}
+                  "robustez": "\n".join(robustez_linhas(chave, results)),
+                  "propriedades": md(tabela_propriedades(chave, data_dir)) + "\n\n" + nota_propriedades(chave)}
+        if quant:
+            textos.update({"retirar": texto_retirar(rotulo, results), "dimensoes": texto_dimensoes(rotulo, results),
+                           "ajuste_minimo": texto_ajuste(rotulo, results)})
         for nome, texto in textos.items():
             p = destino / f"{chave}_{nome}.md"
             p.write_text(f"<!-- gerado por scripts/tabelas_relatorio.py; não editar à mão -->\n{texto}\n", encoding="utf-8")
             feitos.append(p)
     for nome, texto in (("anexo_b_dados", anexo_b(data_dir)), ("anexo_b_resumo", anexo_b_resumo(data_dir)),
-                        ("comparacao_estudos", md(tabela_estudos()))):
+                        ("comparacao_estudos", md(tabela_estudos())),
+                        ("concordancia_spearman", md(tabela_spearman(results)))):
         p = destino / f"{nome}.md"
         p.write_text("<!-- gerado por scripts/tabelas_relatorio.py; não editar à mão -->\n" + texto + "\n",
                      encoding="utf-8")

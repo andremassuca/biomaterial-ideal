@@ -6,7 +6,7 @@ e este ficheiro (texto da folha LEIA-ME). O base_dados_biomateriais.xlsx é gera
 scripts/exportar_xlsx.py e não se edita à mão.
 
 ## Estado dos valores
-- Todos os valores são pontos de partida de manuais e revisões e estão marcados "A verificar".
+- Os valores começaram como pontos de partida de manuais e revisões, marcados "A verificar"; cada valor confirmado na fonte passou a um dos estados "Verificado" (ver a Legenda). O número atual de valores verificados conta-se na coluna estado de materiais.csv (estados que começam por "Verificado").
 - Antes de usar um valor no relatório ou no poster: abre a fonte, confirma o número, preenche a coluna doi_url e muda o estado para "Verificado".
 - Se a fonte der outro valor, usa o da fonte e regista a página ou tabela na coluna notas.
 
@@ -25,7 +25,7 @@ Par articular e implante dentário ficam SEMIQUANTITATIVOS (ordinais > 50 % do p
 ## Alterações v0.5 (1 out 2026): 2.ª ronda do stent
 - Valores de fichas de fornecedor no 316L (alongamento), no L605 (cedência, módulo, tração) e no MP35N (tração), com o valor anterior na nota.
 - L605: o típico é o da chapa (Haynes), por não haver ficha de tubo com valores; a fita (Matthey) dá o intervalo.
-- Pt-Cr: cedência com fonte primária (O'Brien 2010, só resumo); módulo, tração e alongamento continuam "A verificar", com fontes secundárias na nota.
+- Pt-Cr: cedência (480 MPa), módulo, tração e alongamento ficam "A verificar" (a cedência só foi lida no resumo de O'Brien 2010; estado mudado a 11 out 2026), com fontes secundárias na nota. Precisa de acesso: O'Brien BJ, Stinson JS, Larsen SR, Eppihimer MJ, Carroll WM. A platinum-chromium steel for cardiovascular stents. Biomaterials 2010;31:3755-3761 (doi:10.1016/j.biomaterials.2010.01.146), Tabelas 4 e 6; sem acesso aberto legítimo a 11 out 2026 (Unpaywall, Europe PMC, Semantic Scholar).
 - Radiopacidade: rubrica escrita (ver "Rubricas ordinais"), fontes nas 7 linhas e estado "Verificado"; as notas não mudam.
 - Densidades do 316L, L605, MP35N e Pt-Cr com fonte. A densidade não é critério do stent.
 
@@ -61,6 +61,29 @@ Par articular e implante dentário ficam SEMIQUANTITATIVOS (ordinais > 50 % do p
 - Estado "Verificado" com a nota "só resumo; nota segundo a rubrica do leia_me" (decisão do André).
 - Peso ordinal do dentário: 0,70 (antes 0,60); o caso continua SEMIQUANTITATIVO: ranking e P-foco só como indicação (results/semiquantitativos.csv).
 
+## Alterações v0.11 (10 out 2026): revisão por especialistas (frente DADOS)
+- Implante dentário: módulo do Ti-6Al-4V ELI (101-110, típico 105,5 GPa) e do Ti cp grau 4 (104,1 GPa) iguais aos valores verificados da haste (Li et al. 2014, Tabela 4); antes 110-114 e 103-110 GPa, "A verificar".
+- HA do scaffold: a porosidade passa a "A verificar" (o típico e o máximo não têm fonte) e o tempo de degradação ao novo estado "Valor de modelação". Os valores não mudam.
+- PLLA do stent: cedência e densidade com "[fonte a indicar]" (a referência anterior não tem estes números). Os valores não mudam.
+- Notas: densidade do Ti-Zr (a confirmar), densidade do L605 (porque o típico é o da fita), níveis intermédios das rubricas, natureza dos valores de alongamento do stent.
+
+## Alterações v0.12 (11 out 2026): decisões do André sobre a revisão
+- Haste: o critério "Limite de fadiga (10^7 ciclos)" passa a "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)" (materiais, critérios e perfis); os valores não mudam. Nota no Co-Cr-Mo: σmax acima de σ0,2 (tensão máxima a R = 0,1, não limite em amplitude). Ti-13Nb-13Zr e TNZT: modo de ensaio não registado (nota). Rótulo da norma do Co-Cr-Mo mantido, com a diferença anotada na cedência.
+- Stent: cedência do 316L continua "A verificar" (nota com o mínimo de 190 MPa da Alleima, mínimo de especificação); L605 com a ressalva do Orsiro (60 e 80 µm) na espessura do strut, valor mantido (XIENCE); MP35N mantém o Resolute Integrity (nota).
+- Perfis H-JOV e H-OST: notas sem efeito no ranking (fator 2 como valor de desenho; fixação no idoso com osteoporose).
+- Critérios do implante dentário: "Problema crítico do docente (2 out 2026)" passa a "Problema crítico indicado".
+
+## Alterações v0.13 (11 out 2026): verificação nas fontes primárias (stent e scaffold)
+- Stent: cedência do Pt-Cr (480 MPa) passa de "Verificado" a "A verificar" (só lida no resumo; precisa de acesso ao O'Brien 2010, Tabelas 4 e 6). Os valores não mudam.
+- Compósito PCL/β-TCP, resistência à compressão: 2,2 MPa (Kawai 2018, secção 3.4, cedência a 1 %, 59,5 %), "Verificado"; antes 2,2-6,38, típico 4,3 MPa. O 6,38 MPa (Wong 2025) sai: não é rastreável até uma fonte primária do compósito e não diz que grandeza é.
+- Compósito PCL/β-TCP, tempo de degradação: 26 meses (Zhong 2026, Discussão e Figura 7E-F, estimativa por correlação in vitro / in vivo), "Verificado"; antes 12-24, típico 18 meses (Rezwan 2006).
+- β-TCP poroso, tempo de degradação: 12,7 meses (5-26) (Hirata 2006, Resultados, 53 doentes), "Verificado"; antes 6-18, típico 12 meses.
+- β-TCP poroso, módulo de compressão: 546 MPa (Montelongo 2021, 59,6 %), "Verificado"; antes 100-1000, típico 550 MPa.
+- Efeito: no cenário A, o TOPSIS passa a pôr o β-TCP poroso em 1.º (o WASPAS e o VIKOR mantêm o compósito); no cenário B, os três métodos mantêm o compósito.
+
+## Alterações v0.14 (11 out 2026): análises de robustez complementares
+- Novo data/dimensoes_criterios.csv (caso, critério, dimensão, nota): mapa de cada critério dos casos quantitativos para uma dimensão (mecânica, biológica, clínica ou económica), usado só na análise de dupla contagem (scripts/robustez_extra.py). É uma escolha de desenho do trabalho, com a justificação na nota; os valores e os pesos da base não mudam.
+
 ## Legenda
 - min e max alimentam o Monte Carlo (distribuição entre mín. e máx.); nas propriedades dependentes da forma, só com valores da forma do dispositivo (regra da forma, v0.8).
 - tipico = valor usado nos métodos; por omissão o ponto médio; pode diferir quando a regra da forma ou outra regra o justifica, com nota.
@@ -70,7 +93,8 @@ Par articular e implante dentário ficam SEMIQUANTITATIVOS (ordinais > 50 % do p
   - "Verificado (fornecedor)": valor confirmado numa página de fornecedor que declara cumprir a norma, não no texto da norma.
   - "Verificado (composição química)": valor que resulta da composição química do material (ex.: 0 % de níquel num polímero sem metais).
   - "Verificado (derivado)": valor calculado a partir de dados da fonte (ex.: razão σFS/σUTS × σUTS), com o cálculo na nota.
-- Teor de níquel (stent): % em massa; no WE43 é um limite máximo de impureza e tipico = máximo (pior caso).
+  - "Valor de modelação" (10 out 2026): número escolhido por uma regra do trabalho (ex.: tempo de degradação da HA, não reabsorvível, igual ao pior valor observado nos outros materiais, como a opção O2 do stent); a fonte confirma o comportamento (não reabsorve), não o número. Não conta como verificado nem entra na lista "A verificar".
+- Teor de níquel (stent): % em massa. No WE43 e no PLLA é 0 % pela composição nominal (decisão de 8 out 2026, ver "Funil de triagem"); o níquel da WE43 só aparece como impureza, até 0,005 %, e fica na nota.
 
 ## Tipos de critério (Petković et al., Appl Sci 2025;15:9198)
 Estrito = triagem passa/falha · Benefício = maior é melhor · Custo = menor é melhor · Alvo = mais próximo do valor-alvo é melhor
@@ -90,13 +114,16 @@ Estrito = triagem passa/falha · Benefício = maior é melhor · Custo = menor �
 - Galvânica cabeça-cone: 5 = sem par metálico; 3 = CoCr em cone de Ti (fretting documentado); 2 = múltiplas interfaces metal-metal
 - Radiopacidade (stent): 5 = liga com fração elevada de elemento de Z alto (Pt-Cr); 4 = melhoria clara face ao 316L (L605, com W); 3 = referência dos metais de stent (316L, MP35N); 2 = pouco radiopaco (Nitinol); 1 = radiotransparente, precisa de marcadores (Mg WE43, PLLA). Critério: teor de elementos de Z alto (Pt, Z = 78; W, Z = 74). A densidade não é critério (desde a v0.3), serve só de evidência de apoio. Fontes: Allocco DJ et al. Trials 2010;11:1, doi:10.1186/1745-6215-11-1 (PMC2826324); PMC3692344 ("modest improvement" do CoCr face ao aço).
 
+- Níveis intermédios (2 e 4, quando não estão descritos na rubrica): usam-se quando o material fica entre duas descrições; a justificação de cada nota está na coluna notas ou referencia da linha do material em materiais.csv.
+
 NOTA: índices ordinais só devem pesar ≤ 50 % do total de cada caso: o resto deve vir de propriedades medidas.
 
 ## Cuidados
 1. Propriedades de scaffolds dependem da porosidade. Regra da porosidade: as propriedades mecânicas de um scaffold usam-se à porosidade típica desse material (±10 pontos percentuais); valores medidos a porosidades muito diferentes ficam de fora ou só alargam o intervalo, com nota. Dentro da janela, típico = mediana das fontes dentro da janela de porosidade (porosidade típica do material ±10 pontos percentuais); o intervalo vai do mínimo ao máximo dessas fontes. Regista sempre a porosidade e o método de fabrico do estudo.
 2. Cerâmicos: resistência à flexão ≠ resistência à tração. Assinala sempre qual é.
 3. Stents: o Nitinol é autoexpansível (outra classe): eliminado na triagem pela regra "Tipo de expansão"; só na discussão.
-4. Cenários (cenarios.csv): A = só materiais clínicos; B = inclui investigação e bioabsorvíveis. No stent, A = só permanentes em uso clínico (316L, L605, MP35N, Pt-Cr); B = A + Mg WE43 e PLLA.
+4. Alongamento na rotura do stent: as fontes não dão todas o mesmo tipo de valor. No 316L, 40 % é típico (Alleima, coluna "typical"); no L605 e no MP35N, as fichas (Matthey, K-Tube) não dizem se 40 % é típico ou mínimo de especificação; no Pt-Cr, 45 % vem de uma fonte secundária. As diferenças entre ligas (40 contra 45 %) são da ordem da diferença entre mínimo e típico; o critério pesa 0,10 e o Monte Carlo aplica ±10 % aos valores únicos.
+5. Cenários (cenarios.csv): A = só materiais clínicos; B = inclui investigação e bioabsorvíveis. No stent, A = só permanentes em uso clínico (316L, L605, MP35N, Pt-Cr); B = A + Mg WE43 e PLLA.
 
 ## Níveis de validação
 (1) verificação de código = reproduzir Petković et al. 2025; (2) robustez interna = cenários; (3) validação clínica = NÃO demonstrada (trabalho futuro).
@@ -138,7 +165,7 @@ fontes de consulta.
   com o alvo T = 0 (r = 1 - x / máx), porque a eq. 10 (mín / x) fica indefinida; o perfil de alergia ao níquel passa
   a funcionar no cenário B. Nenhum critério dos casos de base tem mínimo 0, por isso os rankings do relatório não
   mudam (confirmado: results/pontuacoes.csv igual).
-- H1 (jovem ativo) e H3 (IMC 38) dão o mesmo ranking: as duas regras sobem só o limite de fadiga com fator 2, porque
+- H1 (jovem ativo) e H3 (IMC 38) dão o mesmo ranking: as duas regras sobem só a resistência à fadiga com fator 2, porque
   ambas significam mais carga cíclica (decisão de 8 out 2026: fica assim; a aplicação explica-o).
 
 ## Filtros de requisito (filtros_material.csv, 8 out 2026)

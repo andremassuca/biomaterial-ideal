@@ -34,11 +34,12 @@ class Ocorrencia:
 
 
 def caso_da_linha(ficheiro: str, linha: str) -> str | None:
-    """Caso pelo nome do ficheiro (caso_x_rascunho.md) ou pelo marcador "**Caso" no início da linha."""
+    """Caso pelo nome do ficheiro (caso_x_rascunho.md), pelo marcador "**Caso" no início da linha ou, numa linha
+    de tabela, pela primeira célula ("| Haste: ...")."""
     m = re.match(r"caso_(\w+?)_rascunho\.md", ficheiro)
     if m and m.group(1) in CASOS:
         return CASOS[m.group(1)]
-    m = re.match(r"\s*- \*\*(\w+)", linha)
+    m = re.match(r"\s*- \*\*(\w+)", linha) or re.match(r"\s*\| (\w+):", linha)
     return MARCADORES.get(m.group(1)) if m else None
 
 

@@ -4,7 +4,7 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { StrictMode } from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { iniciarWasm } from "./apoio";
+import { iniciarWasm } from "./apoio_wasm";
 
 // O jsdom não faz paginação nem desenho: o ResizeObserver dá um tamanho fixo aos contentores dos gráficos (sem
 // mexer nas medidas do texto, que o Recharts usa para os eixos) e o canvas não tem contexto WebGL (o visualizador
@@ -62,6 +62,7 @@ async function esperarEcra() {
 
 const MENU = [
   "Início",
+  "Como funciona",
   "Haste femoral",
   "Stent",
   "Scaffold ósseo",

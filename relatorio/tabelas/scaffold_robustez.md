@@ -1,5 +1,12 @@
 <!-- gerado por scripts/tabelas_relatorio.py; não editar à mão -->
-- Monte Carlo das propriedades (10 000 iterações, cenário A), % de 1.º lugar (TOPSIS / WASPAS / VIKOR): β-TCP poroso 52,2 % / 24,8 % / 38,6 %; Compósito PCL/β-TCP (impressão 3D) 39,0 % / 68,3 % / 46,3 %; Vidro bioativo 45S5 poroso 8,8 % / 5,6 % / 15,1 %; PCL 0,03 % / 1,3 % / 0,0 %.
-- Combinação com pesos objetivos (η de 0 a 1; η = 1 é o resultado principal), η em que o vencedor muda: TOPSIS: nunca; WASPAS: nunca; VIKOR: nunca.
+- Monte Carlo das propriedades (10 000 iterações, cenário A), % de 1.º lugar (TOPSIS / WASPAS / VIKOR): β-TCP poroso 66,9 % / 46,1 % / 54,0 %; Vidro bioativo 45S5 poroso 25,2 % / 18,4 % / 29,3 %; Compósito PCL/β-TCP (impressão 3D) 7,2 % / 27,5 % / 16,7 %; PCL 0,4 % / 8,0 % / 0,04 %.
+- Monte Carlo dos pesos, ±20 % (10 000 iterações, cenário A), % de 1.º lugar (TOPSIS / WASPAS / VIKOR): β-TCP poroso 74,5 % / 0,1 % / 16,5 %; Compósito PCL/β-TCP (impressão 3D) 23,9 % / 98,7 % / 68,0 %; PCL 1,6 % / 1,2 % / 15,6 %.
+- Combinação com pesos objetivos (η de 0 a 1; η = 1 é o resultado principal), η em que o vencedor muda: TOPSIS: η de 0 a 0,7; WASPAS: η de 0 a 0,4; VIKOR: nunca.
 - P-foco (direta): TOPSIS β-TCP poroso; WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR β-TCP poroso.
 - P-foco (direta + indireta): TOPSIS Compósito PCL/β-TCP (impressão 3D); WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR Compósito PCL/β-TCP (impressão 3D).
+- Sem critérios ordinais (Q): TOPSIS PCL; WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR PCL.
+- Valores-alvo (T), Resistência à compressão: 2; Módulo de compressão: 500: TOPSIS β-TCP poroso; WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR β-TCP poroso.
+- Valores-alvo (T), Resistência à compressão: 12; Módulo de compressão: 50; Tempo de degradação: x0,5: TOPSIS β-TCP poroso; WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR Compósito PCL/β-TCP (impressão 3D).
+- Valores-alvo (T), Porosidade: 50: TOPSIS β-TCP poroso; WASPAS PCL; VIKOR β-TCP poroso.
+- Valores-alvo (T), Porosidade: 90: TOPSIS Vidro bioativo 45S5 poroso; WASPAS PCL; VIKOR Compósito PCL/β-TCP (impressão 3D).
+- Valores-alvo (T), Tempo de degradação: x2,0: TOPSIS Compósito PCL/β-TCP (impressão 3D); WASPAS Compósito PCL/β-TCP (impressão 3D); VIKOR Compósito PCL/β-TCP (impressão 3D).

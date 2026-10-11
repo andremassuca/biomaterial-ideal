@@ -18,7 +18,7 @@
    ],
    "criterios": [
     "Módulo de Young",
-    "Limite de fadiga (10^7 ciclos)",
+    "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)",
     "Tensão de cedência",
     "Resistência à corrosão (ordinal 1-5)",
     "Densidade",
@@ -234,7 +234,7 @@
    ],
    "criterios": [
     "Módulo de Young",
-    "Limite de fadiga (10^7 ciclos)",
+    "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)",
     "Tensão de cedência",
     "Resistência à corrosão (ordinal 1-5)",
     "Densidade",
@@ -484,9 +484,9 @@
    "condicao": "idade < 60 e atividade alta",
    "condicao_codigo": "idade<60; atividade=alta",
    "efeito": "peso multiplicado",
-   "alvo_do_efeito": "Limite de fadiga (10^7 ciclos)",
+   "alvo_do_efeito": "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)",
    "valor": "2",
-   "justificacao": "Mais anos e mais ciclos de carga: idade abaixo de 63 anos é fator de risco de fratura da haste (OR 1,22); o risco de revisão ao longo da vida cresce quanto mais jovem o doente (Bayliss 2017). Limiar de 60 anos e fator 2 são do trabalho.",
+   "justificacao": "Mais anos e mais ciclos de carga: idade abaixo de 63 anos é fator de risco de fratura da haste (OR 1,22); o risco de revisão ao longo da vida cresce quanto mais jovem o doente (Bayliss 2017). Limiar de 60 anos e fator 2 são do trabalho. Nota sem efeito no ranking: o fator 2 é um valor de desenho; com ele, o TOPSIS passa o Co-Cr-Mo a 1.º, o que não corresponde à prática (no jovem ativo usa-se haste não cimentada de titânio).",
    "fonte": "Turnbull GS et al. Arch Orthop Trauma Surg 2024;144(5):2421-2428; Bayliss LE et al. Lancet 2017;389:1424-1430",
    "doi_url": "https://doi.org/10.1007/s00402-024-05281-x; https://doi.org/10.1016/S0140-6736(17)30059-4",
    "estado": "Verificado"
@@ -499,7 +499,7 @@
    "efeito": "peso multiplicado",
    "alvo_do_efeito": "Módulo de Young",
    "valor": "2",
-   "justificacao": "Com menos massa óssea, a perda óssea à volta da haste (stress shielding) é maior; o critério do módulo ganha importância. Estudo pequeno (11 fémures de autópsia).",
+   "justificacao": "Com menos massa óssea, a perda óssea à volta da haste (stress shielding) é maior; o critério do módulo ganha importância. Estudo pequeno (11 fémures de autópsia). Nota sem efeito no ranking: no idoso com osteoporose, a decisão principal é o modo de fixação (cimentada ou não cimentada), antes do material; o modelo compara materiais de hastes não cimentadas, e numa haste cimentada polida o material é aço ou Co-Cr. Fator 2 é valor de desenho.",
    "fonte": "Sychterz CJ, Engh CA. Clin Orthop Relat Res 1996;(322):285-292",
    "doi_url": "https://pubmed.ncbi.nlm.nih.gov/8542707/",
    "estado": "Verificado"
@@ -510,7 +510,7 @@
    "condicao": "IMC ≥ 35",
    "condicao_codigo": "imc>=35",
    "efeito": "peso multiplicado",
-   "alvo_do_efeito": "Limite de fadiga (10^7 ciclos)",
+   "alvo_do_efeito": "Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1)",
    "valor": "2",
    "justificacao": "Mais carga por ciclo: peso acima de 80 kg é fator de risco de fratura da haste (OR 3,55). A fonte usa o peso, não o IMC; o limiar de IMC 35 é do trabalho.",
    "fonte": "Turnbull GS et al. Arch Orthop Trauma Surg 2024;144(5):2421-2428",

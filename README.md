@@ -1,61 +1,68 @@
-# biomat-mcdm
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="design/logo/logo_completo_fundo_escuro.svg">
+    <img src="design/logo/logo_completo.svg" alt="Biomaterial ideal" width="420">
+  </picture>
+</p>
 
-Seleção multicritério de biomateriais com **critérios-alvo** e **análise de robustez**, aplicada a quatro classes de dispositivos médicos: prótese da anca (haste e par articular), implante dentário, stent vascular e scaffold para regeneração óssea.
+# Qual é o biomaterial ideal?
 
-Base metodológica: Petković, Madić & Mitković, *Appl. Sci.* 2025, 15(16), 9198 (doi:10.3390/app15169198). Este projeto estende a abordagem a materiais não metálicos e biodegradáveis e quantifica a robustez dos rankings.
+Seleção multicritério de biomateriais com **critérios-alvo** e **análise de robustez**, aplicada a cinco componentes implantáveis: haste femoral, par articular da anca, stent coronário, scaffold ósseo e implante dentário.
 
-## Pergunta de investigação
+**Versão web interativa:** <https://andremassuca.github.io/biomaterial-ideal/>
 
-A escolha do biomaterial mantém-se quando mudam (i) o método de decisão, (ii) os pesos e (iii) a incerteza nas propriedades?
+Trabalho de André Oliveira Massuça (Engenharia Biomédica, Universidade Lusófona) para a unidade curricular de Próteses e Órgãos Artificiais. Docente: Prof. Pedro Sampaio.
 
-## Pipeline
+> Este trabalho não é uma ferramenta clínica nem uma recomendação terapêutica.
+
+## Pergunta
+
+A escolha do biomaterial mantém-se quando mudam o método de decisão, os pesos e a incerteza nas propriedades?
+
+## Método
 
 ```
-dados (CSV) → triagem (critérios estritos) → matriz de decisão
-           → normalização (benefício / custo / alvo)
-           → TOPSIS · WASPAS · VIKOR
-           → Monte Carlo sobre [mín, máx] + variação de pesos/η
-           → concordância entre rankings (Spearman) → figuras
+dados com fonte (CSV) → critérios-alvo → TOPSIS · WASPAS · VIKOR (e consenso de Borda)
+                      → Monte Carlo das propriedades e dos pesos → resposta e grau de confiança
 ```
+
+Base metodológica: Petković, Madić e Mitković, *Appl. Sci.* 2025, 15(16), 9198 (doi:10.3390/app15169198). Cada valor da base tem fonte e estado ("Verificado", "A verificar" ou "Valor de modelação"); 114 dos 300 valores estão verificados em fontes primárias.
+
+## Resultados (relatório v11, 11 out 2026)
+
+| Caso | Resposta |
+|---|---|
+| Haste femoral | Ti-6Al-4V ELI em haste não cimentada (a conclusão mais estável: 1.º com os três métodos e em pelo menos 9 999 de 10 000 repetições do Monte Carlo) |
+| Stent coronário | Pt-Cr e L605 praticamente equivalentes: o Pt-Cr é favorecido pelo TOPSIS, pelo VIKOR e pela radiopacidade; o L605 pelo WASPAS e por ter todas as propriedades em fichas de fornecedor. Sem vencedor universal. |
+| Scaffold ósseo | Depende da carga: compósito PCL/β-TCP impresso quando o defeito suporta carga (1.º no ranking direto em 5 das 6 combinações); β-TCP poroso quando não suporta (mais vezes 1.º na incerteza dos dados). |
+| Par articular | ZTA/ZTA com a melhor pontuação (análise semiquantitativa, centrada no desgaste) |
+| Implante dentário | Titânio comercialmente puro de grau 4 (análise semiquantitativa) |
+
+As simulações de elementos finitos (haste) e de escoamento (stent) são exploratórias e foram verificadas numericamente entre ferramentas (Python, SOLIDWORKS e Ansys; OpenFOAM e Ansys Fluent); não foram validadas experimentalmente.
 
 ## Estrutura
 
 ```
-data/                   CSV (fonte de verdade) + leia_me.md; .xlsx gerado por scripts/exportar_xlsx.py
-src/biomat_mcdm/
-  io.py                 leitura dos dados e construção da matriz  [implementado]
-  screening.py          triagem por critérios estritos            [implementado]
-  normalization.py      normalização benefício/custo/alvo         [implementado]
-  weights.py            pesos objetivos e combinação com η         [implementado]
-  indices.py            σy/E (stent) e E_implante/E_osso (haste)  [implementado]
-  pipeline.py           ponto de entrada por caso (3 métodos)     [implementado]
-  methods/topsis.py     TOPSIS estendido                           [implementado]
-  methods/waspas.py     WASPAS estendido                           [implementado]
-  methods/vikor.py      VIKOR abrangente                           [implementado]
-  robustness.py         Monte Carlo, variantes de cenário, Spearman [implementado]
-  plots.py              figuras para relatório e poster            [TODO]
-tests/                  testes = especificação das funções
-docs/                   notas metodológicas (viram a secção de Métodos)
-results/                rankings e figuras gerados
+data/             CSV (fonte de verdade) e leia_me.md; o .xlsx é gerado por scripts/exportar_xlsx.py
+src/biomat_mcdm/  leitura dos dados, normalização, pesos, TOPSIS, WASPAS, VIKOR, robustez e perfis de doente
+scripts/          run_all.py (todos os cenários), figuras, tabelas do relatório, verificadores e auditoria
+results/          rankings, Monte Carlo, robustez e figuras gerados
+relatorio/        rascunhos e tabelas do relatório (sem o PDF)
+app-nativa/       aplicação (Tauri 2, React e TypeScript, núcleo em Rust e WebAssembly) e versão web
+tests/            testes automáticos (pytest)
 ```
 
-## Como trabalhar
+## Como reproduzir
 
 ```bash
 pip install -e ".[dev]"
-pytest -q            # começa a vermelho; implementa até ficar verde
+pytest -q
+python scripts/run_all.py
 ```
 
-Ordem sugerida:
-1. `normalization.py` → `pytest tests/test_normalization.py`
-2. `methods/topsis.py` → `pytest tests/test_topsis.py`
-3. Reproduzir o caso da anca do artigo → `tests/test_reproduce_petkovic.py`
-4. `weights.py`, `waspas.py`, `vikor.py`
-5. `robustness.py` e `plots.py`
+## Licenças
 
-## Estado dos dados
-
-Todos os valores estão marcados **"A verificar"** em `data/materiais.csv`. Nenhum valor entra no relatório/poster sem fonte confirmada (DOI/URL preenchido).
+Código: MIT (LICENSE). Dados, resultados e textos: CC BY 4.0 (LICENCA_DADOS.md).
 
 ## Autor
 

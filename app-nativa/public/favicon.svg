@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Biomaterial ideal</title>
+  <!-- versão para 16 a 32 px: contorno e anel mais grossos, 2 poros, escala só com a barra -->
+  <path d="M256 40 L443 148 L443 364 L256 472 L69 364 L69 148 Z" fill="#0B3A5B"/>
+  <g fill="#0595D1">
+    <path d="M148 337 C144 344 127 353 117 351 C107 350 91 336 90 328 C89 320 103 307 112 304 C121 301 137 306 143 311 C149 317 152 330 148 337 Z"/>
+    <path d="M420 289 C419 297 402 311 395 310 C387 308 373 287 374 278 C375 270 394 259 401 260 C409 262 421 281 420 289 Z"/>
+  </g>
+  <circle cx="256" cy="224" r="128" fill="#0595D1"/>
+  <circle cx="256" cy="224" r="104" fill="#0B3A5B"/>
+  <circle cx="256" cy="224" r="60" fill="#0595D1"/>
+  <path d="M204 412 H308" fill="none" stroke="#0595D1" stroke-width="28" stroke-linecap="round"/>
+  <path d="M256 392 L232 364 H280 Z" fill="#0595D1"/>
+</svg>

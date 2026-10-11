@@ -30,7 +30,7 @@ def numeros():
 
 def test_confianca_classifica_os_cinco_dispositivos(numeros):
     c = {d: nivel for d, _, nivel, _ in ab.confianca(numeros, True, simples=True)}
-    assert c == {"Haste femoral": "Sólida", "Stent coronário": "Empate técnico", "Scaffold ósseo": "Depende da leitura",
+    assert c == {"Haste femoral": "Sólida", "Stent coronário": "Muito próximos", "Scaffold ósseo": "Depende da carga",
                  "Par articular": "Indicativo", "Implante dentário": "Indicativo"}
 
 
@@ -163,3 +163,167 @@ def test_dados_e_grafico_da_cfd(tmp_path):
     assert d["316L"]["fracao_baixa"] == 0.81
     p = ab.grafico_cfd(d, tmp_path / "c.png")
     assert Image.open(p).size[0] > 1000
+
+
+def test_margem_leitura_literal_e_a_do_grafico_do_scaffold():
+    """Os cartões do diapositivo do scaffold dizem a margem da mesma leitura que o gráfico (a literal)."""
+    primeiro, segundo, dc = ab.margem_leitura_literal()
+    assert primeiro == "β-TCP poroso" and segundo == "Vidro bioativo 45S5 poroso"
+    assert 0.04 < dc < 0.05
+
+
+def test_desafios_e_resposta_usam_o_problema_indicado_pelo_docente():
+    desafios = {nome: d for _, nome, d in ab.DISPOSITIVOS}
+    assert desafios["Par articular"] == "desgaste e partículas"
+    assert desafios["Stent coronário"] == "resistência mecânica e biocompatibilidade"
+    assert desafios["Scaffold ósseo"] == "suporte celular e degradação controlada"
+    assert desafios["Implante dentário"] == "integração com o osso e corrosão"
+    assert [r[0] for r in ab.RESPOSTA] == [nome for _, nome, _ in ab.DISPOSITIVOS]
+    for linha in ab.RESPOSTA + ab.FABRICO:
+        assert len(linha) == 4 and all(linha)
+        assert not any(c in t for t in linha for c in (chr(0x2014), chr(0x2013)))  # sem travessões
+    # recomendação do stent (decisão do André de 11 out): Pt-Cr e L605 praticamente equivalentes
+    proposta = dict((r[0], r[3]) for r in ab.RESPOSTA)
+    assert proposta["Stent coronário"] == (
+        "Pt-Cr e L605 praticamente equivalentes: o Pt-Cr é favorecido pelo TOPSIS, pelo VIKOR e pela radiopacidade; o "
+        "L605 pelo WASPAS e por ter todas as propriedades em fichas de fornecedor. Sem vencedor universal.")
+    assert proposta["Scaffold ósseo"] == ("Depende da carga: compósito PCL/β-TCP impresso quando o defeito suporta "
+                                          "carga (1.º no ranking direto em 5 das 6 combinações); β-TCP poroso quando "
+                                          "não suporta (mais vezes 1.º na incerteza dos dados).")
+
+
+def test_quadro_cabe_no_diapositivo_com_letra_minima():
+    from pptx import Presentation
+    from pptx.util import Emu
+    prs = Presentation()
+    prs.slide_width, prs.slide_height = ab.Inches(13.333), ab.Inches(7.5)
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    assert abs(sum(ab.LARG_RESPOSTA) - 12.13) < 1e-9
+    cab = ab.quadro(s, ("Caso", "Problema", "Biomateriais", "Proposta"), ab.RESPOSTA, ab.LARG_RESPOSTA,
+                    h_cab=0.4, **ab.ALT_RESPOSTA)
+    assert len(cab) == 4
+    fundo = max(Emu(f.top + f.height).inches for f in s.shapes)
+    assert fundo < 6.95  # acima do rodapé
+    tamanhos = [r.font.size.pt for f in s.shapes if f.has_text_frame for p in f.text_frame.paragraphs
+                for r in p.runs]
+    assert min(tamanhos) >= 14
+
+
+def test_espectro_usa_as_versoes_curtas(numeros):
+    """No espectro (diapositivo 9) o nome do caso está ao lado: a frase curta sem o prefixo, o resto igual."""
+    st = {d: frase for d, _, _, frase in ab.confianca(numeros, True, simples=True)}
+    assert ab.FRASE_STENT_CURTA == "Stent: Pt-Cr e L605 praticamente equivalentes"
+    assert ab.FRASE_SCAFFOLD_CURTA == "Scaffold: depende da carga (compósito com carga; β-TCP sem carga)"
+    assert st["Stent coronário"] == "Pt-Cr e L605 praticamente equivalentes"
+    assert st["Scaffold ósseo"] == "depende da carga (compósito com carga; β-TCP sem carga)"
+
+
+def test_sem_prefixo():
+    assert ab.sem_prefixo("Stent: Pt-Cr e L605 praticamente equivalentes") == "Pt-Cr e L605 praticamente equivalentes"
+    assert ab.sem_prefixo("sem prefixo") == "sem prefixo"
+
+
+def test_sensibilidade_do_jovem_ativo_le_os_perfis_de_referencia():
+    """H1: o TOPSIS passa ao Co-Cr-Mo (results/perfis_referencia.csv, cenário A); o Borda mantém o Ti-6Al-4V ELI."""
+    desc, antes, depois, borda = ab.sensibilidade_perfil("H1")
+    assert desc == "Jovem ativo"
+    assert antes == "Ti-6Al-4V ELI" and depois == "Co-Cr-Mo forjado" and borda == "Ti-6Al-4V ELI"
+
+
+def test_aviso_diz_que_nao_e_ferramenta_clinica():
+    assert ab.AVISO == "Não é ferramenta clínica nem recomendação terapêutica."
+
+
+def _fea_json(caminho, energias, com_malha):
+    import json
+    casos = {m: {"zonas": {"1": {"energia_J": e1}, "7": {"energia_J": e7}}} for m, (e1, e7) in energias.items()}
+    if com_malha:
+        casos = {"casos": {m: {"3.5": c} for m, c in casos.items()}}
+    caminho.write_text(json.dumps(casos), encoding="utf-8")
+    return caminho
+
+
+def test_razoes_duas_ferramentas_e_diferenca_maxima(tmp_path):
+    sw = _fea_json(tmp_path / "sw.json", {"Intacto": (2.0, 4.0), "Aço inox 316L": (1.0, 1.0)}, True)
+    md = _fea_json(tmp_path / "md.json", {"Intacto": (2.0, 4.0), "Aço inox 316L": (1.02, 1.0)}, False)
+    r = ab.razoes_duas_ferramentas(sw, md)
+    assert r == {"Aço inox 316L": {"SOLIDWORKS": (0.5, 0.25), "Ansys": (0.51, 0.25)}}
+    assert abs(ab.dif_max_razoes(r) - 2.0) < 1e-9
+
+
+def test_comparacao_real_das_ferramentas_bate_com_o_documento():
+    """Números de docs/ANSYS_COMPARACAO.md (ramo extensoes): diferenças de 2,3 % ou menos; 46,2 contra 45,8 %."""
+    if not (ab.SW_JSON.exists() and ab.MAPDL_JSON.exists() and ab.FLUENT_JSON.exists()):
+        pytest.skip("resultados das duas ferramentas ausentes")
+    r = ab.razoes_duas_ferramentas()
+    assert round(ab.dif_max_razoes(r), 1) <= 2.3
+    ordem = sorted(r, key=lambda m: -r[m]["Ansys"][1])
+    assert ordem == sorted(r, key=lambda m: -r[m]["SOLIDWORKS"][1]) == list(ab.NOMES_FEA_DUAS)
+    a = ab.areas_duas_ferramentas()
+    assert [round(a["Pt-Cr"][k], 1) for k in ("OpenFOAM", "Ansys Fluent")] == [46.2, 45.8]
+    assert [round(a["316L"][k], 1) for k in ("OpenFOAM", "Ansys Fluent")] == [80.9, 79.8]
+
+
+def test_grafico_duas_ferramentas_tem_o_tamanho_da_caixa(tmp_path):
+    h = {"Aço inox 316L": {"SOLIDWORKS": (0.53, 0.27), "Ansys": (0.52, 0.27)}}
+    s = {"Pt-Cr": {"OpenFOAM": 46.2, "Ansys Fluent": 45.8}}
+    p = ab.grafico_duas_ferramentas(h, s, tmp_path / "d.png")
+    assert Image.open(p).size == (round(12.13 * 300), round(3.6 * 300))
+
+
+def test_primeiro_existente(tmp_path):
+    a, b = tmp_path / "a.png", tmp_path / "b.png"
+    assert ab.primeiro_existente([a, b]) is None
+    b.write_bytes(b"")
+    assert ab.primeiro_existente([a, b]) == b
+
+
+def test_capa_video_tira_a_ultima_imagem(tmp_path):
+    import imageio_ffmpeg
+    mp4 = tmp_path / "v.mp4"
+    w = imageio_ffmpeg.write_frames(str(mp4), (64, 48), fps=10, macro_block_size=16)
+    w.send(None)
+    for k in range(10):
+        w.send(np.full((48, 64, 3), 25 * k, np.uint8).tobytes())
+    w.close()
+    im = np.asarray(Image.open(ab.capa_video(mp4, tmp_path / "capa.png")).convert("L"))
+    assert im.shape == (48, 64) and im.mean() > 180  # a última imagem é a mais clara
+
+
+def test_palavras_notas_e_minutos(tmp_path):
+    from pptx import Presentation
+    prs = Presentation()
+    for texto in ("um dois três", "quatro cinco", "reserva não conta"):
+        prs.slides.add_slide(prs.slide_layouts[6]).notes_slide.notes_text_frame.text = texto
+    assert ab.palavras_notas(prs, 2) == 5
+    assert ab.minutos_fala(1300, 15) == pytest.approx(10.25)
+
+
+def test_vencedores_ranking_do_scaffold_e_a_contagem_da_frase():
+    """A contagem "5 das 6 combinações" da frase do scaffold vem de results/pontuacoes.csv."""
+    v = ab.vencedores_ranking("Scaffold")
+    assert len(v) == 6 and ab.n_primeiro(v, ab.COMPOSITO) == 5
+    assert v[("A", "TOPSIS")] == ab.BTCP
+    assert "5 das 6 combinações" in ab.FRASE_SCAFFOLD
+
+
+def test_espectro_do_scaffold_diz_a_carga(numeros):
+    sc = [linha for linha in ab.confianca(numeros, True, simples=True) if linha[0] == "Scaffold ósseo"][0]
+    assert sc[2] == "Depende da carga" and "carga" in sc[3]
+
+
+def test_grafico_scaffold_tem_o_tamanho_da_caixa(tmp_path):
+    v = {(c, m): ab.COMPOSITO for c in "AB" for m in ab.METODOS}
+    pct = {ab.BTCP: {m: 60.0 for m in ab.METODOS}, ab.COMPOSITO: {m: 20.0 for m in ab.METODOS}}
+    p = ab.grafico_scaffold(v, pct, tmp_path / "s.png")
+    assert Image.open(p).size == (round(8.6 * 300), round(4.84 * 300))
+
+
+def test_quadro_aceita_alturas_por_linha():
+    from pptx import Presentation
+    from pptx.util import Emu
+    prs = Presentation()
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    ab.quadro(s, ("a", "b"), [("x", "y"), ("z", "w")], (1.0, 1.0), y0=1.0, h_cab=0.4, h_linha=0.5, alturas={1: 1.0})
+    cartoes = sorted((f for f in s.shapes if not f.has_text_frame or not f.text_frame.text), key=lambda f: f.top)
+    assert [round(Emu(c.height).inches, 2) for c in cartoes][-2:] == [0.5, 1.0]

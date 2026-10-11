@@ -91,7 +91,7 @@ export function BaseTriagem() {
         opcoes={CASOS}
       />
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-3">
         <Cartao>
           <DescricaoCartao>Materiais candidatos</DescricaoCartao>
           <div className="numero mt-1 text-4xl font-bold text-acento">{num(doCaso.length, 0)}</div>
@@ -137,7 +137,7 @@ export function BaseTriagem() {
 
       <Cartao>
         <div className="flex flex-wrap items-center gap-3">
-          <label className="flex min-w-[220px] flex-1 items-center gap-2 rounded-md border border-linha bg-superficie2 px-2 py-1.5">
+          <label className="flex min-w-[200px] flex-1 items-center gap-2 rounded-md border border-linha bg-superficie2 px-2 py-1.5 focus-within:border-acento focus-within:ring-2 focus-within:ring-acento">
             <Search aria-hidden className="h-4 w-4 text-texto2" />
             <input
               value={busca}

@@ -16,6 +16,16 @@ export function moduloPoroso(eMacico: number, p: number): number {
   return eMacico * (1 - p) ** 2;
 }
 
+/**
+ * Marcas regulares do eixo do módulo: passo de 5, 10, 25 ou 50 GPa, com 4 a 6 marcas até acima do máximo.
+ * Em linguagem simples: em vez de 0, 30, 60, 114, o eixo fica 0, 25, 50, 75, 100, 125.
+ */
+export function marcasEixo(maximo: number): { max: number; marcas: number[] } {
+  const passo = [5, 10, 25, 50, 100].find((p) => maximo / p <= 5) ?? 100;
+  const max = Math.max(passo, Math.ceil(maximo / passo) * passo);
+  return { max, marcas: Array.from({ length: max / passo + 1 }, (_, k) => k * passo) };
+}
+
 /** Porosidade com que se chega ao módulo E: p = 1 - √(E / E_s). */
 export function porosidadePara(e: number, eMacico: number): number {
   return 1 - Math.sqrt(e / eMacico);
@@ -38,6 +48,7 @@ export function GibsonAshby() {
     () => Array.from({ length: 91 }, (_, k) => ({ p: k, E: moduloPoroso(eMacico, k / 100) })),
     [eMacico],
   );
+  const eixoY = useMemo(() => marcasEixo(eMacico * 1.05), [eMacico]);
   const dentroOsso = faixa !== null && e >= faixa.min && e <= faixa.max;
 
   return (
@@ -46,7 +57,7 @@ export function GibsonAshby() {
         titulo="Gibson e Ashby"
         subtitulo="Um metal maciço é muito mais rígido do que o osso. Abrir poros baixa a rigidez: o módulo cai com o quadrado da fração sólida."
       />
-      <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1fr_360px]">
         <Cartao>
           <TituloCartao>Módulo efetivo contra a porosidade</TituloCartao>
           <DescricaoCartao>
@@ -58,7 +69,14 @@ export function GibsonAshby() {
               <ComposedChart data={curva} margin={{ left: 8, right: 24, top: 8, bottom: 16 }}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="p" type="number" domain={[0, 90]} tickFormatter={(v: number) => `${v} %`} stroke="rgb(var(--linha))" />
-                <YAxis domain={[0, Math.ceil(eMacico * 1.08)]} stroke="rgb(var(--linha))" tickFormatter={(v: number) => `${v}`} />
+                <YAxis
+                  domain={[0, eixoY.max]}
+                  ticks={eixoY.marcas}
+                  stroke="rgb(var(--linha))"
+                  tickFormatter={(v: number) => num(v, 0)}
+                  label={{ value: "Módulo efetivo (GPa)", angle: -90, position: "insideLeft", offset: 0, style: { textAnchor: "middle", fill: "rgb(var(--texto-2))", fontSize: 12 } }}
+                  width={64}
+                />
                 <Tooltip
                   formatter={(v: number) => [`${num(v, 1)} GPa`, "E"]}
                   labelFormatter={(l: number) => `p = ${l} %`}
@@ -75,7 +93,7 @@ export function GibsonAshby() {
           <div className="mt-4">
             <div className="flex items-baseline justify-between text-sm">
               <span className="font-medium">Porosidade p</span>
-              <span className="numero text-lg font-bold text-acento">{num(porosidade * 100, 0)} %</span>
+              <span className="numero text-lg font-bold text-acento-texto">{num(porosidade * 100, 0)} %</span>
             </div>
             <Cursor
               aria-label="Porosidade"
@@ -140,7 +158,7 @@ function Numero({ titulo, valor, destaque = false }: { titulo: string; valor: st
   return (
     <div className="rounded-md bg-superficie2 p-3">
       <div className="text-xs text-texto2">{titulo}</div>
-      <div className={`numero mt-1 font-bold ${destaque ? "text-xl text-acento" : "text-lg"}`}>{valor}</div>
+      <div className={`numero mt-1 font-bold ${destaque ? "text-xl text-acento-texto" : "text-lg"}`}>{valor}</div>
     </div>
   );
 }

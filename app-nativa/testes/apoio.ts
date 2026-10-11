@@ -1,14 +1,18 @@
-// Apoio aos testes: leitura dos CSV e JSON de results/ e arranque do núcleo WebAssembly a partir do disco.
+// Apoio aos testes: leitura dos CSV e JSON de results/. O arranque do núcleo WebAssembly está em apoio_wasm.ts
+// (os testes e2e do Playwright importam este ficheiro e não podem importar módulos .js: com o Node 24, o
+// Playwright 1.48 fica parado ao carregá-los).
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { initSync } from "../src/wasm/mcdm_wasm.js";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 
-/** Pasta app-nativa/ e pasta results/ do repositório. */
+/**
+ * Pasta app-nativa/ e pasta results/ do repositório. Os CSV de results/ não são versionados; num worktree sem eles,
+ * a variável RESULTS_DIR indica outra cópia (por exemplo a do repositório principal).
+ */
 export const APP_DIR = resolve(AQUI, "..");
-export const RESULTS = resolve(APP_DIR, "..", "results");
+export const RESULTS = process.env.RESULTS_DIR ? resolve(process.env.RESULTS_DIR) : resolve(APP_DIR, "..", "results");
 
 /**
  * Lê um CSV com cabeçalho (campos entre aspas, com vírgulas ou aspas duplicadas lá dentro).
@@ -51,16 +55,4 @@ export function lerCsv(caminho: string): Record<string, string>[] {
 /** Lê um JSON de results/ ou de dados/. */
 export function lerJson<T = unknown>(caminho: string): T {
   return JSON.parse(readFileSync(caminho, "utf-8")) as T;
-}
-
-let iniciado = false;
-
-/**
- * Arranca o núcleo WebAssembly (src/wasm, o mesmo que a versão web publica) com os bytes lidos do disco.
- * Depois disto, o `default()` que a interface chama já não vai buscar o ficheiro à rede.
- */
-export function iniciarWasm(): void {
-  if (iniciado) return;
-  initSync({ module: readFileSync(resolve(APP_DIR, "src", "wasm", "mcdm_wasm_bg.wasm")) });
-  iniciado = true;
 }

@@ -1,5 +1,5 @@
 // Estrutura da aplicação: barra lateral com os ecrãs, barra superior com o botão sol/lua e o conteúdo.
-import { useState, type ComponentType } from "react";
+import { useEffect, useRef, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Bone,
@@ -16,13 +16,16 @@ import {
   Sun,
   UserRound,
   Waves,
+  Workflow,
 } from "lucide-react";
 import { ProvedorDicas } from "@/componentes/ui/controlos";
 import { useDefinicoes } from "@/lib/definicoes";
+import { useEcra, type Ecra } from "@/lib/navegacao";
 import { modoNucleo } from "@/lib/nucleo";
 import { cn } from "@/lib/utils";
 import { BaseTriagem } from "@/ecras/BaseTriagem";
 import { Caso } from "@/ecras/Caso";
+import { ComoFunciona } from "@/ecras/ComoFunciona";
 import { Definicoes } from "@/ecras/Definicoes";
 import { Doente } from "@/ecras/Doente";
 import { Fichas } from "@/ecras/Fichas";
@@ -32,37 +35,32 @@ import { Inicio } from "@/ecras/Inicio";
 import { Porque } from "@/ecras/Porque";
 import { Sobre } from "@/ecras/Sobre";
 
-export type Ecra =
-  | "inicio"
-  | "haste"
-  | "stent"
-  | "scaffold"
-  | "gibson"
-  | "fichas"
-  | "triagem"
-  | "doente"
-  | "filtros"
-  | "porque"
-  | "definicoes"
-  | "sobre";
+export type { Ecra };
 
-const MENU: { ecra: Ecra; texto: string; Icone: ComponentType<{ className?: string }>; grupo?: string }[] = [
-  { ecra: "inicio", texto: "Início", Icone: Home },
-  { ecra: "haste", texto: "Haste femoral", Icone: Bone, grupo: "Casos" },
-  { ecra: "stent", texto: "Stent", Icone: HeartPulse, grupo: "Casos" },
-  { ecra: "scaffold", texto: "Scaffold ósseo", Icone: Layers, grupo: "Casos" },
-  { ecra: "gibson", texto: "Gibson e Ashby", Icone: Waves, grupo: "Explorar" },
-  { ecra: "fichas", texto: "Fichas dos materiais", Icone: FlaskConical, grupo: "Explorar" },
-  { ecra: "triagem", texto: "Base de triagem", Icone: Database, grupo: "Explorar" },
-  { ecra: "doente", texto: "Doente", Icone: UserRound, grupo: "Explorar" },
-  { ecra: "filtros", texto: "Filtros", Icone: Filter, grupo: "Explorar" },
-  { ecra: "porque", texto: "Porquê", Icone: BookOpenText, grupo: "Explorar" },
-  { ecra: "definicoes", texto: "Definições", Icone: Settings, grupo: "Aplicação" },
-  { ecra: "sobre", texto: "Sobre", Icone: Info, grupo: "Aplicação" },
+// "curto": rótulo por baixo do ícone no telemóvel, onde a barra só tem 72 px (o "title" não aparece em ecrãs táteis).
+const MENU: { ecra: Ecra; texto: string; curto: string; Icone: ComponentType<{ className?: string }>; grupo?: string }[] = [
+  { ecra: "inicio", texto: "Início", curto: "Início", Icone: Home },
+  { ecra: "como-funciona", texto: "Como funciona", curto: "Como", Icone: Workflow },
+  { ecra: "haste", texto: "Haste femoral", curto: "Haste", Icone: Bone, grupo: "Casos" },
+  { ecra: "stent", texto: "Stent", curto: "Stent", Icone: HeartPulse, grupo: "Casos" },
+  { ecra: "scaffold", texto: "Scaffold ósseo", curto: "Scaffold", Icone: Layers, grupo: "Casos" },
+  { ecra: "gibson", texto: "Gibson e Ashby", curto: "Gibson", Icone: Waves, grupo: "Explorar" },
+  { ecra: "fichas", texto: "Fichas dos materiais", curto: "Fichas", Icone: FlaskConical, grupo: "Explorar" },
+  { ecra: "triagem", texto: "Base de triagem", curto: "Triagem", Icone: Database, grupo: "Explorar" },
+  { ecra: "doente", texto: "Doente", curto: "Doente", Icone: UserRound, grupo: "Explorar" },
+  { ecra: "filtros", texto: "Filtros", curto: "Filtros", Icone: Filter, grupo: "Explorar" },
+  { ecra: "porque", texto: "Porquê", curto: "Porquê", Icone: BookOpenText, grupo: "Explorar" },
+  { ecra: "definicoes", texto: "Definições", curto: "Definições", Icone: Settings, grupo: "Aplicação" },
+  { ecra: "sobre", texto: "Sobre", curto: "Sobre", Icone: Info, grupo: "Aplicação" },
 ];
 
 export default function App() {
-  const [ecra, setEcra] = useState<Ecra>("inicio");
+  const [ecra, setEcra] = useEcra();
+  // Ao mudar de ecrã, o conteúdo volta ao topo (senão o ecrã novo abria a meio, sem o título).
+  const principal = useRef<HTMLElement>(null);
+  useEffect(() => {
+    principal.current?.scrollTo?.({ top: 0, left: 0 });
+  }, [ecra]);
   const { escuro, apresentacao, definir } = useDefinicoes();
   const compacta = apresentacao;
 
@@ -72,17 +70,22 @@ export default function App() {
         <nav
           aria-label="Ecrãs"
           // no telemóvel (abaixo de md) a barra fica só com os ícones, para o conteúdo caber nos 390 px
-          className={cn("flex shrink-0 flex-col border-r border-linha bg-superficie", compacta ? "w-[72px]" : "w-14 md:w-60")}
+          className={cn("flex shrink-0 flex-col border-r border-linha bg-superficie", compacta ? "w-[72px]" : "w-[72px] md:w-60")}
         >
           <div className={cn("flex items-center gap-2 py-5", compacta ? "justify-center px-0" : "justify-center px-0 md:justify-start md:px-4")}>
-            <span aria-hidden className="h-7 w-7 shrink-0 rounded-md bg-acento" />
-            {!compacta && <span className="hidden text-lg font-bold leading-tight text-acento md:inline">Biomaterial Ideal</span>}
+            <img
+              src={`${import.meta.env.BASE_URL}${escuro ? "logo_fundo_escuro.svg" : "logo.svg"}`}
+              alt=""
+              aria-hidden
+              className="h-7 w-7 shrink-0"
+            />
+            {!compacta && <span className="hidden text-lg font-bold leading-tight text-acento-texto md:inline">Biomaterial Ideal</span>}
           </div>
-          <ul className="flex-1 space-y-0.5 overflow-y-auto px-1.5 pb-4 md:px-2">
+          <ul className="flex-1 space-y-0.5 overflow-y-auto px-1 pb-4 md:px-2">
             {MENU.map((m, k) => (
               <li key={m.ecra}>
                 {!compacta && m.grupo && m.grupo !== MENU[k - 1]?.grupo && (
-                  <div className="hidden px-3 pb-1 pt-4 text-[0.7rem] font-bold uppercase tracking-wider text-texto2 md:block">{m.grupo}</div>
+                  <div className="hidden px-3 pb-1 pt-4 text-xs font-bold uppercase tracking-wider text-texto2 md:block">{m.grupo}</div>
                 )}
                 <button
                   type="button"
@@ -91,13 +94,20 @@ export default function App() {
                   aria-label={m.texto}
                   title={m.texto}
                   className={cn(
-                    "flex w-full items-center gap-3 rounded-md py-2 text-sm",
-                    compacta ? "justify-center px-0" : "justify-center px-0 md:justify-start md:px-3",
+                    "flex w-full items-center rounded-md py-2 text-sm",
+                    compacta ? "justify-center px-0" : "flex-col justify-center gap-0.5 px-0 md:flex-row md:justify-start md:gap-3 md:px-3",
                     ecra === m.ecra ? "bg-acento/10 font-bold text-acento-texto" : "text-texto2 hover:bg-superficie2 hover:text-texto",
                   )}
                 >
                   <m.Icone className="h-[18px] w-[18px] shrink-0" />
-                  {!compacta && <span className="hidden md:inline">{m.texto}</span>}
+                  {!compacta && (
+                    <>
+                      <span aria-hidden className="max-w-full truncate text-[0.6875rem] leading-tight md:hidden">
+                        {m.curto}
+                      </span>
+                      <span className="hidden md:inline">{m.texto}</span>
+                    </>
+                  )}
                 </button>
               </li>
             ))}
@@ -120,7 +130,7 @@ export default function App() {
             </button>
           </header>
 
-          <main className="min-h-0 flex-1 overflow-y-auto">
+          <main ref={principal} className="min-h-0 flex-1 overflow-y-auto">
             <AnimatePresence mode="wait">
               <motion.div
                 key={ecra}
@@ -131,6 +141,7 @@ export default function App() {
                 className="mx-auto max-w-[1400px] px-4 py-6 md:px-6 lg:px-8"
               >
                 {ecra === "inicio" && <Inicio irPara={setEcra} />}
+                {ecra === "como-funciona" && <ComoFunciona />}
                 {ecra === "haste" && <Caso key="Haste" id="Haste" />}
                 {ecra === "stent" && <Caso key="Stent" id="Stent" />}
                 {ecra === "scaffold" && <Caso key="Scaffold" id="Scaffold" />}

@@ -3,7 +3,7 @@
 |-----------------------|--------------|---------|------|--------------------|
 | Biocompatibilidade (ISO 10993) | eliminatório | Aprovado |  | Triagem: elimina não biocompatíveis |
 | Módulo de Young | alvo | 17 GPa | 0,20 | Aproximar do osso cortical → reduzir stress shielding |
-| Limite de fadiga (10^7 ciclos) | benefício |  | 0,25 | ~1,9 milhões de ciclos de marcha/ano (Silva et al. 2002) |
+| Resistência à fadiga a 10⁷ ciclos (σmax, R = 0,1) | benefício |  | 0,25 | ~1,9 milhões de ciclos de marcha/ano (Silva et al. 2002) |
 | Tensão de cedência | benefício |  | 0,10 | Evitar deformação plástica |
 | Resistência à corrosão (ordinal 1-5) | benefício |  | 0,15 | Libertação iónica |
 | Densidade | custo |  | 0,05 | Critério secundário |

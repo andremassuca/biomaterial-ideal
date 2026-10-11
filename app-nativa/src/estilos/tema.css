@@ -1,6 +1,8 @@
 /* Tema da aplicação: só variáveis CSS (fundo, superfície, texto, texto secundário, linhas, acento).
-   Azul da FE: #0477A8 no texto azul pequeno (5,0:1 em branco), #0595D1 nos títulos grandes e nos gráficos;
-   no escuro, #4FB8EA para texto sobre #0b1b2e. Valores em "r g b" para o Tailwind aplicar transparência. */
+   Azul da FE: #046994 no texto azul pequeno (6,3:1 em branco), #0595D1 só nos títulos grandes e nos gráficos;
+   no escuro, #4FB8EA para texto sobre #0b1b2e. Valores em "r g b" para o Tailwind aplicar transparência.
+   As cores de texto (acento-texto, aviso, perigo, sucesso) dão pelo menos 4,5:1 também nos selos, sobre o fundo
+   tingido a 15 % (testes/contraste.test.ts). */
 
 @font-face {
   font-family: "Inter";
@@ -31,10 +33,10 @@
   --texto-2: 74 88 104;
   --linha: 220 227 234;
   --acento: 5 149 209;
-  --acento-texto: 4 119 168;
-  --aviso: 154 103 0;
-  --perigo: 180 35 24;
-  --sucesso: 6 118 71;
+  --acento-texto: 4 105 148;
+  --aviso: 128 85 0;
+  --perigo: 170 33 23;
+  --sucesso: 5 107 65;
   --cor-topsis: #222222;
   --cor-waspas: #6f6f6f;
   --cor-vikor: #a8a8a8;
@@ -53,7 +55,7 @@
   --acento: 79 184 234;
   --acento-texto: 79 184 234;
   --aviso: 242 179 61;
-  --perigo: 249 112 102;
+  --perigo: 250 141 133;
   --sucesso: 71 205 137;
   --cor-topsis: #e8eef5;
   --cor-waspas: #a7b6c6;
@@ -112,6 +114,25 @@ html[data-movimento="reduzido"] *::after {
 
 ::selection {
   background: rgb(var(--acento) / 0.25);
+}
+
+/* Ranking dos três métodos e do consenso: o número de colunas segue a largura do cartão (container query), para cada
+   coluna ter pelo menos cerca de 200 px (nome e pontuação lado a lado, sem se sobreporem). */
+.ranking-caixa {
+  container-type: inline-size;
+}
+.ranking-grelha {
+  grid-template-columns: minmax(0, 1fr);
+}
+@container (min-width: 26rem) {
+  .ranking-grelha {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@container (min-width: 60rem) {
+  .ranking-grelha {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /* Barras de deslocamento discretas, com as cores do tema. */

@@ -69,14 +69,16 @@ export function RankingAnimado({ caso, ranking, apenasTopsis = false }: { caso: 
   const empate = deltaC !== null && deltaC < APP.limiar_empate;
 
   return (
-    <div>
-      <div className={cn("grid gap-3", apenasTopsis ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-4")}>
+    <div className="ranking-caixa">
+      {/* colunas pela largura do próprio cartão (container query em tema.css), não pela da janela: a 1920 px, no
+          ecrã do doente ou ao lado dos pesos, quatro colunas ficavam com o nome por cima da pontuação */}
+      <div className={cn("grid gap-3", apenasTopsis ? "grid-cols-1" : "ranking-grelha")}>
         {cols.map((col) => {
           const ordem = ranking.alternativas
             .map((a, i) => ({ a, i, pos: col.posicoes[i], v: col.pontuacoes[i] }))
             .sort((x, y) => x.pos - y.pos || x.i - y.i);
           return (
-            <section key={col.titulo} className="rounded-lg border border-linha bg-superficie p-3" aria-label={`Ranking ${col.titulo}`}>
+            <section key={col.titulo} className="min-w-0 rounded-lg border border-linha bg-superficie p-3" aria-label={`Ranking ${col.titulo}`}>
               <Dica texto={col.dica}>
                 <h4 className="mb-2 cursor-help text-sm font-bold text-texto underline decoration-dotted underline-offset-4">
                   {col.titulo}
@@ -93,17 +95,17 @@ export function RankingAnimado({ caso, ranking, apenasTopsis = false }: { caso: 
                       pos === 1 ? "border-acento/50 bg-acento/10" : "border-transparent bg-superficie2",
                     )}
                   >
-                    <span className="numero w-6 text-right text-sm font-bold text-texto2">{pos}.º</span>
+                    <span className="numero w-6 shrink-0 text-right text-sm font-bold text-texto2">{pos}.º</span>
                     <span
                       aria-hidden
                       className="h-3 w-3 shrink-0 rounded-full"
                       style={{ background: corMaterial(caso, a, i, escuro) }}
                     />
                     <NomeMaterial material={a} className="min-w-0 flex-1 text-sm" />
-                    <span className="numero text-xs text-texto2">
+                    <span data-pontuacao className="numero shrink-0 whitespace-nowrap text-xs text-texto2">
                       {col.rotulo} {num(v, col.casas)}
                     </span>
-                    {pos === 1 && <Crown aria-label="vencedor" className="h-4 w-4 text-acento" />}
+                    {pos === 1 && <Crown aria-label="vencedor" className="h-4 w-4 shrink-0 text-acento" />}
                   </motion.li>
                 ))}
               </ol>

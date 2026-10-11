@@ -21,6 +21,7 @@ const limpo = (s: string) => s.replace(/[\s  ]+/g, " ").trim();
 
 const MENU = [
   "Início",
+  "Como funciona",
   "Haste femoral",
   "Stent",
   "Scaffold ósseo",
@@ -42,6 +43,8 @@ interface Problemas {
 function vigiar(page: Page): Problemas {
   const p: Problemas = { consola: [] };
   page.on("console", (m) => {
+    // avisos do WebGL por software do Chromium sem GPU (do navegador de teste, não da aplicação)
+    if (/GroupMarkerNotSet|GL Driver Message|software WebGL/.test(m.text())) return;
     if (m.type() === "error" || m.type() === "warning") p.consola.push(`[${m.type()}] ${m.text()}`);
   });
   page.on("pageerror", (e) => p.consola.push(`[pageerror] ${e.message}`));
@@ -219,5 +222,130 @@ test.describe("versão web", () => {
     const n = new Set(base.filter((l) => l.caso === "haste").map((l) => l.chave)).size;
     await expect(page.locator("main")).toContainText(num(n, 0));
     expect(problemas.consola).toEqual([]);
+  });
+});
+
+test.describe("correções da revisão de 10 out", () => {
+  test("ranking a 1440 px: a pontuação não fica por cima do nome nem do código", async ({ page }, info) => {
+    test.skip(info.project.name !== "computador", "largura de portátil");
+    await abrir(page);
+    for (const texto of ["Haste femoral", "Stent", "Scaffold ósseo"]) {
+      await irPara(page, texto);
+      const sobrepostos = await page.evaluate(() =>
+        [...document.querySelectorAll("[data-pontuacao]")]
+          .filter((s) => {
+            const nome = s.closest("li")?.querySelector(".inline-flex.flex-col");
+            if (!nome) return true;
+            const a = s.getBoundingClientRect();
+            const b = nome.getBoundingClientRect();
+            return a.left < b.right - 0.5 && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+          })
+          .map((s) => s.textContent),
+      );
+      expect(sobrepostos, texto).toEqual([]);
+      // nenhum nome de material partido palavra a palavra: cada nome cabe em duas linhas no máximo
+      const alturas = await page.locator("main [data-pontuacao]").evaluateAll((els) =>
+        els.map((s) => (s.closest("li")!.querySelector(".inline-flex.flex-col > span") as HTMLElement).getClientRects().length),
+      );
+      expect(Math.max(...alturas), texto).toBeLessThanOrEqual(2);
+    }
+  });
+
+  test("ao mudar de ecrã o conteúdo volta ao topo, com o título visível", async ({ page }) => {
+    await abrir(page);
+    await esperarCalmo(page);
+    await page.locator("main").evaluate((m) => m.scrollTo(0, 900));
+    await expect.poll(() => page.locator("main").evaluate((m) => m.scrollTop)).toBeGreaterThan(0);
+    await irPara(page, "Haste femoral");
+    expect(await page.locator("main").evaluate((m) => m.scrollTop)).toBe(0);
+    await expect(page.locator("main h1")).toBeInViewport();
+  });
+
+  test("cada ecrã tem endereço próprio e o botão Voltar regressa ao ecrã anterior", async ({ page }) => {
+    await abrir(page);
+    await irPara(page, "Stent");
+    expect(page.url()).toMatch(/#\/stent$/);
+    await irPara(page, "Doente");
+    await page.goBack();
+    await expect(page.locator("main h1")).toHaveText(/Stent/);
+    await page.goBack();
+    await expect(page.locator("main h1")).toHaveText("Que material pôr dentro do corpo?");
+    await page.goto("./#/scaffold");
+    await expect(page.locator("main h1")).toHaveText(/Scaffold/);
+  });
+
+  test("telemóvel: Porquê e Doente sem deslocamento horizontal em todos os separadores e passos", async ({ page }, info) => {
+    test.skip(info.project.name !== "telemovel", "só no telemóvel");
+    await abrir(page);
+    await irPara(page, "Porquê");
+    for (const tab of await page.getByRole("tab").all()) {
+      await tab.click();
+      await esperarCalmo(page);
+      expect(await transbordo(page), `separador ${await tab.innerText()}`).toEqual({ pagina: 0, main: 0, largos: [] });
+    }
+    await irPara(page, "Doente");
+    for (const passo of await page.getByRole("list", { name: "Passos" }).getByRole("button").all()) {
+      await passo.click();
+      await esperarCalmo(page);
+      expect(await transbordo(page), `passo ${await passo.innerText()}`).toEqual({ pagina: 0, main: 0, largos: [] });
+    }
+  });
+
+  test("telemóvel: espectro em lista legível e menu com rótulos por baixo dos ícones", async ({ page }, info) => {
+    test.skip(info.project.name !== "telemovel", "só no telemóvel");
+    await abrir(page);
+    await expect(page.locator("main svg[aria-label^='Espectro']")).toBeHidden();
+    const lista = page.getByRole("list", { name: /Espectro de confiança/ });
+    await expect(lista).toBeVisible();
+    await expect(lista.getByRole("listitem")).toHaveCount(5);
+    const letra = await lista.getByRole("listitem").first().evaluate((li) => parseFloat(getComputedStyle(li).fontSize));
+    expect(letra).toBeGreaterThanOrEqual(14);
+    const nav = page.getByRole("navigation", { name: "Ecrãs" });
+    for (const r of ["Início", "Haste", "Stent", "Porquê", "Sobre"]) await expect(nav.locator(`span:text-is("${r}"):visible`)).toHaveCount(1);
+  });
+
+  test("campos de pesquisa com foco visível pelo teclado", async ({ page }) => {
+    await abrir(page);
+    for (const texto of ["Fichas dos materiais", "Base de triagem"]) {
+      await irPara(page, texto);
+      const campo = page.getByRole("textbox", { name: "Procurar material" });
+      await campo.focus();
+      await page.keyboard.press("Shift+Tab");
+      await page.keyboard.press("Tab");
+      await expect(campo).toBeFocused();
+      const sombra = await campo.evaluate((i) => getComputedStyle(i.closest("label")!).boxShadow);
+      expect(sombra, texto).not.toBe("none");
+    }
+  });
+
+  test("sem notas internas de trabalho visíveis ([confirmar], Estatuto, registar)", async ({ page }) => {
+    await abrir(page);
+    await irPara(page, "Gibson e Ashby");
+    await expect(page.locator("main")).not.toContainText("confirmar");
+    await irPara(page, "Fichas dos materiais");
+    await page.getByRole("textbox", { name: "Procurar material" }).fill("Quitosano");
+    await page.locator("main nav button").first().click();
+    const fechados = page.locator("main ul button[aria-expanded=false]");
+    while ((await fechados.count()) > 0) await fechados.first().click();
+    const texto = await page.locator("main").innerText();
+    expect(texto).not.toMatch(/\[confirmar|Estatuto \[|registar a porosidade|:\s*confirmar\b/);
+    expect(texto).toContain("Muito dependente da geometria/porosidade");
+  });
+
+  test("Início: a frase do scaffold usa o 1.º do TOPSIS e as percentagens do Monte Carlo (results/monte_carlo.csv)", async ({ page }) => {
+    await abrir(page);
+    const mc = lerCsv(resolve(RESULTS, "monte_carlo.csv")).filter(
+      (l) => l.caso === "Scaffold" && l.analise === "MC propriedades",
+    );
+    const topo = mc
+      .filter((l) => l.metodo === "TOPSIS")
+      .reduce((a, b) => (Number(b.pct_primeiro) > Number(a.pct_primeiro) ? b : a));
+    const doTopo = mc.filter((l) => l.material === topo.material).map((l) => Number(l.pct_primeiro));
+    const legenda = page.locator("main figcaption");
+    // o 1.º do TOPSIS (cenário A) é também o que o TOPSIS põe mais vezes em 1.º: a frase não acrescenta "com o TOPSIS"
+    await expect(legenda).toContainText(
+      limpo(`${nome(topo.material)} fica em 1.º em ${pct(Math.min(...doTopo))} a ${pct(Math.max(...doTopo))}`),
+    );
+    await expect(legenda).not.toContainText("com o TOPSIS");
   });
 });

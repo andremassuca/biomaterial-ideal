@@ -81,6 +81,11 @@ coluna de ν em data/materiais.csv). Os DOI foram confirmados na API da Crossref
 
 - Tetraedros parabólicos (qualidade alta), malhador por omissão da Simulation; dois tamanhos globais (5 e 3,5 mm);
   o malhador refina sozinho junto aos boleados da haste. Solver por omissão (estático linear).
+- Limite da malha: a cortical proximal (metáfise e colo) tem 2 a 3 mm (secção 1), por isso a malha de 3,5 mm tem
+  cerca de um elemento na espessura dessa cortical. A diferença de 1 a 1,6 % entre as duas malhas
+  (results/fea_haste_sw.md, "Sensibilidade à malha") mostra estabilidade dos resultados, não convergência; parte
+  da diferença face ao modelo em Python na zona de Gruen 7 pode ser discretização. Para demonstrar convergência,
+  faltaria uma 3.ª malha com controlo local de 1 a 1,5 mm na cortical proximal.
 - A Simulation mostra, nos modelos com a haste, o aviso modal "Excessive displacements detected" (deslocamentos
   excessivos). O script responde "No" (acabar a análise linear sem passar a grandes deslocamentos), com registo
   no ficheiro .log de cada corrida. Ver a secção 5 (aviso): é o critério interno do Simulation para deslocamentos

@@ -9,9 +9,10 @@ import { Botao } from "@/componentes/ui/botao";
 import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/ui/cartao";
 import { Opcoes } from "@/componentes/ui/controlos";
 import { CAMPOS, NOMES_SECAO, camposEmFalta, chavesDoCaso, limparPerfil, type Campo } from "@/lib/campos";
-import { CASOS, ILUSTRACAO_CASO, SEMIQUANTITATIVOS, TITULO_CASO, cenarios, descricaoCenario, type IdCaso } from "@/lib/dados";
+import { CASOS, ILUSTRACAO_CASO, SEMIQUANTITATIVOS, TITULO_CASO, cenarios, descricaoCenario, nomeSimples, type IdCaso } from "@/lib/dados";
 import { num, pct } from "@/lib/formato";
 import { avaliarDoente, mensagemErro, modoNucleo } from "@/lib/nucleo";
+import { textoPublico } from "@/lib/publico";
 import type { Perfil, Regra, RespostaDoente } from "@/lib/tipos";
 import { cn } from "@/lib/utils";
 
@@ -180,6 +181,7 @@ function PassoDispositivo({
           indicação.
         </Informacao>
       )}
+      <Aviso />
     </div>
   );
 }
@@ -339,7 +341,7 @@ function PassoResultado({ id, cenario, perfil }: { id: IdCaso; cenario: string; 
   const { base_problema, resultado } = resposta;
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-2">
         <Cartao>
           <TituloCartao>Com os dados do doente</TituloCartao>
           <DescricaoCartao>
@@ -355,6 +357,14 @@ function PassoResultado({ id, cenario, perfil }: { id: IdCaso; cenario: string; 
           <Comparacao resposta={resposta} />
         </Cartao>
       </div>
+      {sensibilidadePerfil(id, resposta) && (
+        <Informacao>
+          <span data-sensibilidade>
+            Com este perfil, o TOPSIS põe {nomeSimples(sensibilidadePerfil(id, resposta) ?? "")} em 1.º. Lê-se como
+            sensibilidade ao fator do perfil (um valor de desenho), não como recomendação.
+          </span>
+        </Informacao>
+      )}
 
       <Cartao>
         <TituloCartao>O que mudou face ao caso de base</TituloCartao>
@@ -382,16 +392,49 @@ function PassoResultado({ id, cenario, perfil }: { id: IdCaso; cenario: string; 
           <ul className="mt-3 space-y-1 text-sm">
             {resultado.notas.map((n) => (
               <li key={n} className="rounded-md bg-superficie2 px-3 py-2">
-                <strong>Nota:</strong> {n}
+                <strong>Nota:</strong> {textoPublico(n)}
               </li>
             ))}
           </ul>
         )}
         <TabelaPesos antes={base_problema} depois={resultado.problema} />
       </Cartao>
+      {notaFixacao(id, perfil) && (
+        <Cartao>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <TituloCartao>Antes do material: o modo de fixação</TituloCartao>
+            <EstadoValor estado="A verificar" />
+          </div>
+          <p className="mt-2 text-sm leading-relaxed">{NOTA_FIXACAO}</p>
+          <p className="mt-2 text-xs text-texto2">Nota sem efeito no ranking.</p>
+        </Cartao>
+      )}
       <Aviso />
     </div>
   );
+}
+
+/**
+ * Material que o TOPSIS passa a pôr em 1.º na haste com o perfil, quando é diferente do 1.º do TOPSIS no caso de base
+ * (ex.: o jovem ativo, H1, com o cobalto-crómio). Em linguagem simples: na haste, esta troca vem só do fator de peso do
+ * perfil, por isso a aplicação mostra-a como sensibilidade e não como recomendação. Devolve null se nada muda ou
+ * noutro caso.
+ */
+export function sensibilidadePerfil(id: IdCaso, resposta: RespostaDoente): string | null {
+  if (id !== "Haste") return null;
+  const primeiro = (r: RespostaDoente["base"]) => r.alternativas[r.pos_topsis.indexOf(1)];
+  const base = primeiro(resposta.base);
+  const doente = primeiro(resposta.resultado.ranking);
+  return doente && doente !== base ? doente : null;
+}
+
+/** Nota clínica da haste no doente com osteoporose (revisão clínica de 10 out; sem efeito no ranking). */
+export const NOTA_FIXACAO =
+  "No doente idoso com osteoporose, a decisão principal costuma ser o modo de fixação (haste cimentada ou não cimentada), antes do material. Este modelo compara materiais de hastes não cimentadas; numa haste cimentada polida o material é aço inoxidável ou Co-Cr, e o módulo de Young deixa de ser o critério determinante.";
+
+/** Mostra a nota da fixação só na haste, quando o doente tem osteoporose. */
+export function notaFixacao(id: IdCaso, perfil: Perfil): boolean {
+  return id === "Haste" && perfil.osteoporose === "sim";
 }
 
 const EFEITO: Record<string, string> = {
@@ -406,9 +449,9 @@ function RegraAtiva({ regra: r }: { regra: Regra }) {
   const [aberta, setAberta] = useState(false);
   const efeito =
     r.efeito === "peso multiplicado"
-      ? `peso de “${r.alvo_do_efeito}” × ${r.valor}`
+      ? `peso de “${r.alvo_do_efeito}” × ${r.valor} (fator: valor de desenho)`
       : r.efeito === "critério acrescentado"
-        ? `entra “${r.alvo_do_efeito}” com peso ${r.valor}`
+        ? `entra “${r.alvo_do_efeito}” com peso ${r.valor} (valor de desenho)`
         : r.efeito === "leitura do problema"
           ? `${r.alvo_do_efeito} (fator ${r.valor})`
           : r.efeito === "exclusão"
@@ -429,7 +472,7 @@ function RegraAtiva({ regra: r }: { regra: Regra }) {
       </button>
       {aberta && (
         <div className="space-y-2 border-t border-linha px-3 py-2">
-          {r.justificacao && <p className="text-xs leading-relaxed">{r.justificacao}</p>}
+          {r.justificacao && <p className="text-xs leading-relaxed">{textoPublico(r.justificacao)}</p>}
           <Fonte referencia={r.fonte} doi={r.doi_url} className="flex" />
         </div>
       )}

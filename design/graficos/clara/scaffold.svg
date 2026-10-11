@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-06T22:25:46.498101</dc:date>
+    <dc:date>2026-10-11T21:51:34.599346</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -57,8 +57,8 @@ z
    </g>
    <g id="matplotlib.axis_2"/>
    <g id="line2d_3">
-    <path d="M 163.602358 176.623433 
-L 569.42054 246.340033 
+    <path d="M 163.602358 181.472508 
+L 569.42054 262.099453 
 " clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
     <defs>
      <path id="mc809b70277" d="M 0 2 
@@ -74,22 +74,22 @@ z
 " style="stroke: #9aa0a6; stroke-opacity: 0.8"/>
     </defs>
     <g clip-path="url(#pcd8781b0df)">
-     <use xlink:href="#mc809b70277" x="163.602358" y="176.623433" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
-     <use xlink:href="#mc809b70277" x="569.42054" y="246.340033" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="163.602358" y="181.472508" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="262.099453" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
     </g>
    </g>
    <g id="line2d_4">
-    <path d="M 163.602358 262.099453 
-L 569.42054 238.132934 
+    <path d="M 163.602358 258.33402 
+L 569.42054 232.745885 
 " clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
     <g clip-path="url(#pcd8781b0df)">
-     <use xlink:href="#mc809b70277" x="163.602358" y="262.099453" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
-     <use xlink:href="#mc809b70277" x="569.42054" y="238.132934" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="163.602358" y="258.33402" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="232.745885" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
     </g>
    </g>
    <g id="line2d_5">
-    <path d="M 163.602358 148.765707 
-L 569.42054 79.594679 
+    <path d="M 163.602358 142.528939 
+L 569.42054 70.579453 
 " clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #0072b2; stroke-width: 2.4; stroke-linecap: square"/>
     <defs>
      <path id="m2a6c9a692c" d="M 0 3 
@@ -105,22 +105,22 @@ z
 " style="stroke: #0072b2"/>
     </defs>
     <g clip-path="url(#pcd8781b0df)">
-     <use xlink:href="#m2a6c9a692c" x="163.602358" y="148.765707" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m2a6c9a692c" x="569.42054" y="79.594679" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m2a6c9a692c" x="163.602358" y="142.528939" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m2a6c9a692c" x="569.42054" y="70.579453" style="fill: #0072b2; stroke: #0072b2"/>
     </g>
    </g>
    <g id="line2d_6">
-    <path d="M 163.602358 167.082613 
-L 569.42054 109.926872 
+    <path d="M 163.602358 160.395201 
+L 569.42054 100.769384 
 " clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #9aa0a6; stroke-opacity: 0.8; stroke-width: 1.2; stroke-linecap: square"/>
     <g clip-path="url(#pcd8781b0df)">
-     <use xlink:href="#mc809b70277" x="163.602358" y="167.082613" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
-     <use xlink:href="#mc809b70277" x="569.42054" y="109.926872" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="163.602358" y="160.395201" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
+     <use xlink:href="#mc809b70277" x="569.42054" y="100.769384" style="fill: #9aa0a6; fill-opacity: 0.8; stroke: #9aa0a6; stroke-opacity: 0.8"/>
     </g>
    </g>
    <g id="line2d_7">
-    <path d="M 163.602358 70.579453 
-L 569.42054 89.954681 
+    <path d="M 163.602358 126.914387 
+L 569.42054 121.579451 
 " clip-path="url(#pcd8781b0df)" style="fill: none; stroke: #e69f00; stroke-width: 2.4; stroke-linecap: square"/>
     <defs>
      <path id="m99e364b38a" d="M 0 3 
@@ -136,8 +136,8 @@ z
 " style="stroke: #e69f00"/>
     </defs>
     <g clip-path="url(#pcd8781b0df)">
-     <use xlink:href="#m99e364b38a" x="163.602358" y="70.579453" style="fill: #e69f00; stroke: #e69f00"/>
-     <use xlink:href="#m99e364b38a" x="569.42054" y="89.954681" style="fill: #e69f00; stroke: #e69f00"/>
+     <use xlink:href="#m99e364b38a" x="163.602358" y="126.914387" style="fill: #e69f00; stroke: #e69f00"/>
+     <use xlink:href="#m99e364b38a" x="569.42054" y="121.579451" style="fill: #e69f00; stroke: #e69f00"/>
     </g>
    </g>
    <g id="patch_3">
@@ -146,34 +146,34 @@ L 589.711449 271.675453
 " style="fill: none; stroke: #9aa0a6; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_3">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="180.157139" transform="rotate(-0 151.427813 180.157139)">PCL  0,529</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="184.746434" transform="rotate(-0 151.427813 184.746434)">PCL  0,514</text>
    </g>
    <g id="text_4">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="250.236428" transform="rotate(-0 581.595085 250.236428)">0,427  PCL</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="265.373379" transform="rotate(-0 581.595085 265.373379)">0,400  PCL</text>
    </g>
    <g id="text_5">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="265.63316" transform="rotate(-0 151.427813 265.63316)">HA porosa  0,403</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="261.607946" transform="rotate(-0 151.427813 261.607946)">HA porosa  0,405</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="239.396704" transform="rotate(-0 581.595085 239.396704)">0,439  HA porosa</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="236.019811" transform="rotate(-0 581.595085 236.019811)">0,441  HA porosa</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="152.481298" transform="rotate(-0 151.427813 152.481298)">β-TCP poroso  0,571</text>
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="145.984749" transform="rotate(-0 151.427813 145.984749)">β-TCP poroso  0,569</text>
    </g>
    <g id="text_8">
-    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="83.193237" transform="rotate(-0 581.595085 83.193237)">0,673  β-TCP poroso</text>
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="74.035264" transform="rotate(-0 581.595085 74.035264)">0,671  β-TCP poroso</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="169.317415" transform="rotate(-0 151.427813 169.317415)">Vidro bioativo 45S5 poroso  0,544</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: end; fill: #55595e" x="151.427813" y="163.669127" transform="rotate(-0 151.427813 163.669127)">Vidro bioativo 45S5 poroso  0,544</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="113.823268" transform="rotate(-0 581.595085 113.823268)">0,628  Vidro bioativo 45S5 poroso</text>
+    <text style="font-size: 9px; font-family: 'Inter'; text-anchor: start; fill: #55595e" x="581.595085" y="104.04331" transform="rotate(-0 581.595085 104.04331)">0,628  Vidro bioativo 45S5 poroso</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="74.295045" transform="rotate(-0 151.427813 74.295045)">PCL/β-TCP  0,686</text>
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: end; fill: #14171a" x="151.427813" y="130.370198" transform="rotate(-0 151.427813 130.370198)">PCL/β-TCP  0,591</text>
    </g>
    <g id="text_12">
-    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="94.032961" transform="rotate(-0 581.595085 94.032961)">0,657  PCL/β-TCP</text>
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Inter'; text-anchor: start; fill: #14171a" x="581.595085" y="125.035262" transform="rotate(-0 581.595085 125.035262)">0,599  PCL/β-TCP</text>
    </g>
   </g>
   <g id="text_13">

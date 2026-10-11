@@ -40,6 +40,32 @@ export const TITULO_CASO: Record<IdCaso, string> = {
   "Implante dentário": "Implante dentário",
 };
 
+/**
+ * Recomendação final dos casos em que o ranking sozinho não diz tudo (decisões D1 e D7 do André, 11 out).
+ * A frase é a mesma no relatório, na apresentação e na aplicação: não reescrever aqui.
+ */
+export const RECOMENDACAO: Partial<Record<IdCaso, string>> = {
+  Stent:
+    "Pt-Cr e L605 praticamente equivalentes: o Pt-Cr é favorecido pelo TOPSIS, pelo VIKOR e pela radiopacidade; o L605 pelo WASPAS e por ter todas as propriedades em fichas de fornecedor. Sem vencedor universal.",
+  Scaffold:
+    "Depende da carga: compósito PCL/β-TCP impresso quando o defeito suporta carga (1.º no ranking direto em 5 das 6 combinações); β-TCP poroso quando não suporta (mais vezes 1.º na incerteza dos dados).",
+};
+
+/**
+ * Versão curta da mesma recomendação (cartões do Início e espectro), decidida pelo André a 11 out: igual à da
+ * apresentação. Onde o nome do caso já aparece ao lado com dois pontos, usa-se o texto sem o prefixo (semPrefixo).
+ */
+export const RECOMENDACAO_CURTA: Partial<Record<IdCaso, string>> = {
+  Stent: "Stent: Pt-Cr e L605 praticamente equivalentes",
+  Scaffold: "Scaffold: depende da carga (compósito com carga; β-TCP sem carga)",
+};
+
+/** Tira o prefixo "Caso: " da versão curta (ex.: "Stent: Pt-Cr e L605..." -> "Pt-Cr e L605..."). */
+export function semPrefixo(frase: string): string {
+  const i = frase.indexOf(": ");
+  return i < 0 ? frase : frase.slice(i + 2);
+}
+
 /** Ilustração (design/ilustracoes) de cada caso. */
 export const ILUSTRACAO_CASO: Record<IdCaso, string> = {
   Haste: "haste",

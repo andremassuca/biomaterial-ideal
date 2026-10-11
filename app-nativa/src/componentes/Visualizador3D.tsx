@@ -173,7 +173,16 @@ export function Visualizador3D({
   const webgl = temWebGL();
   const simples = <ModeloSimples chave={modelo} cor={cor} porosidade={porosidade} />;
 
+  const legenda =
+    webgl && (existe === false || modelo === "scaffold")
+      ? modelo === "scaffold"
+        ? "Rede cúbica ilustrativa: a espessura das barras segue a porosidade escolhida."
+        : // texto público: sem caminhos de ficheiros nem notas de trabalho (o .glb, quando existir, substitui a forma)
+          "Forma simplificada do dispositivo, só para orientação."
+      : null;
+
   return (
+    <>
     <div className={cn("relative overflow-hidden rounded-lg border border-linha bg-superficie2", className)}>
       {webgl ? (
         <FalhaModelo alternativa={<SemWebGL rotulo={rotulo} />}>
@@ -192,14 +201,10 @@ export function Visualizador3D({
       ) : (
         <SemWebGL rotulo={rotulo} />
       )}
-      {webgl && (existe === false || modelo === "scaffold") ? (
-        <p className="pointer-events-none absolute bottom-2 left-3 right-3 text-[0.7rem] text-texto2">
-          {modelo === "scaffold"
-            ? "Rede cúbica ilustrativa: a espessura das barras segue a porosidade escolhida."
-            : `Forma simplificada. O modelo do Blender aparece aqui quando existir public/modelos/${modelo}.glb.`}
-        </p>
-      ) : null}
     </div>
+    {/* legenda fora da área do modelo, para não ficar por cima do 3D */}
+    {legenda && <p className="mt-2 text-xs text-texto2">{legenda}</p>}
+    </>
   );
 }
 

@@ -5,6 +5,7 @@ import { CabecalhoEcra, EstadoValor, Fonte, NomeMaterial } from "@/componentes/c
 import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/ui/cartao";
 import { APP, codigo, fichaMaterial, nomeSimples } from "@/lib/dados";
 import { intervalo, valor } from "@/lib/formato";
+import { textoPublico } from "@/lib/publico";
 import { cn } from "@/lib/utils";
 
 export function Fichas() {
@@ -39,9 +40,9 @@ export function Fichas() {
         titulo="Fichas dos materiais"
         subtitulo="Os valores da base de dados (data/materiais.csv), cada um com a fonte e o estado. Os valores sem fonte confirmada ficam “A verificar”."
       />
-      <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+      <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[300px_1fr]">
         <Cartao className="h-fit p-3">
-          <label className="flex items-center gap-2 rounded-md border border-linha bg-superficie2 px-2 py-1.5">
+          <label className="flex items-center gap-2 rounded-md border border-linha bg-superficie2 px-2 py-1.5 focus-within:border-acento focus-within:ring-2 focus-within:ring-acento">
             <Search aria-hidden className="h-4 w-4 text-texto2" />
             <input
               value={busca}
@@ -91,7 +92,7 @@ export function Fichas() {
                     {material}
                     {primeira.norma && primeira.norma !== "-" ? ` · ${primeira.norma}` : ""}
                     {primeira.classe ? ` · ${primeira.classe}` : ""}
-                    {primeira.estatuto ? ` · ${primeira.estatuto}` : ""}
+                    {primeira.estatuto ? ` · ${textoPublico(primeira.estatuto)}` : ""}
                   </DescricaoCartao>
                 </div>
                 <div className="flex flex-wrap gap-1">
@@ -144,7 +145,7 @@ function Propriedade({ linha: l }: { linha: (typeof APP.fichas.materiais)[number
       {aberta && (
         <div className="mt-2 space-y-2 rounded-md bg-superficie2 p-3">
           <Fonte referencia={l.referencia} doi={l.doi_url} className="flex" />
-          {l.notas && <p className="text-xs leading-relaxed text-texto2">{l.notas}</p>}
+          {textoPublico(l.notas) && <p className="text-xs leading-relaxed text-texto2">{textoPublico(l.notas)}</p>}
         </div>
       )}
     </li>

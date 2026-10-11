@@ -7,7 +7,8 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { avaliar_caso, avaliar_doente, monte_carlo_web } from "../src/wasm/mcdm_wasm.js";
 import { posicoes, topsisPassos } from "../src/lib/topsis";
 import type { Caso, DadosApp, RespostaCaso, RespostaDoente, ResumoMonteCarlo } from "../src/lib/tipos";
-import { APP_DIR, RESULTS, iniciarWasm, lerCsv, lerJson } from "./apoio";
+import { APP_DIR, RESULTS, lerCsv, lerJson } from "./apoio";
+import { iniciarWasm } from "./apoio_wasm";
 
 const DADOS = resolve(APP_DIR, "dados");
 const FICHEIRO_CASO: Record<string, string> = {

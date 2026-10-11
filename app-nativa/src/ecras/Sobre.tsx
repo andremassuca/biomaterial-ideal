@@ -9,7 +9,9 @@ const LINHAS: [string, string][] = [
   ["Instituição", "Universidade Lusófona, Faculdade de Engenharia"],
   ["Unidade curricular", "Próteses e Órgãos Artificiais"],
   ["Trabalho", "TP2: Qual é o biomaterial ideal?"],
+  ["Orientador", "Prof. Pedro Sampaio"],
   ["Método", "TOPSIS, WASPAS e VIKOR com critérios-alvo (Petković et al., Appl. Sci. 2025, 15(16), 9198), consenso de Borda e Monte Carlo"],
+  ["Natureza", "Trabalho académico: não é ferramenta clínica nem recomendação terapêutica"],
   ["Letra", "Inter (SIL Open Font License)"],
 ];
 

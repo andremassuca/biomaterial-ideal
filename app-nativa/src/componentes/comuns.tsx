@@ -2,6 +2,7 @@
 import type { ReactNode } from "react";
 import { AlertTriangle, BookOpen, Info } from "lucide-react";
 import { codigo, nomeSimples } from "@/lib/dados";
+import { textoPublico } from "@/lib/publico";
 import { cn } from "@/lib/utils";
 import { Etiqueta } from "./ui/cartao";
 
@@ -13,7 +14,7 @@ import dentario from "@/ilustracoes/dentario.svg?raw";
 
 /** Texto fixo do aviso (especificação da aplicação). */
 export const TEXTO_AVISO =
-  "Ferramenta educativa de exploração de critérios. Não é um dispositivo médico e não substitui a decisão clínica.";
+  "Ferramenta educativa de exploração de critérios. Não é ferramenta clínica nem recomendação terapêutica: não é um dispositivo médico e não substitui a decisão clínica.";
 
 /** Aviso fixo, visível nos resultados e no Sobre. */
 export function Aviso({ className }: { className?: string }) {
@@ -37,7 +38,7 @@ export function NomeMaterial({ material, className, linha = false }: { material:
   return (
     <span className={cn(linha ? "inline-flex items-baseline gap-1.5" : "inline-flex flex-col", className)}>
       <span className="font-medium leading-tight text-texto">{nomeSimples(material)}</span>
-      {c && <span className="text-[0.7rem] leading-tight text-texto2">{c}</span>}
+      {c && <span className="text-xs leading-tight text-texto2">{c}</span>}
     </span>
   );
 }
@@ -56,7 +57,8 @@ export function CabecalhoEcra({ titulo, subtitulo, acoes }: { titulo: string; su
 }
 
 /** Fonte de um valor ou de uma regra (referência, DOI ou ligação), em texto selecionável. */
-export function Fonte({ referencia, doi, className }: { referencia?: string | null; doi?: string | null; className?: string }) {
+export function Fonte({ referencia: bruta, doi, className }: { referencia?: string | null; doi?: string | null; className?: string }) {
+  const referencia = textoPublico(bruta);
   if (!referencia && !doi) return <span className={cn("text-xs text-texto2", className)}>Sem fonte indicada</span>;
   return (
     <span className={cn("inline-flex items-start gap-1.5 text-xs leading-relaxed text-texto2", className)}>

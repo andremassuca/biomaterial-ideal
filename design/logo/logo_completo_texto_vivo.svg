@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1166 272" width="1166" height="272">
+  <title>Biomaterial ideal</title>
+  <g transform="translate(0 8) scale(0.5)">
+    <!-- hexágono -->
+    <path d="M256 40 L443 148 L443 364 L256 472 L69 364 L69 148 Z" fill="#0B3A5B"/>
+    <!-- poros (osso trabecular / scaffold) -->
+    <g fill="#0595D1">
+      <path d="M193 117 C197 124 192 136 185 141 C179 146 165 148 156 148 C146 148 132 146 127 141 C122 135 120 123 125 116 C130 110 147 102 158 102 C169 102 188 111 193 117 Z"/>
+      <path d="M345 110 C343 117 332 123 325 125 C317 126 301 123 298 118 C295 112 302 96 307 91 C313 85 327 81 333 85 C340 88 346 103 345 110 Z"/>
+      <path d="M423 262 C421 272 410 284 403 285 C396 286 382 276 379 266 C377 257 384 236 390 228 C395 221 409 216 415 222 C420 227 425 251 423 262 Z"/>
+      <path d="M123 279 C119 284 107 290 102 288 C97 286 93 274 94 267 C94 260 100 249 105 248 C110 246 123 253 126 258 C129 263 127 274 123 279 Z"/>
+      <path d="M385 356 C381 363 364 372 355 371 C346 369 330 355 329 347 C329 339 343 326 351 323 C360 320 375 324 380 330 C386 335 389 349 385 356 Z"/>
+    </g>
+    <!-- anel único com contorno azul-claro e ponto central -->
+    <circle cx="256" cy="222" r="100" fill="#0595D1"/>
+    <circle cx="256" cy="222" r="90" fill="#0B3A5B"/>
+    <circle cx="256" cy="222" r="54" fill="#0595D1"/>
+    <!-- escala com três traços e marcador ao centro -->
+    <path d="M196 404 H316 M196 390 V418 M256 390 V418 M316 390 V418" fill="none" stroke="#0595D1" stroke-width="14" stroke-linecap="round"/>
+    <path d="M256 376 L238 348 H274 Z" fill="#0595D1" stroke="#0595D1" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <text x="304" y="182" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="112" fill="#0B3A5B">Biomaterial <tspan fill="#0595D1">ideal</tspan></text>
+</svg>
