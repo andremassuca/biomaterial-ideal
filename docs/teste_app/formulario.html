@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste da aplicação</title>
+<style>
+  :root {
+    --fundo: #f7f8f8; --cartao: #ffffff; --texto: #1d2526; --suave: #5b6667; --linha: #d5dbdb;
+    --acento: #0f766e; --acento-texto: #ffffff; --aviso: #fff7e6; --aviso-linha: #e5c07b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #121717; --cartao: #1b2222; --texto: #e7ecec; --suave: #a3b0b0; --linha: #334040;
+      --acento: #2dd4bf; --acento-texto: #0b1414; --aviso: #2a2416; --aviso-linha: #7a6331;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  p.sub { color: var(--suave); margin: 0 0 16px; }
+  .aviso { background: var(--aviso); border: 1px solid var(--aviso-linha); border-radius: 8px; padding: 10px 12px;
+           margin-bottom: 20px; font-size: .95rem; }
+  fieldset { background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; padding: 14px 16px;
+             margin: 0 0 14px; }
+  legend { font-weight: 600; padding: 0 6px; }
+  label { display: block; margin: 8px 0 4px; font-size: .95rem; }
+  input[type=text], input[type=date], input[type=number], select, textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--linha); border-radius: 6px; background: var(--fundo);
+    color: var(--texto); font: inherit; }
+  textarea { min-height: 60px; resize: vertical; }
+  .grelha { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0 12px; }
+  .escala { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0; }
+  .escala label { display: inline-flex; align-items: center; gap: 4px; margin: 0; padding: 6px 10px;
+                  border: 1px solid var(--linha); border-radius: 6px; cursor: pointer; }
+  .escala small { color: var(--suave); align-self: center; }
+  .botoes { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0; }
+  button { font: inherit; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--linha); cursor: pointer;
+           background: var(--cartao); color: var(--texto); }
+  button.principal { background: var(--acento); color: var(--acento-texto); border-color: var(--acento); }
+  #estado { color: var(--suave); min-height: 1.5em; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { border-bottom: 1px solid var(--linha); padding: 6px; text-align: left; }
+  .tabela { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Teste da aplicação: registo das respostas</h1>
+  <p class="sub">Qual é o biomaterial ideal? 5 perguntas, uma resposta por participante (C1, C2, C3, K1).</p>
+  <div class="aviso">Funciona sem internet e não envia nada: as respostas ficam nesta página até carregar em
+    "Descarregar CSV". Não escreva nomes nem dados pessoais. A aplicação testada não é uma ferramenta clínica nem uma
+    recomendação terapêutica.</div>
+
+  <form id="form" autocomplete="off">
+    <fieldset>
+      <legend>Participante</legend>
+      <div class="grelha">
+        <div><label for="participante">Código</label>
+          <select id="participante" name="participante" required>
+            <option value="">escolher</option><option>C1</option><option>C2</option><option>C3</option><option>K1</option>
+          </select></div>
+        <div><label for="perfil">Perfil</label>
+          <select id="perfil" name="perfil"><option>colega</option><option>clínico</option></select></div>
+        <div><label for="data">Data</label><input type="date" id="data" name="data"></div>
+        <div><label for="versao">Versão</label>
+          <select id="versao" name="versao"><option>web</option><option>nativa</option></select></div>
+        <div><label for="dispositivo">Dispositivo</label>
+          <select id="dispositivo" name="dispositivo"><option>computador</option><option>telemóvel</option><option>tablet</option></select></div>
+        <div><label for="duracao_min">Duração (min)</label><input type="number" min="0" max="120" id="duracao_min" name="duracao_min"></div>
+      </div>
+    </fieldset>
+    <div id="perguntas"></div>
+    <div class="botoes">
+      <button type="submit" class="principal">Guardar resposta</button>
+      <button type="button" id="descarregar">Descarregar CSV</button>
+      <button type="button" id="limpar">Limpar tudo</button>
+    </div>
+    <p id="estado" role="status"></p>
+  </form>
+
+  <h2>Respostas guardadas</h2>
+  <div class="tabela"><table id="tabela"><thead></thead><tbody></tbody></table></div>
+</main>
+<script>
+"use strict";
+// As 5 perguntas (iguais às do QUESTIONARIO.md). escala: true = nota de 1 a 5 com comentário opcional.
+const PERGUNTAS = [
+  { id: "p1", tema: "compreensao", titulo: "1. Compreensão", escala: true,
+    texto: "Percebeu o que a aplicação compara e o que quer dizer um material ficar em 1.º lugar?" },
+  { id: "p2", tema: "utilidade", titulo: "2. Utilidade", escala: true,
+    texto: "A aplicação ajudou-o a perceber como as prioridades e a incerteza dos dados mudam a escolha do material?" },
+  { id: "p3", tema: "confianca", titulo: "3. Confiança", escala: true,
+    texto: "Sabendo que não é uma ferramenta clínica, quanto confia nos resultados que a aplicação mostra?" },
+  { id: "p4", tema: "facilidade", titulo: "4. Facilidade", escala: true,
+    texto: "Foi fácil encontrar o que procurava e usar os controlos (caso, prioridades, perfil do doente, Monte Carlo)?" },
+  { id: "p5", tema: "sugestao", titulo: "5. Sugestão", escala: false,
+    texto: "Se pudesse mudar uma coisa na aplicação, qual seria?" },
+];
+const COLUNAS = ["participante", "perfil", "data", "versao", "dispositivo", "duracao_min",
+  "p1_compreensao", "p1_comentario", "p2_utilidade", "p2_comentario", "p3_confianca", "p3_comentario",
+  "p4_facilidade", "p4_comentario", "p5_sugestao"];
+const CHAVE = "teste_app_respostas_v1";
+let respostas = [];
+
+function carregar() {
+  try { respostas = JSON.parse(localStorage.getItem(CHAVE) || "[]"); } catch (e) { respostas = []; }
+}
+function gravarLocal() {
+  try { localStorage.setItem(CHAVE, JSON.stringify(respostas)); } catch (e) { /* sem armazenamento: só em memória */ }
+}
+
+function desenharPerguntas() {
+  const caixa = document.getElementById("perguntas");
+  for (const p of PERGUNTAS) {
+    const fs = document.createElement("fieldset");
+    const lg = document.createElement("legend"); lg.textContent = p.titulo; fs.appendChild(lg);
+    const tx = document.createElement("p"); tx.textContent = p.texto; tx.style.margin = "0 0 6px"; fs.appendChild(tx);
+    if (p.escala) {
+      const esc = document.createElement("div"); esc.className = "escala";
+      const a = document.createElement("small"); a.textContent = "nada"; esc.appendChild(a);
+      for (let n = 1; n <= 5; n++) {
+        const l = document.createElement("label");
+        const r = document.createElement("input");
+        r.type = "radio"; r.name = p.id + "_" + p.tema; r.value = String(n); r.required = true;
+        l.appendChild(r); l.appendChild(document.createTextNode(String(n))); esc.appendChild(l);
+      }
+      const b = document.createElement("small"); b.textContent = "totalmente"; esc.appendChild(b);
+      fs.appendChild(esc);
+      const lc = document.createElement("label"); lc.textContent = "Comentário (opcional)";
+      lc.htmlFor = p.id + "_comentario"; fs.appendChild(lc);
+    }
+    const ta = document.createElement("textarea");
+    ta.id = ta.name = p.escala ? p.id + "_comentario" : p.id + "_" + p.tema;
+    fs.appendChild(ta);
+    caixa.appendChild(fs);
+  }
+}
+
+function campoCsv(v) {
+  const s = String(v == null ? "" : v);
+  return /[;"\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function paraCsv(linhas) {
+  const corpo = [COLUNAS.join(";")].concat(linhas.map(r => COLUNAS.map(c => campoCsv(r[c])).join(";")));
+  return String.fromCharCode(0xFEFF) + corpo.join("\r\n") + "\r\n";  // BOM para o Excel ler os acentos
+}
+
+function desenharTabela() {
+  const t = document.getElementById("tabela");
+  t.tHead.innerHTML = "";
+  const tb = t.tBodies[0]; tb.innerHTML = "";
+  const cab = t.tHead.insertRow();
+  for (const c of ["participante", "perfil", "p1_compreensao", "p2_utilidade", "p3_confianca", "p4_facilidade"]) {
+    const th = document.createElement("th"); th.textContent = c; cab.appendChild(th);
+  }
+  for (const r of respostas) {
+    const tr = tb.insertRow();
+    for (const c of ["participante", "perfil", "p1_compreensao", "p2_utilidade", "p3_confianca", "p4_facilidade"]) {
+      tr.insertCell().textContent = r[c] || "";
+    }
+  }
+}
+
+function estado(msg) { document.getElementById("estado").textContent = msg; }
+
+document.addEventListener("DOMContentLoaded", () => {
+  carregar();
+  desenharPerguntas();
+  desenharTabela();
+  const form = document.getElementById("form");
+  document.getElementById("participante").addEventListener("change", e => {
+    document.getElementById("perfil").value = e.target.value === "K1" ? "clínico" : "colega";
+  });
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const dados = Object.fromEntries(new FormData(form).entries());
+    const linha = {};
+    for (const c of COLUNAS) linha[c] = (dados[c] || "").trim();
+    const i = respostas.findIndex(r => r.participante === linha.participante);
+    if (i >= 0) respostas[i] = linha; else respostas.push(linha);
+    gravarLocal(); desenharTabela();
+    estado("Resposta de " + linha.participante + " guardada (" + respostas.length + " no total).");
+    form.reset();
+  });
+  document.getElementById("descarregar").addEventListener("click", () => {
+    if (!respostas.length) { estado("Ainda não há respostas guardadas."); return; }
+    const blob = new Blob([paraCsv(respostas)], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "respostas_teste_app.csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    estado("CSV descarregado (" + respostas.length + " respostas).");
+  });
+  document.getElementById("limpar").addEventListener("click", () => {
+    if (!confirm("Apagar todas as respostas guardadas nesta página?")) return;
+    respostas = []; gravarLocal(); desenharTabela(); estado("Respostas apagadas.");
+  });
+});
+</script>
+</body>
+</html>
