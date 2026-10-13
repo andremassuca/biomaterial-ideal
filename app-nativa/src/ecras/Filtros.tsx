@@ -179,7 +179,7 @@ export function Filtros() {
             <TituloCartao>Cenário da esterilização em todos os casos</TituloCartao>
             <DescricaoCartao>Combinações em que algum material sai (results/filtros.md). Vencedores por TOPSIS / WASPAS / VIKOR.</DescricaoCartao>
             <div className="mt-3 overflow-x-auto">
-              <table className="w-full text-left text-sm">
+              <table className="tabela-limpa w-full text-left text-sm">
                 <thead className="text-xs text-texto2">
                   <tr>
                     <th className="py-1 font-medium">Caso</th>

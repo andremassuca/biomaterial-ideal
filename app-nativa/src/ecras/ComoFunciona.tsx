@@ -414,7 +414,7 @@ function Tabela({ legenda, cabecalho, linhas }: { legenda: string; cabecalho: st
 function TabelaLarga({ legenda, cabecalho, linhas }: { legenda: string; cabecalho: string[]; linhas: ReactNode[][] }) {
   return (
     <div className="hidden overflow-x-auto sm:block">
-      <table className="w-full text-left text-sm">
+      <table className="tabela-limpa w-full text-left text-sm">
         <caption className="sr-only">{legenda}</caption>
         <thead className="text-xs text-texto2">
           <tr>

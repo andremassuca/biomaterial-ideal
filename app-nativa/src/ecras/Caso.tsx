@@ -1,14 +1,20 @@
 // Ecrã de um caso quantitativo (haste, stent, scaffold): ranking animado, pesos ajustáveis, η e Monte Carlo em direto.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Play, RotateCcw, Square } from "lucide-react";
+import { AcoesAnalise } from "@/componentes/AcoesAnalise";
+import { PainelPersonalizados } from "@/componentes/PainelPersonalizados";
 import { Aviso, CabecalhoEcra, Informacao, NomeMaterial } from "@/componentes/comuns";
 import { GraficoMC } from "@/componentes/GraficoMC";
+import { ResumoResultado } from "@/componentes/ResumoResultado";
 import { RankingAnimado } from "@/componentes/RankingAnimado";
 import { Botao } from "@/componentes/ui/botao";
 import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/ui/cartao";
 import { Cursor, Dica, Opcoes, Progresso } from "@/componentes/ui/controlos";
+import { criarAnalise } from "@/lib/analise";
 import { APP, CASOS, RECOMENDACAO, TITULO_CASO, cenarios, descricaoCenario, type IdCaso } from "@/lib/dados";
 import { num, pct, valor } from "@/lib/formato";
+import { avaliarLocal } from "@/lib/metodos";
+import { acrescentarMateriais, aoMudarPersonalizados, lerPersonalizados } from "@/lib/personalizados";
 import { avaliarCaso, mensagemErro, modoNucleo, monteCarlo, pararMonteCarlo } from "@/lib/nucleo";
 import type { Problema, RespostaCaso, ResumoMonteCarlo } from "@/lib/tipos";
 
@@ -38,6 +44,12 @@ export function Caso({ id }: { id: IdCaso }) {
   const [eta, setEta] = useState(etaBase);
   const [resposta, setResposta] = useState<RespostaCaso | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [personalizados, setPersonalizados] = useState(() => lerPersonalizados(id));
+  useEffect(() => {
+    setPersonalizados(lerPersonalizados(id));
+    return aoMudarPersonalizados(() => setPersonalizados(lerPersonalizados(id)));
+  }, [id]);
+  const [mc, setMc] = useState<{ resumo: ResumoMonteCarlo; variar: "propriedades" | "pesos" } | null>(null);
 
   // Ao mudar de caso ou de cenário, volta aos pesos de base.
   useEffect(() => {
@@ -61,6 +73,21 @@ export function Caso({ id }: { id: IdCaso }) {
     };
   }, [id, cenario, pesos, eta]);
 
+  // Com materiais personalizados, o ranking é recalculado aqui (métodos em TypeScript, iguais aos do núcleo).
+  const mostrado = useMemo(() => {
+    if (!resposta) return null;
+    const extra = acrescentarMateriais(resposta.problema, personalizados);
+    if (extra.incluidos.length === 0) return { ...resposta, incluidos: [] as string[], deFora: extra.deFora };
+    return {
+      ...resposta,
+      problema: extra.problema,
+      ranking: avaliarLocal(extra.problema),
+      apenasTopsis: false,
+      incluidos: extra.incluidos,
+      deFora: extra.deFora,
+    };
+  }, [resposta, personalizados]);
+
   const soma = pesos.reduce((a, b) => a + b, 0) || 1;
 
   return (
@@ -69,27 +96,58 @@ export function Caso({ id }: { id: IdCaso }) {
         titulo={TITULO_CASO[id]}
         subtitulo="Mude os pesos dos critérios e veja os materiais trocarem de lugar nos três métodos. O Monte Carlo repete o cálculo milhares de vezes com as propriedades (ou os pesos) a variar dentro dos intervalos da base."
         acoes={
-          <Opcoes
-            rotulo="Cenário"
-            valor={cenario}
-            aoMudar={setCenario}
-            opcoes={lista.map((c) => ({ valor: c, texto: `Cenário ${c}` }))}
-          />
+          <div className="flex flex-wrap items-center gap-3">
+            <AcoesAnalise
+              montar={() =>
+                mostrado
+                  ? criarAnalise({
+                      caso: id,
+                      cenario,
+                      problemaBase: base,
+                      problemaUsado: mostrado.problema,
+                      ranking: mostrado.ranking,
+                      apenasTopsis: mostrado.apenasTopsis,
+                      excluidos: mostrado.excluidos,
+                      notas: mostrado.incluidos.length
+                        ? [`Inclui materiais definidos pelo utilizador (${mostrado.incluidos.join(", ")}): valores introduzidos pelo utilizador, sem fonte na base. O Monte Carlo não os inclui.`]
+                        : [],
+                      eta,
+                      monteCarlo: mc?.resumo ?? null,
+                      monteCarloVariou: mc?.variar ?? null,
+                    })
+                  : null
+              }
+            />
+            <Opcoes
+              rotulo="Cenário"
+              valor={cenario}
+              aoMudar={setCenario}
+              opcoes={lista.map((c) => ({ valor: c, texto: `Cenário ${c}` }))}
+            />
+          </div>
         }
       />
       <p className="-mt-4 text-xs text-texto2">{descricaoCenario(cenario)}</p>
-      {RECOMENDACAO[id] && (
-        <p className="rounded-lg border border-linha bg-superficie px-4 py-3 text-sm" data-recomendacao>
-          <strong>Recomendação: </strong>
-          {RECOMENDACAO[id]}
-        </p>
-      )}
-
       {modoNucleo() === "topsis" && (
         <Informacao>
           Modo navegador: só o TOPSIS é calculado aqui. WASPAS, VIKOR, Borda, η e Monte Carlo usam o núcleo Rust da
           aplicação nativa.
         </Informacao>
+      )}
+
+      {mostrado && (
+        <ResumoResultado
+          ranking={mostrado.ranking}
+          apenasTopsis={mostrado.apenasTopsis}
+          recomendacao={
+            RECOMENDACAO[id] ? (
+              <p data-recomendacao>
+                <strong>Recomendação: </strong>
+                {RECOMENDACAO[id]}
+              </p>
+            ) : undefined
+          }
+        />
       )}
 
       <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-[1fr_380px]">
@@ -101,14 +159,21 @@ export function Caso({ id }: { id: IdCaso }) {
             </DescricaoCartao>
             <div className="mt-4">
               {erro && <p className="mb-2 text-sm text-perigo">{erro}</p>}
-              {resposta ? (
-                <RankingAnimado caso={id} ranking={resposta.ranking} apenasTopsis={resposta.apenasTopsis} />
+              {mostrado ? (
+                <RankingAnimado caso={id} ranking={mostrado.ranking} apenasTopsis={mostrado.apenasTopsis} />
               ) : (
                 <div className="h-48 animate-pulse rounded-md bg-superficie2" />
               )}
             </div>
           </Cartao>
-          <PainelMonteCarlo id={id} cenario={cenario} pesos={pesos} eta={eta} alterado={alterado} />
+          {mostrado && mostrado.incluidos.length > 0 && (
+            <Informacao>
+              O ranking inclui {mostrado.incluidos.length === 1 ? "um material" : `${mostrado.incluidos.length} materiais`} definido
+              {mostrado.incluidos.length === 1 ? "" : "s"} pelo utilizador. O Monte Carlo corre só com os materiais da base.
+            </Informacao>
+          )}
+          <PainelPersonalizados caso={id} problema={resposta?.problema ?? base} lista={personalizados} deFora={mostrado?.deFora ?? []} />
+          <PainelMonteCarlo id={id} cenario={cenario} pesos={pesos} eta={eta} alterado={alterado} aoResumo={(resumo, variar) => setMc(resumo ? { resumo, variar } : null)} />
           <Aviso />
         </div>
 
@@ -185,12 +250,15 @@ function PainelMonteCarlo({
   pesos,
   eta,
   alterado,
+  aoResumo,
 }: {
   id: IdCaso;
   cenario: string;
   pesos: number[];
   eta: number;
   alterado: boolean;
+  /** Avisa o ecrã do resumo do Monte Carlo (ou null quando deixa de valer) e do que variou. */
+  aoResumo: (resumo: ResumoMonteCarlo | null, variar: "propriedades" | "pesos") => void;
 }) {
   const [nIter, setNIter] = useState(String(ITERACOES[1]));
   const [variar, setVariar] = useState<"propriedades" | "pesos">("propriedades");
@@ -205,6 +273,8 @@ function PainelMonteCarlo({
   useEffect(() => {
     setResumo(null);
     setProgresso(0);
+    aoResumo(null, variar);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, cenario, pesos, eta, variar]);
 
   // Valores do relatório (results/monte_carlo.csv), só comparáveis com o caso de base no cenário A.
@@ -225,6 +295,7 @@ function PainelMonteCarlo({
         setProgresso((100 * feitas) / total),
       );
       setResumo(r);
+      aoResumo(r, variar);
       setTempo(performance.now() - inicio.current);
     } catch (e) {
       setErro(mensagemErro(e));
@@ -289,12 +360,12 @@ function PainelMonteCarlo({
                   Comparação com o relatório (results/monte_carlo.csv, {num(referencia[0].n_iter, 0)} repetições, semente{" "}
                   {referencia[0].seed}): % em 1.º lugar.
                 </p>
-                <table className="w-full text-left text-xs">
+                <table className="tabela-limpa w-full text-left text-xs">
                   <thead className="text-texto2">
                     <tr>
                       <th className="py-1 font-medium">Material</th>
                       {resumo.metodos.map((m) => (
-                        <th key={m.metodo} className="py-1 font-medium">
+                        <th key={m.metodo} className="numero py-1 font-medium">
                           {m.metodo}: app / relatório
                         </th>
                       ))}

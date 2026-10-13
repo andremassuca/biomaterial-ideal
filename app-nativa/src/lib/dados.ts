@@ -88,6 +88,15 @@ export function nomeSimples(material: string): string {
   return APP.nomes[material]?.nome ?? material;
 }
 
+/**
+ * Nome do material com o código técnico quando o há ("Polímero (PLLA)"): materiais diferentes partilham o nome simples
+ * (os três polímeros do scaffold, as duas ligas de cobalto-crómio) e sem o código não se distinguiriam em listas e tabelas.
+ */
+export function rotuloMaterial(material: string): string {
+  const c = APP.nomes[material]?.codigo;
+  return c ? `${nomeSimples(material)} (${c})` : nomeSimples(material);
+}
+
 /** Código técnico do material (vazio se não estiver na tabela). */
 export function codigo(material: string): string {
   return APP.nomes[material]?.codigo ?? "";

@@ -1,16 +1,20 @@
 // Fluxo do doente em passos: dispositivo, dados gerais, dados do dispositivo e resultado com
 // "o que mudou face ao caso de base" (cada alteração com a fonte). Nada é guardado nem enviado.
+import { ResumoResultado } from "@/componentes/ResumoResultado";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, ChevronDown, Minus, UserRound } from "lucide-react";
+import { AcoesAnalise } from "@/componentes/AcoesAnalise";
 import { Aviso, CabecalhoEcra, EstadoValor, Fonte, Ilustracao, Informacao, NomeMaterial } from "@/componentes/comuns";
 import { RankingAnimado } from "@/componentes/RankingAnimado";
+import { PainelImpacto } from "@/componentes/doente/PainelImpacto";
 import { Botao } from "@/componentes/ui/botao";
 import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/ui/cartao";
 import { Opcoes } from "@/componentes/ui/controlos";
+import { criarAnalise } from "@/lib/analise";
 import { CAMPOS, NOMES_SECAO, camposEmFalta, chavesDoCaso, limparPerfil, type Campo } from "@/lib/campos";
 import { CASOS, ILUSTRACAO_CASO, SEMIQUANTITATIVOS, TITULO_CASO, cenarios, descricaoCenario, nomeSimples, type IdCaso } from "@/lib/dados";
-import { num, pct } from "@/lib/formato";
+import { num, pct, decimalPt } from "@/lib/formato";
 import { avaliarDoente, mensagemErro, modoNucleo } from "@/lib/nucleo";
 import { textoPublico } from "@/lib/publico";
 import type { Perfil, Regra, RespostaDoente } from "@/lib/tipos";
@@ -65,6 +69,8 @@ export function Doente() {
         ))}
       </ol>
 
+      {/* painel lateral em tempo real nos passos de preenchimento: ao lado em ecrãs largos, por baixo nos estreitos */}
+      <div className={cn("grid gap-6 [&>*]:min-w-0", passo < 3 && "xl:grid-cols-[minmax(0,1fr)_26rem]")}>
       <AnimatePresence mode="wait">
         <motion.div
           key={passo}
@@ -93,6 +99,12 @@ export function Doente() {
           {passo === 3 && <PassoResultado id={id} cenario={cenario} perfil={perfil} />}
         </motion.div>
       </AnimatePresence>
+      {passo < 3 && (
+        <div className="xl:sticky xl:top-4 xl:max-h-[calc(100vh-2rem)] xl:self-start xl:overflow-y-auto">
+          <PainelImpacto id={id} cenario={cenario} perfil={perfil} />
+        </div>
+      )}
+      </div>
 
       <div className="flex justify-between">
         <Botao variante="contorno" onClick={() => setPasso((p) => Math.max(0, p - 1))} disabled={passo === 0}>
@@ -181,7 +193,6 @@ function PassoDispositivo({
           indicação.
         </Informacao>
       )}
-      <Aviso />
     </div>
   );
 }
@@ -341,11 +352,29 @@ function PassoResultado({ id, cenario, perfil }: { id: IdCaso; cenario: string; 
   const { base_problema, resultado } = resposta;
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <AcoesAnalise
+          montar={() =>
+            criarAnalise({
+              caso: id,
+              cenario,
+              problemaBase: base_problema,
+              problemaUsado: resultado.problema,
+              ranking: resultado.ranking,
+              perfil: limpo,
+              regras: resultado.regras,
+              excluidos: resultado.excluidos,
+              notas: resultado.notas,
+            })
+          }
+        />
+      </div>
+      <ResumoResultado ranking={resultado.ranking} prefixo="1.º com este perfil" />
       <div className="grid gap-6 [&>*]:min-w-0 xl:grid-cols-2">
         <Cartao>
           <TituloCartao>Com os dados do doente</TituloCartao>
           <DescricaoCartao>
-            {TITULO_CASO[id]}, {descricaoCenario(cenario).toLowerCase()}
+            {TITULO_CASO[id]}, {descricaoCenario(cenario).replace(/^C/, "c")}
           </DescricaoCartao>
           <div className="mt-4">
             <RankingAnimado caso={id} ranking={resultado.ranking} />
@@ -449,11 +478,11 @@ function RegraAtiva({ regra: r }: { regra: Regra }) {
   const [aberta, setAberta] = useState(false);
   const efeito =
     r.efeito === "peso multiplicado"
-      ? `peso de “${r.alvo_do_efeito}” × ${r.valor} (fator: valor de desenho)`
+      ? `peso de “${r.alvo_do_efeito}” × ${decimalPt(r.valor)} (fator: valor de desenho)`
       : r.efeito === "critério acrescentado"
-        ? `entra “${r.alvo_do_efeito}” com peso ${r.valor} (valor de desenho)`
+        ? `entra “${r.alvo_do_efeito}” com peso ${decimalPt(r.valor)} (valor de desenho)`
         : r.efeito === "leitura do problema"
-          ? `${r.alvo_do_efeito} (fator ${r.valor})`
+          ? `${r.alvo_do_efeito} (fator ${decimalPt(r.valor)})`
           : r.efeito === "exclusão"
             ? `saem: ${r.alvo_do_efeito}`
             : r.alvo_do_efeito;
@@ -488,7 +517,7 @@ function TabelaPesos({ antes, depois }: { antes: RespostaDoente["base_problema"]
   if (!mudou) return null;
   return (
     <div className="mt-4 overflow-x-auto">
-      <table className="w-full text-left text-sm">
+      <table className="tabela-limpa w-full text-left text-sm">
         <caption className="mb-2 text-left text-xs text-texto2">Pesos dos critérios (somam 100 % antes e depois)</caption>
         <thead className="text-xs text-texto2">
           <tr>
@@ -540,7 +569,7 @@ function Comparacao({ resposta }: { resposta: RespostaDoente }) {
   const r = resultado.ranking;
   return (
     <div className="mt-4 overflow-x-auto">
-      <table className="w-full text-left text-sm">
+      <table className="tabela-limpa w-full text-left text-sm">
         <thead className="text-xs text-texto2">
           <tr>
             <th className="py-1 font-medium">Material</th>

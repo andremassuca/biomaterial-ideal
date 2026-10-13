@@ -181,7 +181,7 @@ export function BaseTriagem() {
           Project, depois JARVIS-DFT).
         </p>
         <div className="mt-2 overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="tabela-limpa w-full text-sm">
             <thead>
               <tr className="border-b border-linha text-left text-xs uppercase tracking-wide text-texto2">
                 <th className="py-2 pr-3 font-bold">Material</th>

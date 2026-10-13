@@ -1,7 +1,7 @@
 // Versão web (dist-web) no Chromium sem interface, em largura de telemóvel e de computador: todos os ecrãs abrem,
 // sem erros nem avisos na consola, sem pedidos falhados, sem deslocamento horizontal no telemóvel, e os números
 // mostrados batem com results/ (e com o núcleo da aplicação nativa, que é o mesmo crate Rust).
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 import { num, pct, valor } from "../src/lib/formato";
@@ -214,6 +214,7 @@ test.describe("versão web", () => {
   });
 
   test("base de triagem: o total de materiais do caso bate com results/base_triagem.csv", async ({ page }) => {
+    test.skip(!existsSync(resolve(RESULTS, "base_triagem.csv")), "results/base_triagem.csv não existe (não está no Git)");
     const problemas = vigiar(page);
     await abrir(page);
     await irPara(page, "Base de triagem");

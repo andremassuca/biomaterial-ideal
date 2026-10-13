@@ -110,7 +110,7 @@ function Tema({ titulo, simples, children }: { titulo: string; simples: ReactNod
 function Tabela({ cabecalho, linhas }: { cabecalho: ReactNode[]; linhas: ReactNode[][] }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left text-sm">
+      <table className="tabela-limpa w-full text-left text-sm">
         <thead className="text-xs text-texto2">
           <tr>
             {cabecalho.map((c, k) => (

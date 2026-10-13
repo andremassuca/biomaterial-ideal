@@ -145,6 +145,42 @@ html[data-movimento="reduzido"] *::after {
   font-variant-numeric: tabular-nums;
 }
 
+/* Tabelas limpas: sem linhas pesadas, zebra suave, cabeçalho legível e fixo, números à direita (tabulares). */
+.tabela-limpa {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.tabela-limpa thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgb(var(--superficie));
+  color: rgb(var(--texto-2));
+  font-weight: 600;
+  border-bottom: 1px solid rgb(var(--linha));
+  white-space: nowrap;
+}
+.tabela-limpa tbody tr {
+  border-top: 0 !important;
+}
+.tabela-limpa tbody tr:nth-child(even) {
+  background-color: rgb(var(--superficie-2) / 0.55);
+}
+.tabela-limpa td,
+.tabela-limpa th {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.tabela-limpa td.numero,
+.tabela-limpa th.numero {
+  text-align: right;
+}
+.tabela-limpa tbody tr:hover {
+  background-color: rgb(var(--acento) / 0.08);
+}
+
 /* Recharts: eixos e grelhas com as cores do tema. */
 .recharts-cartesian-axis-tick-value {
   fill: rgb(var(--texto-2));
@@ -181,4 +217,31 @@ html[data-movimento="reduzido"] *::after {
 .prosa li {
   margin: 0.35rem 0;
   line-height: 1.55;
+}
+
+/* Impressão do relatório: só a folha sai; a aplicação e os botões ficam escondidos. */
+@media print {
+  #raiz {
+    display: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  #relatorio-impressao {
+    position: static !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+  #relatorio-impressao > div {
+    padding: 0 !important;
+  }
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+}
+
+/* Modo apresentação: gráficos maiores. */
+html[data-apresentacao="sim"] .recharts-responsive-container {
+  min-height: 22rem;
 }

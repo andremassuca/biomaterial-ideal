@@ -37,3 +37,13 @@ describe("temWebGL", () => {
     expect(temWebGL()).toBe(false);
   });
 });
+
+describe("decimalPt", () => {
+  it("troca o ponto decimal por vírgula e deixa o resto igual", async () => {
+    const { decimalPt } = await import("../src/lib/formato");
+    expect(decimalPt("0.20")).toBe("0,20");
+    expect(decimalPt("peso 0.20 (custo) e 2")).toBe("peso 0,20 (custo) e 2");
+    expect(decimalPt("Fim. Início")).toBe("Fim. Início");
+    expect(decimalPt(null)).toBe("");
+  });
+});

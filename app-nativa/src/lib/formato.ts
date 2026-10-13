@@ -51,3 +51,11 @@ export function valor(x: number | null | undefined): string {
 export function ordinal(k: number): string {
   return `${k}.º`;
 }
+
+/**
+ * Número escrito com ponto decimal nos dados ("0.20") passa a vírgula ("0,20"), como no resto da interface.
+ * Em linguagem simples: só troca o ponto entre dois algarismos; o resto do texto fica igual.
+ */
+export function decimalPt(texto: string | null | undefined): string {
+  return (texto ?? "").replace(/(\d)\.(\d)/g, "$1,$2");
+}

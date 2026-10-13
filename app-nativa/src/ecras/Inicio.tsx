@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Workflow } from "lucide-react";
-import { Aviso, CabecalhoEcra, Ilustracao, NomeMaterial } from "@/componentes/comuns";
+import { Aviso, CabecalhoEcra, NomeMaterial } from "@/componentes/comuns";
+import { ImagemDispositivo } from "@/componentes/ImagemDispositivo";
 import { Espectro } from "@/componentes/Espectro";
 import { Botao } from "@/componentes/ui/botao";
 import { Visualizador3D, type ChaveModelo } from "@/componentes/Visualizador3D";
@@ -37,6 +38,41 @@ export function Inicio({ irPara }: { irPara: (e: Ecra) => void }) {
         }
       />
 
+      <section aria-label="Escolha o dispositivo" className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
+        {APP.espectro.map((c, i) => {
+          const id = c.caso as IdCaso;
+          const destino = ECRA_CASO[id];
+          return (
+            <motion.button
+              key={c.caso}
+              type="button"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 * i }}
+              onClick={() => irPara(destino ?? "doente")}
+              data-cartao-dispositivo={id}
+              className="group flex min-w-0 flex-col overflow-hidden rounded-lg border border-linha bg-superficie text-left shadow-sm transition-colors hover:border-acento/60"
+            >
+              <ImagemDispositivo id={ILUSTRACAO_CASO[id]} ilustracao={ILUSTRACAO_CASO[id]} className="aspect-[4/3] w-full" />
+              <div className="flex min-w-0 flex-1 flex-col gap-1 p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-base font-bold leading-tight">{TITULO_CASO[id]}</span>
+                  <ArrowRight aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-texto2 group-hover:text-acento" />
+                </div>
+                {c.semiquantitativo && <Etiqueta className="w-fit">semiquantitativo</Etiqueta>}
+                {RECOMENDACAO_CURTA[id] ? (
+                  <p className="text-sm text-texto2" data-recomendacao>
+                    {RECOMENDACAO_CURTA[id]}
+                  </p>
+                ) : (
+                  <NomeMaterial material={c.vencedor} linha className="flex-wrap text-sm" />
+                )}
+              </div>
+            </motion.button>
+          );
+        })}
+      </section>
+
       <Cartao>
         <TituloCartao>Espectro de confiança</TituloCartao>
         <DescricaoCartao>
@@ -48,49 +84,13 @@ export function Inicio({ irPara }: { irPara: (e: Ecra) => void }) {
         </div>
       </Cartao>
 
-      <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1.1fr_1fr]">
-        <Cartao className="flex flex-col">
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <TituloCartao>Os dispositivos em 3D</TituloCartao>
-            <Opcoes rotulo="Dispositivo" valor={modelo} aoMudar={setModelo} opcoes={MODELOS} />
-          </div>
-          <Visualizador3D modelo={modelo} className="h-80" rotulo={`Modelo 3D: ${modelo}`} />
-        </Cartao>
-
-        <div className="grid content-start gap-3">
-          {APP.espectro.map((c, i) => {
-            const id = c.caso as IdCaso;
-            const destino = ECRA_CASO[id];
-            return (
-              <motion.button
-                key={c.caso}
-                type="button"
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05 * i }}
-                onClick={() => irPara(destino ?? "doente")}
-                className="group flex w-full min-w-0 items-center gap-3 rounded-lg border border-linha bg-superficie p-3 text-left hover:border-acento/60 sm:gap-4"
-              >
-                <Ilustracao nome={ILUSTRACAO_CASO[id]} className="h-12 w-12 shrink-0 text-acento" />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <span className="font-bold">{TITULO_CASO[id]}</span>
-                    {c.semiquantitativo && <Etiqueta>semiquantitativo</Etiqueta>}
-                  </div>
-                  {RECOMENDACAO_CURTA[id] ? (
-                    <p className="text-sm" data-recomendacao>
-                      {RECOMENDACAO_CURTA[id]}
-                    </p>
-                  ) : (
-                    <NomeMaterial material={c.vencedor} linha className="flex-wrap text-sm" />
-                  )}
-                </div>
-                <ArrowRight aria-hidden className="h-4 w-4 shrink-0 text-texto2 group-hover:text-acento" />
-              </motion.button>
-            );
-          })}
+      <Cartao className="flex flex-col">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <TituloCartao>Os dispositivos em 3D</TituloCartao>
+          <Opcoes rotulo="Dispositivo" valor={modelo} aoMudar={setModelo} opcoes={MODELOS} />
         </div>
-      </div>
+        <Visualizador3D modelo={modelo} className="h-80" rotulo={`Modelo 3D: ${modelo}`} />
+      </Cartao>
       <Aviso />
     </div>
   );

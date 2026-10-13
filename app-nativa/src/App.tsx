@@ -2,22 +2,27 @@
 import { useEffect, useRef, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  Activity,
+  ArrowLeftRight,
   Bone,
   BookOpenText,
   Database,
   Filter,
   FlaskConical,
   HeartPulse,
+  History,
   Home,
   Info,
   Layers,
   Moon,
+  Presentation,
   Settings,
   Sun,
   UserRound,
   Waves,
   Workflow,
 } from "lucide-react";
+import { ModalRelatorio } from "@/componentes/Relatorio";
 import { ProvedorDicas } from "@/componentes/ui/controlos";
 import { useDefinicoes } from "@/lib/definicoes";
 import { useEcra, type Ecra } from "@/lib/navegacao";
@@ -25,14 +30,17 @@ import { modoNucleo } from "@/lib/nucleo";
 import { cn } from "@/lib/utils";
 import { BaseTriagem } from "@/ecras/BaseTriagem";
 import { Caso } from "@/ecras/Caso";
+import { Comparar } from "@/ecras/Comparar";
 import { ComoFunciona } from "@/ecras/ComoFunciona";
 import { Definicoes } from "@/ecras/Definicoes";
 import { Doente } from "@/ecras/Doente";
+import { Historico } from "@/ecras/Historico";
 import { Fichas } from "@/ecras/Fichas";
 import { Filtros } from "@/ecras/Filtros";
 import { GibsonAshby } from "@/ecras/GibsonAshby";
 import { Inicio } from "@/ecras/Inicio";
 import { Porque } from "@/ecras/Porque";
+import { Simulacao } from "@/ecras/Simulacao";
 import { Sobre } from "@/ecras/Sobre";
 
 export type { Ecra };
@@ -48,6 +56,9 @@ const MENU: { ecra: Ecra; texto: string; curto: string; Icone: ComponentType<{ c
   { ecra: "fichas", texto: "Fichas dos materiais", curto: "Fichas", Icone: FlaskConical, grupo: "Explorar" },
   { ecra: "triagem", texto: "Base de triagem", curto: "Triagem", Icone: Database, grupo: "Explorar" },
   { ecra: "doente", texto: "Doente", curto: "Doente", Icone: UserRound, grupo: "Explorar" },
+  { ecra: "comparar", texto: "Comparar materiais", curto: "Comparar", Icone: ArrowLeftRight, grupo: "Explorar" },
+  { ecra: "simulacao", texto: "Simulação FEA e CFD", curto: "Simulação", Icone: Activity, grupo: "Explorar" },
+  { ecra: "historico", texto: "Histórico", curto: "Histórico", Icone: History, grupo: "Explorar" },
   { ecra: "filtros", texto: "Filtros", curto: "Filtros", Icone: Filter, grupo: "Explorar" },
   { ecra: "porque", texto: "Porquê", curto: "Porquê", Icone: BookOpenText, grupo: "Explorar" },
   { ecra: "definicoes", texto: "Definições", curto: "Definições", Icone: Settings, grupo: "Aplicação" },
@@ -66,6 +77,7 @@ export default function App() {
 
   return (
     <ProvedorDicas>
+      <ModalRelatorio />
       <div className="flex h-screen overflow-hidden bg-fundo text-texto">
         <nav
           aria-label="Ecrãs"
@@ -115,10 +127,29 @@ export default function App() {
         </nav>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex h-14 shrink-0 items-center justify-end gap-3 border-b border-linha bg-superficie px-4 md:px-6">
+          <header
+            className={cn(
+              "flex shrink-0 items-center justify-end gap-3 border-b border-linha bg-superficie px-4 md:px-6",
+              apresentacao ? "h-10" : "h-14",
+            )}
+          >
             {modoNucleo() === "topsis" && (
               <span className="rounded-sm bg-aviso/15 px-2 py-0.5 text-xs font-medium text-aviso">Modo navegador: só o TOPSIS</span>
             )}
+            <button
+              type="button"
+              onClick={() => definir({ apresentacao: !apresentacao })}
+              aria-pressed={apresentacao}
+              className={cn(
+                "flex h-9 items-center gap-2 rounded-md px-2.5 text-sm hover:bg-superficie2 hover:text-texto",
+                apresentacao ? "bg-acento/10 font-bold text-acento-texto" : "text-texto2",
+              )}
+              aria-label={apresentacao ? "Sair do modo apresentação" : "Entrar no modo apresentação"}
+              title={apresentacao ? "Sair do modo apresentação" : "Modo apresentação: vista limpa, letra e gráficos grandes"}
+            >
+              <Presentation className="h-5 w-5" />
+              <span className="hidden sm:inline">{apresentacao ? "Sair da apresentação" : "Apresentação"}</span>
+            </button>
             <button
               type="button"
               onClick={() => definir({ tema: escuro ? "claro" : "escuro" })}
@@ -138,7 +169,7 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22 }}
-                className="mx-auto max-w-[1400px] px-4 py-6 md:px-6 lg:px-8"
+                className={cn("mx-auto px-4 py-6 md:px-6 lg:px-8", apresentacao ? "max-w-[2000px]" : "max-w-[1400px]")}
               >
                 {ecra === "inicio" && <Inicio irPara={setEcra} />}
                 {ecra === "como-funciona" && <ComoFunciona />}
@@ -149,6 +180,9 @@ export default function App() {
                 {ecra === "fichas" && <Fichas />}
                 {ecra === "triagem" && <BaseTriagem />}
                 {ecra === "doente" && <Doente />}
+                {ecra === "comparar" && <Comparar />}
+                {ecra === "simulacao" && <Simulacao />}
+                {ecra === "historico" && <Historico />}
                 {ecra === "filtros" && <Filtros />}
                 {ecra === "porque" && <Porque />}
                 {ecra === "definicoes" && <Definicoes />}

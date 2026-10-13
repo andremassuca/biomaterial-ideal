@@ -1,7 +1,7 @@
 // Os números que a aplicação mostra batem com os ficheiros de results/?
 // Usa o núcleo WebAssembly de src/wasm (o mesmo da versão web, compilado do mesmo crate Rust que a aplicação
 // nativa) e os JSON de dados/ que a interface lê; compara-os com os CSV e JSON de results/.
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 import { avaliar_caso, avaliar_doente, monte_carlo_web } from "../src/wasm/mcdm_wasm.js";
@@ -217,8 +217,12 @@ describe("CFD do stent (results/cfd_pulsatil.json)", () => {
   });
 });
 
-describe("base de triagem (results/base_triagem.csv)", () => {
-  const base = lerCsv(resolve(RESULTS, "base_triagem.csv"));
+// results/base_triagem.csv é a origem da base de triagem e não está no Git (results/*.csv); sem ela, estes testes saltam
+// (a página de triagem usa o triagem.json já exportado). Com o ficheiro presente, comparam o JSON com a origem.
+const CSV_TRIAGEM = resolve(RESULTS, "base_triagem.csv");
+describe.skipIf(!existsSync(CSV_TRIAGEM))("base de triagem (results/base_triagem.csv)", () => {
+  // o corpo do describe corre mesmo quando o bloco salta: por isso só se lê o ficheiro se existir
+  const base = existsSync(CSV_TRIAGEM) ? lerCsv(CSV_TRIAGEM) : [];
   const tri = lerJson<{ materiais: Record<string, unknown>[]; contagens: { caso: string; fonte_base: string; classe: string; materiais: number }[] }>(
     resolve(DADOS, "triagem.json"),
   );

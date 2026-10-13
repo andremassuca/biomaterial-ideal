@@ -5,65 +5,86 @@
   </picture>
 </p>
 
-# biomat-mcdm
+# biomaterial-ideal
 
-Seleção multicritério de biomateriais com **critérios-alvo** e **análise de robustez**, aplicada a quatro classes de dispositivos médicos: prótese da anca (haste e par articular), implante dentário, stent vascular e scaffold para regeneração óssea.
+Multi-criteria selection of biomaterials with **target criteria** and **robustness analysis**, applied to five implantable components: femoral stem, hip bearing couple, coronary stent, bone scaffold and dental implant.
 
-Base metodológica: Petković, Madić & Mitković, *Appl. Sci.* 2025, 15(16), 9198 (doi:10.3390/app15169198). Este projeto estende a abordagem a materiais não metálicos e biodegradáveis e quantifica a robustez dos rankings.
+- **Interactive web app:** <https://andremassuca.github.io/biomaterial-ideal/>
+- **Documentation:** <https://andremassuca.github.io/biomaterial-ideal/docs/>
 
-## Pergunta de investigação
+Work by André Oliveira Massuça (Biomedical Engineering, Universidade Lusófona) for the course Prostheses and Artificial Organs (Próteses e Órgãos Artificiais). Lecturer: Prof. Pedro Sampaio. The report, slides and data are written in European Portuguese; this page is a summary in English.
 
-A escolha do biomaterial mantém-se quando mudam (i) o método de decisão, (ii) os pesos e (iii) a incerteza nas propriedades?
+> This work is not a clinical tool and does not make therapeutic recommendations.
 
-## Pipeline
+## Research question
 
-```
-dados (CSV) → triagem (critérios estritos) → matriz de decisão
-           → normalização (benefício / custo / alvo)
-           → TOPSIS · WASPAS · VIKOR
-           → Monte Carlo sobre [mín, máx] + variação de pesos/η
-           → concordância entre rankings (Spearman) → figuras
-```
+Does the choice of biomaterial hold when the decision method, the weights and the uncertainty in the properties change?
 
-## Estrutura
+## Method
 
 ```
-data/                   CSV (fonte de verdade) + leia_me.md; .xlsx gerado por scripts/exportar_xlsx.py
-src/biomat_mcdm/
-  io.py                 leitura dos dados e construção da matriz  [implementado]
-  screening.py          triagem por critérios estritos            [implementado]
-  normalization.py      normalização benefício/custo/alvo         [implementado]
-  weights.py            pesos objetivos e combinação com η         [implementado]
-  indices.py            σy/E (stent) e E_implante/E_osso (haste)  [implementado]
-  pipeline.py           ponto de entrada por caso (3 métodos)     [implementado]
-  methods/topsis.py     TOPSIS estendido                           [implementado]
-  methods/waspas.py     WASPAS estendido                           [implementado]
-  methods/vikor.py      VIKOR abrangente                           [implementado]
-  robustness.py         Monte Carlo, variantes de cenário, Spearman [implementado]
-  plots.py              figuras para relatório e poster            [TODO]
-tests/                  testes = especificação das funções
-docs/                   notas metodológicas (viram a secção de Métodos)
-results/                rankings e figuras gerados
+sourced data (CSV) → target criteria → TOPSIS · WASPAS · VIKOR (and Borda consensus)
+                   → Monte Carlo on properties and weights → answer and confidence level
 ```
 
-## Como trabalhar
+Methodological basis: Petković, Madić and Mitković, *Appl. Sci.* 2025, 15(16), 9198 (doi:10.3390/app15169198). Every value in the database has a source and a status (see "Data status" below).
+
+## Results (report v11, 11 Oct 2026)
+
+| Case | Answer |
+|---|---|
+| Femoral stem | Ti-6Al-4V ELI in an uncemented stem (the most stable conclusion: 1st with all three methods and in at least 9,999 of 10,000 Monte Carlo repetitions) |
+| Coronary stent | Pt-Cr and L605 are practically equivalent: Pt-Cr is favoured by TOPSIS, by VIKOR and by radiopacity; L605 by WASPAS and by having every property in supplier datasheets. No universal winner. |
+| Bone scaffold | Depends on load: 3D-printed PCL/β-TCP composite when the defect bears load (1st in the direct ranking in 5 of 6 combinations); porous β-TCP when it does not (more often 1st under data uncertainty). |
+| Bearing couple | ZTA/ZTA with the best score (semi-quantitative analysis, centred on wear) |
+| Dental implant | Commercially pure titanium grade 4 (semi-quantitative analysis) |
+
+The finite element simulations (stem) and flow simulations (stent) are exploratory and were cross-checked numerically between tools (Python, SOLIDWORKS and Ansys; OpenFOAM and Ansys Fluent); they were not validated experimentally.
+
+## Data status
+
+Counts below are computed from `data/materiais.csv` (300 property values for 28 materials).
+
+| Status (column `estado`) | Values |
+|---|---|
+| Verificado (verified in the cited primary source) | 80 |
+| Verificado (fornecedor) (verified in a supplier datasheet) | 28 |
+| Verificado (derivado) (calculated from source data, calculation in the notes) | 4 |
+| Verificado (composição química) / (composição nominal) (follows from the material composition) | 2 |
+| Valor de modelação (modelling value set by a stated rule; not counted as verified) | 6 |
+| A verificar (to be verified; no confirmed source yet) | 180 |
+| **Verified in total** (all statuses starting with "Verificado") | **114 of 300** |
+
+Every value that is not verified is listed in `results/por_verificar.md`. The database is the set of CSV files in `data/` (the `.xlsx` file is generated from them by `scripts/exportar_xlsx.py` and is never edited by hand); the meaning of each column and status is in `data/leia_me.md`.
+
+## Contents
+
+```
+data/               CSV files (source of truth) and leia_me.md; the .xlsx is generated by scripts/exportar_xlsx.py
+src/biomat_mcdm/    data loading, normalisation, weights, TOPSIS, WASPAS, VIKOR, robustness and patient profiles
+scripts/            run_all.py (all scenarios), figures, report tables, checkers and audit
+results/            generated rankings, Monte Carlo, robustness and figures
+relatorio/          report drafts and tables (without the PDF)
+apresentacao/       slides (PDF)
+docs/               documentation sources (MkDocs site) and methodological notes
+docs/teste_app/     usability questionnaire for the app
+design/impressao3d/ 3D-printing models (STL) for demonstration; not for clinical use or implant manufacture
+app-nativa/         application (Tauri 2, React and TypeScript, core in Rust and WebAssembly) and web version
+tests/              automated tests (pytest)
+```
+
+## How to reproduce
 
 ```bash
 pip install -e ".[dev]"
-pytest -q            # começa a vermelho; implementa até ficar verde
+pytest -q
+python scripts/run_all.py
 ```
 
-Ordem sugerida:
-1. `normalization.py` → `pytest tests/test_normalization.py`
-2. `methods/topsis.py` → `pytest tests/test_topsis.py`
-3. Reproduzir o caso da anca do artigo → `tests/test_reproduce_petkovic.py`
-4. `weights.py`, `waspas.py`, `vikor.py`
-5. `robustness.py` e `plots.py`
+## Licences
 
-## Estado dos dados
+Code: MIT (LICENSE). Data, results and texts: CC BY 4.0 (LICENCA_DADOS.md).
 
-Todos os valores estão marcados **"A verificar"** em `data/materiais.csv`. Nenhum valor entra no relatório/poster sem fonte confirmada (DOI/URL preenchido).
-
-## Autor
+## Author
 
 André Oliveira Massuça, ORCID [0009-0005-1527-843X](https://orcid.org/0009-0005-1527-843X)
