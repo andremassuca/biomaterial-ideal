@@ -3,7 +3,10 @@
 Confirmação independente da FEA da haste femoral (o caso principal é o modelo em Python, gmsh e scikit-fem). Aqui
 usa-se o SOLIDWORKS 2025 SP2 Premium com o Simulation, conduzido por script (API COM, pywin32):
 scripts/fea_solidworks.py. Resultados em results/fea_haste_sw.md e results/fea_haste_sw.json; modelos e estudos em
-design/cad/fea/; imagens em results/figures/fea_sw/. Cotas do fémur em design/cad/cotas_femur_fea.md.
+design/cad/fea/; imagens em results/figures/fea_sw/ (os *_malha.png são o gráfico da malha, "Mesh Quality1", sem escala de tensão; até 13 out 2026 tinham
+por engano o nome *_von_mises.png; os *_densidade_energia.png são mapas de densidade de energia de deformação, com a barra
+de cores na imagem; os mapas de von Mises vêm do MAPDL, em results/figures/fea_mapdl/).
+Cotas do fémur em design/cad/cotas_femur_fea.md.
 
 Comandos (cada um arranca uma instância própria do SolidWorks e fecha-a no fim):
 

@@ -3,12 +3,19 @@
 // componentes/simulacao/dados_simulacao.json, extraído de results/fea_haste_sw.json, cfd_fluent.json,
 // cfd_verificacoes.json e cfd_malhas.csv) e dos dados da aplicação.
 import dados from "@/componentes/simulacao/dados_simulacao.json";
+import mapas from "@/componentes/simulacao/mapas_von_mises.json";
 
 /** Limiar de tensão de corte na parede (Pa) usado como referência da CFD (docs/CFD_STENT.md: limiar operacional). */
 export const LIMIAR_TAWSS_PA = 0.4;
 
 /** Vistas guardadas de cada estudo da SOLIDWORKS: energia de deformação (com barra de cores) e malha. */
 export type VistaSw = "energia" | "malha";
+
+/** Vistas do separador da haste: as da SOLIDWORKS mais os mapas de von Mises do MAPDL. */
+export type VistaFea = VistaSw | "tensao";
+
+/** Cortes dos mapas de von Mises: vista de frente do conjunto e corte coronal pelo canal medular. */
+export type CorteMapdl = "frente" | "corte_coronal";
 
 /** Material do estudo da SOLIDWORKS: nome no ficheiro de resultados, prefixo das imagens e nome para mostrar. */
 export interface MaterialSw {
@@ -45,7 +52,7 @@ export function urlSimulacao(relativo: string, base: string = import.meta.env.BA
  */
 export function imagemSw(material: MaterialSw, malha: string, vista: VistaSw): string {
   const h = `h${malha.replace(".", "p")}`;
-  const sufixo = vista === "energia" ? "densidade_energia" : "von_mises";
+  const sufixo = vista === "energia" ? "densidade_energia" : "malha";
   return `fea_sw/${material.prefixo}_${h}_${sufixo}.png`;
 }
 
@@ -161,5 +168,66 @@ export function verificacoesCfd() {
     variacaoMalhaArea: v.malha_max_variacao_area,
     variacaoPassoArea: v.passo_variacao_area,
     diferencaCiclos: v.ciclos_max,
+  };
+}
+
+// ------------------------------------------------------------------------------ MAPDL (von Mises)
+
+/** Escala de cores comum dos mapas de von Mises (MPa): de `min` a `max`; acima de `saturacao` a cor satura. */
+export const ESCALA_MAPDL = mapas.escala_MPa as { min: number; max: number; saturacao: number };
+
+/** Malha dos mapas de von Mises (mm). */
+export const MALHA_MAPDL = mapas.malha_mm as number;
+
+/** Nota sobre os picos de tensão (a mesma das figuras): dependem da malha e ficam em cantos e interfaces. */
+export const NOTA_MAPDL = mapas.nota as string;
+
+/**
+ * Ficheiro (relativo a public/simulacao/) do mapa de von Mises de um material e corte.
+ * Em linguagem simples: por exemplo "fea_mapdl/Aco316L_von_mises_corte_coronal.png".
+ */
+export function imagemMapdl(material: MaterialSw, corte: CorteMapdl): string {
+  return `fea_mapdl/${material.prefixo}_von_mises_${corte}.png`;
+}
+
+/** Ficheiro da montagem com os cinco materiais lado a lado (mesma escala de cores). */
+export const IMAGEM_COMPARACAO_MAPDL = `fea_mapdl/${mapas.ficheiro_comparacao as string}`;
+
+/** Números de um material nos resultados do MAPDL (máximos de von Mises por corpo, em MPa). */
+export interface LinhaMapdl {
+  material: string;
+  eHasteGPa: number | null;
+  vmHaste: number | null;
+  vmCortical: number;
+  vmTrabecular: number;
+  vmGlobal: number;
+  nos: number;
+  elementos: number;
+}
+
+type CasoMapdl = {
+  material: string;
+  E_haste_GPa: number | null;
+  vm_max_MPa: Record<string, number | null>;
+  nos: number;
+  elementos: number;
+};
+
+/**
+ * Números do MAPDL de um material (chave igual ao prefixo das imagens, por exemplo "Aco316L").
+ * Em linguagem simples: lê o JSON gerado a partir dos resultados do MAPDL; devolve null se o material não existir.
+ */
+export function linhaMapdl(prefixo: string): LinhaMapdl | null {
+  const c = (mapas.casos as Record<string, CasoMapdl>)[prefixo];
+  if (!c) return null;
+  return {
+    material: c.material,
+    eHasteGPa: c.E_haste_GPa,
+    vmHaste: c.vm_max_MPa["Haste"] ?? null,
+    vmCortical: c.vm_max_MPa["Osso cortical"] ?? NaN,
+    vmTrabecular: c.vm_max_MPa["Osso trabecular"] ?? NaN,
+    vmGlobal: c.vm_max_MPa["Global"] ?? NaN,
+    nos: c.nos,
+    elementos: c.elementos,
   };
 }

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // Ecrã "Simulação FEA e CFD": funções puras (imagem certa, razões ao intacto, números da CFD) conferidas com os ficheiros
 // de results/, e o ecrã (separadores, seletores, ampliação da imagem, avisos, o que não existe).
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
@@ -9,11 +9,16 @@ import { Ampliavel } from "../src/componentes/simulacao/Ampliavel";
 import { BarraFracao } from "../src/componentes/simulacao/SimulacaoCfd";
 import { AVISO_SIMULACAO, Simulacao } from "../src/ecras/Simulacao";
 import {
+  ESCALA_MAPDL,
+  IMAGEM_COMPARACAO_MAPDL,
   LIMIAR_TAWSS_PA,
   MALHAS_SW,
+  MALHA_MAPDL,
   MATERIAIS_SW,
   comparacaoFluent,
+  imagemMapdl,
   imagemSw,
+  linhaMapdl,
   linhaSw,
   malhasCfd,
   materiaisCfd,
@@ -43,7 +48,7 @@ describe("funções puras da simulação", () => {
   it("imagemSw escolhe o ficheiro pelo prefixo, malha e vista", () => {
     const m = MATERIAIS_SW.find((x) => x.prefixo === "Aco316L")!;
     expect(imagemSw(m, "3.5", "energia")).toBe("fea_sw/Aco316L_h3p5_densidade_energia.png");
-    expect(imagemSw(m, "5.0", "malha")).toBe("fea_sw/Aco316L_h5p0_von_mises.png");
+    expect(imagemSw(m, "5.0", "malha")).toBe("fea_sw/Aco316L_h5p0_malha.png");
   });
 
   it("todas as imagens referenciadas existem em public/simulacao", () => {
@@ -128,7 +133,7 @@ describe("ecrã Simulação", () => {
     fireEvent.click(screen.getByRole("radio", { name: /Malha 5,0 mm/ }));
     fireEvent.click(screen.getByRole("radio", { name: "Malha" }));
     const src = screen.getAllByRole("img").map((i) => i.getAttribute("src") ?? "");
-    expect(src.some((s) => s.endsWith("Ti6Al4V_poroso_h5p0_von_mises.png"))).toBe(true);
+    expect(src.some((s) => s.endsWith("Ti6Al4V_poroso_h5p0_malha.png"))).toBe(true);
   });
 
   it("o separador do stent mostra os dados da CFD e o que não existe", () => {
@@ -138,5 +143,74 @@ describe("ecrã Simulação", () => {
     expect(screen.getByText(/Linhas de corrente/)).toBeTruthy();
     expect(screen.getByText(/Render em 4K/)).toBeTruthy();
     expect(screen.getAllByText("Pt-Cr").length).toBeGreaterThan(0);
+  });
+});
+
+describe("mapas de von Mises do MAPDL", () => {
+  const CORTES = ["frente", "corte_coronal"] as const;
+
+  it("imagemMapdl escolhe o ficheiro pelo prefixo e pelo corte", () => {
+    const m = MATERIAIS_SW.find((x) => x.prefixo === "Aco316L")!;
+    expect(imagemMapdl(m, "corte_coronal")).toBe("fea_mapdl/Aco316L_von_mises_corte_coronal.png");
+    expect(imagemMapdl(m, "frente")).toBe("fea_mapdl/Aco316L_von_mises_frente.png");
+  });
+
+  it("todas as imagens e a montagem existem em public/simulacao", () => {
+    for (const m of MATERIAIS_SW)
+      for (const c of CORTES) expect(existsSync(resolve(APP_DIR, "public", "simulacao", imagemMapdl(m, c))), `${m.prefixo} ${c}`).toBe(true);
+    expect(existsSync(resolve(APP_DIR, "public", "simulacao", IMAGEM_COMPARACAO_MAPDL))).toBe(true);
+  });
+
+  it("o JSON da aplicação é igual ao results/fea_haste_mapdl_mapas.json", () => {
+    const a = readFileSync(resolve(APP_DIR, "src", "componentes", "simulacao", "mapas_von_mises.json"), "utf-8");
+    const r = readFileSync(resolve(RESULTS, "fea_haste_mapdl_mapas.json"), "utf-8");
+    expect(JSON.parse(a)).toEqual(JSON.parse(r));
+  });
+
+  it("linhaMapdl lê os máximos por corpo e reproduz os valores publicados (results/fea_haste_mapdl.md, ramo extensoes)", () => {
+    // máximos globais publicados (MPa): intacto 48,3; 316L 171,9; Co-Cr-Mo 172,4; Ti-6Al-4V 167,1; Ti poroso 163,9
+    const publicados: Record<string, number> = { Intacto: 48.3, Aco316L: 171.9, CoCrMo: 172.4, Ti6Al4V: 167.1, Ti6Al4V_poroso: 163.9 };
+    for (const [prefixo, v] of Object.entries(publicados)) {
+      const l = linhaMapdl(prefixo)!;
+      expect(l.vmGlobal, prefixo).toBeCloseTo(v, 0);
+      expect(l.vmCortical).toBeGreaterThan(0);
+    }
+    expect(linhaMapdl("Intacto")!.vmHaste).toBeNull();
+    expect(linhaMapdl("Aco316L")!.eHasteGPa).toBeCloseTo(207.5, 1);
+    expect(linhaMapdl("não existe")).toBeNull();
+  });
+
+  it("a escala é comum (0 a 130 MPa) e a malha é de 3,0 mm", () => {
+    expect(ESCALA_MAPDL.min).toBe(0);
+    expect(ESCALA_MAPDL.max).toBe(ESCALA_MAPDL.saturacao);
+    expect(MALHA_MAPDL).toBe(3);
+  });
+
+  it("o separador 'Tensão de von Mises' mostra a imagem do MAPDL, o corte, os máximos e a nota da malha", () => {
+    render(<Simulacao />);
+    fireEvent.click(screen.getByRole("radio", { name: "Tensão de von Mises" }));
+    const src = () => screen.getAllByRole("img").map((i) => i.getAttribute("src") ?? "");
+    expect(src().some((s) => s.endsWith("fea_mapdl/Aco316L_von_mises_corte_coronal.png"))).toBe(true);
+    expect(src().some((s) => s.endsWith(IMAGEM_COMPARACAO_MAPDL))).toBe(true);
+    // o seletor da malha da SOLIDWORKS desaparece: estes mapas são do MAPDL (malha de 3,0 mm)
+    expect(screen.queryByRole("radio", { name: /Malha 5,0 mm/ })).toBeNull();
+    fireEvent.click(screen.getByRole("radio", { name: "Vista de frente" }));
+    expect(src().some((s) => s.endsWith("fea_mapdl/Aco316L_von_mises_frente.png"))).toBe(true);
+    fireEvent.click(screen.getByRole("radio", { name: "Ti-6Al-4V poroso" }));
+    expect(src().some((s) => s.endsWith("fea_mapdl/Ti6Al4V_poroso_von_mises_frente.png"))).toBe(true);
+    expect(screen.getAllByText(/dependem da malha/i).length).toBeGreaterThan(0);
+    expect(document.querySelector("[data-mapdl]")?.textContent).toContain("von Mises máxima na haste");
+    // a explicação da razão ao intacto é da SOLIDWORKS e não aparece nesta vista
+    expect(screen.queryByText(/Razão ao intacto: energia de deformação do osso/)).toBeNull();
+    // o fémur intacto não tem haste
+    fireEvent.click(screen.getByRole("radio", { name: "Fémur intacto" }));
+    expect(document.querySelector("[data-mapdl]")?.textContent).not.toContain("na haste");
+  });
+
+  it("voltar à malha repõe o seletor de malha da SOLIDWORKS", () => {
+    render(<Simulacao />);
+    fireEvent.click(screen.getByRole("radio", { name: "Tensão de von Mises" }));
+    fireEvent.click(screen.getByRole("radio", { name: "Malha" }));
+    expect(screen.getByRole("radio", { name: /Malha 5,0 mm/ })).toBeTruthy();
   });
 });

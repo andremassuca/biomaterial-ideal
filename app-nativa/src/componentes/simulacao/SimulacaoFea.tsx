@@ -4,7 +4,22 @@ import { Cartao, DescricaoCartao, TituloCartao } from "@/componentes/ui/cartao";
 import { Opcoes } from "@/componentes/ui/controlos";
 import { APP } from "@/lib/dados";
 import { num, pct } from "@/lib/formato";
-import { MALHAS_SW, MATERIAIS_SW, imagemSw, linhaSw, urlSimulacao, variacaoPercentual, type VistaSw } from "@/lib/simulacao";
+import {
+  ESCALA_MAPDL,
+  IMAGEM_COMPARACAO_MAPDL,
+  MALHAS_SW,
+  MALHA_MAPDL,
+  MATERIAIS_SW,
+  NOTA_MAPDL,
+  imagemMapdl,
+  imagemSw,
+  linhaMapdl,
+  linhaSw,
+  urlSimulacao,
+  variacaoPercentual,
+  type CorteMapdl,
+  type VistaFea,
+} from "@/lib/simulacao";
 import { Ampliavel } from "./Ampliavel";
 
 /** Módulo de Young da haste (GPa) lido dos resultados da aplicação; null no fémur intacto. */
@@ -25,24 +40,30 @@ function Linha({ nome, children }: { nome: string; children: ReactNode }) {
 export function SimulacaoFea() {
   const [chave, setChave] = useState(MATERIAIS_SW[1].chave);
   const [malha, setMalha] = useState(MALHAS_SW[0]);
-  const [vista, setVista] = useState<VistaSw>("energia");
+  const [vista, setVista] = useState<VistaFea>("energia");
+  const [corte, setCorte] = useState<CorteMapdl>("corte_coronal");
 
   const material = MATERIAIS_SW.find((m) => m.chave === chave) ?? MATERIAIS_SW[0];
   const l = linhaSw(material.chave, malha);
+  const m = linhaMapdl(material.prefixo);
+  const tensao = vista === "tensao";
   const e = moduloHaste(material.materialBase);
   const outra = MALHAS_SW.find((h) => h !== malha);
   const lOutra = outra ? linhaSw(material.chave, outra) : null;
   const intacto = material.chave === "Intacto";
-  const legenda =
-    vista === "energia"
+  const legenda = tensao
+    ? `${material.nome}, MAPDL, malha de ${num(MALHA_MAPDL, 1)} mm, ${corte === "frente" ? "vista de frente" : "corte coronal pelo centro do canal medular"}: tensão de von Mises (MPa) com a mesma escala de cores em todos os materiais, de ${num(ESCALA_MAPDL.min, 0)} a ${num(ESCALA_MAPDL.max, 0)} MPa (acima disso a cor satura). ${NOTA_MAPDL}`
+    : vista === "energia"
       ? `${material.nome}, malha de ${malha} mm: densidade de energia de deformação por elemento (SEDENS, N·m/m³ = J/m³), forma deformada exagerada. A escala de cores é automática de cada estudo e vem na barra da própria figura: não é a mesma entre imagens.`
       : `${material.nome}, malha de ${malha} mm: malha de elementos finitos (gráfico Mesh Quality da SOLIDWORKS), sem escala de cores de tensão.`;
+  const textoVista = tensao ? "tensão de von Mises" : vista === "energia" ? "energia de deformação" : "malha";
+  const imagem = tensao ? imagemMapdl(material, corte) : imagemSw(material, malha, vista);
 
   return (
     <div className="space-y-6">
       <div className="grid gap-6 [&>*]:min-w-0 lg:grid-cols-[1fr_320px]">
         <Cartao>
-          <TituloCartao>Haste femoral: análise por elementos finitos (SOLIDWORKS Simulation)</TituloCartao>
+          <TituloCartao>Haste femoral: análise por elementos finitos ({tensao ? "MAPDL" : "SOLIDWORKS Simulation"})</TituloCartao>
           <DescricaoCartao>
             Escolhe o material, a malha e a vista. Clica na imagem para ampliar.
           </DescricaoCartao>
@@ -53,26 +74,39 @@ export function SimulacaoFea() {
               aoMudar={setChave}
               opcoes={MATERIAIS_SW.map((m) => ({ valor: m.chave, texto: m.nome }))}
             />
-            <Opcoes
-              rotulo="Malha"
-              valor={malha}
-              aoMudar={setMalha}
-              opcoes={MALHAS_SW.map((h) => ({ valor: h, texto: `Malha ${num(Number(h), 1)} mm` }))}
-            />
+            {tensao ? (
+              <Opcoes
+                rotulo="Corte"
+                valor={corte}
+                aoMudar={setCorte}
+                opcoes={[
+                  { valor: "corte_coronal", texto: "Corte coronal" },
+                  { valor: "frente", texto: "Vista de frente" },
+                ]}
+              />
+            ) : (
+              <Opcoes
+                rotulo="Malha"
+                valor={malha}
+                aoMudar={setMalha}
+                opcoes={MALHAS_SW.map((h) => ({ valor: h, texto: `Malha ${num(Number(h), 1)} mm` }))}
+              />
+            )}
             <Opcoes
               rotulo="Vista"
               valor={vista}
               aoMudar={setVista}
               opcoes={[
                 { valor: "energia", texto: "Energia de deformação" },
+                { valor: "tensao", texto: "Tensão de von Mises" },
                 { valor: "malha", texto: "Malha" },
               ]}
             />
           </div>
           <div className="mt-4">
             <Ampliavel
-              src={urlSimulacao(imagemSw(material, malha, vista))}
-              alt={`FEA da haste, ${material.nome}, malha ${malha} mm, ${vista === "energia" ? "energia de deformação" : "malha"}`}
+              src={urlSimulacao(imagem)}
+              alt={`FEA da haste, ${material.nome}, ${tensao ? `MAPDL, malha ${num(MALHA_MAPDL, 1)} mm` : `malha ${malha} mm`}, ${textoVista}`}
               legenda={legenda}
             />
             <p className="mt-2 text-xs leading-relaxed text-texto2">{legenda}</p>
@@ -81,8 +115,27 @@ export function SimulacaoFea() {
 
         <Cartao>
           <TituloCartao>{material.nome}</TituloCartao>
-          <DescricaoCartao>Malha de {num(Number(malha), 1)} mm (tetraedros parabólicos)</DescricaoCartao>
-          {l ? (
+          <DescricaoCartao>
+            {tensao ? `MAPDL, malha de ${num(MALHA_MAPDL, 1)} mm (tetraedros parabólicos)` : `Malha de ${num(Number(malha), 1)} mm (tetraedros parabólicos)`}
+          </DescricaoCartao>
+          {tensao && m ? (
+            <>
+              <dl className="mt-3" data-mapdl>
+                <Linha nome="E da haste (GPa)">{m.eHasteGPa === null ? "n.d." : num(m.eHasteGPa, 1)}</Linha>
+                {m.vmHaste !== null && <Linha nome="von Mises máxima na haste (MPa)">{num(m.vmHaste, 1)}</Linha>}
+                <Linha nome="von Mises máxima no osso cortical (MPa)">{num(m.vmCortical, 1)}</Linha>
+                <Linha nome="von Mises máxima no osso trabecular (MPa)">{num(m.vmTrabecular, 1)}</Linha>
+                <Linha nome="Máximo global (MPa)">{num(m.vmGlobal, 1)}</Linha>
+                <Linha nome="Nós / elementos">
+                  {num(m.nos, 0)} / {num(m.elementos, 0)}
+                </Linha>
+              </dl>
+              <p className="mt-3 text-xs leading-relaxed text-texto2">
+                Máximos por corpo (média nodal feita dentro de cada corpo). {NOTA_MAPDL} Na vista de frente a haste quase não se
+                vê, porque está dentro do osso: o corte coronal mostra-a por inteiro.
+              </p>
+            </>
+          ) : l ? (
             <dl className="mt-3">
               <Linha nome="E da haste (GPa)">{e === null ? "n.d." : num(e, 1)}</Linha>
               <Linha nome="Energia no osso, Gruen 1 (mJ)">{num(l.g1_mJ, 2)}</Linha>
@@ -109,14 +162,32 @@ export function SimulacaoFea() {
           ) : (
             <p className="mt-3 text-sm text-texto2">Sem resultados para esta combinação.</p>
           )}
-          <p className="mt-3 text-xs leading-relaxed text-texto2">
-            Razão ao intacto: energia de deformação do osso na zona de Gruen (1: lateral; 7: medial, calcar) com a haste, a
-            dividir pela do fémur intacto com a mesma malha. 1 = igual ao osso natural; abaixo de 1 = stress shielding
-            (stress shielding = 1 − razão). Acima de 1 no Ti-6Al-4V poroso é efeito do modelo (haste colada, rigidez igual à
-            do osso cortical), não um ganho clínico.
-          </p>
+          {!tensao && (
+            <p className="mt-3 text-xs leading-relaxed text-texto2">
+              Razão ao intacto: energia de deformação do osso na zona de Gruen (1: lateral; 7: medial, calcar) com a haste, a
+              dividir pela do fémur intacto com a mesma malha. 1 = igual ao osso natural; abaixo de 1 = stress shielding
+              (stress shielding = 1 − razão). Acima de 1 no Ti-6Al-4V poroso é efeito do modelo (haste colada, rigidez igual à
+              do osso cortical), não um ganho clínico.
+            </p>
+          )}
         </Cartao>
       </div>
+
+      {tensao && (
+        <Cartao>
+          <TituloCartao>Tensão de von Mises: todos os materiais lado a lado</TituloCartao>
+          <DescricaoCartao>
+            Mesma câmara e mesma escala de cores (de {num(ESCALA_MAPDL.min, 0)} a {num(ESCALA_MAPDL.max, 0)} MPa). Clica na imagem para ampliar.
+          </DescricaoCartao>
+          <div className="mt-3">
+            <Ampliavel
+              src={urlSimulacao(IMAGEM_COMPARACAO_MAPDL)}
+              alt="Tensão de von Mises na haste e no fémur, cinco materiais lado a lado, vista de frente e corte coronal"
+              legenda={`MAPDL, malha de ${num(MALHA_MAPDL, 1)} mm. ${NOTA_MAPDL}`}
+            />
+          </div>
+        </Cartao>
+      )}
 
       <Cartao>
         <TituloCartao>Todos os materiais, malha de {num(Number(malha), 1)} mm</TituloCartao>

@@ -1,0 +1,122 @@
+{
+ "nota": "MAPDL, malha de 3,0 mm (SOLID187). Valores de pico locais dependem da malha; o pico fica junto a cantos e interfaces. A média nodal é feita dentro de cada corpo (cortical, trabecular, haste), para não misturar materiais na interface.",
+ "escala_MPa": {
+  "min": 0.0,
+  "max": 130.0,
+  "saturacao": 130.0
+ },
+ "malha_mm": 3.0,
+ "casos": {
+  "Intacto": {
+   "material": "Fémur intacto (sem haste)",
+   "E_haste_GPa": null,
+   "vm_max_MPa": {
+    "Osso cortical": 48.336,
+    "Osso trabecular": 1.248,
+    "Haste": null,
+    "Global": 48.336
+   },
+   "malha_mm": 3.0,
+   "elementos": 57524,
+   "nos": 89425,
+   "escala_MPa": {
+    "min": 0.0,
+    "max": 130.0,
+    "saturacao": 130.0
+   },
+   "ficheiros": {
+    "frente": "Intacto_von_mises_frente.png",
+    "corte_coronal": "Intacto_von_mises_corte_coronal.png"
+   }
+  },
+  "Aco316L": {
+   "material": "Haste de aço inox 316L",
+   "E_haste_GPa": 207.5,
+   "vm_max_MPa": {
+    "Osso cortical": 48.303,
+    "Osso trabecular": 9.35,
+    "Haste": 171.896,
+    "Global": 171.896
+   },
+   "malha_mm": 3.0,
+   "elementos": 50981,
+   "nos": 79564,
+   "escala_MPa": {
+    "min": 0.0,
+    "max": 130.0,
+    "saturacao": 130.0
+   },
+   "ficheiros": {
+    "frente": "Aco316L_von_mises_frente.png",
+    "corte_coronal": "Aco316L_von_mises_corte_coronal.png"
+   }
+  },
+  "CoCrMo": {
+   "material": "Haste de Co-Cr-Mo",
+   "E_haste_GPa": 225.0,
+   "vm_max_MPa": {
+    "Osso cortical": 48.303,
+    "Osso trabecular": 9.821,
+    "Haste": 172.392,
+    "Global": 172.392
+   },
+   "malha_mm": 3.0,
+   "elementos": 50981,
+   "nos": 79564,
+   "escala_MPa": {
+    "min": 0.0,
+    "max": 130.0,
+    "saturacao": 130.0
+   },
+   "ficheiros": {
+    "frente": "CoCrMo_von_mises_frente.png",
+    "corte_coronal": "CoCrMo_von_mises_corte_coronal.png"
+   }
+  },
+  "Ti6Al4V": {
+   "material": "Haste de Ti-6Al-4V",
+   "E_haste_GPa": 105.5,
+   "vm_max_MPa": {
+    "Osso cortical": 48.303,
+    "Osso trabecular": 5.873,
+    "Haste": 167.099,
+    "Global": 167.099
+   },
+   "malha_mm": 3.0,
+   "elementos": 50981,
+   "nos": 79564,
+   "escala_MPa": {
+    "min": 0.0,
+    "max": 130.0,
+    "saturacao": 130.0
+   },
+   "ficheiros": {
+    "frente": "Ti6Al4V_von_mises_frente.png",
+    "corte_coronal": "Ti6Al4V_von_mises_corte_coronal.png"
+   }
+  },
+  "Ti6Al4V_poroso": {
+   "material": "Haste de Ti-6Al-4V poroso",
+   "E_haste_GPa": 17.0,
+   "vm_max_MPa": {
+    "Osso cortical": 48.303,
+    "Osso trabecular": 11.432,
+    "Haste": 163.934,
+    "Global": 163.934
+   },
+   "malha_mm": 3.0,
+   "elementos": 50981,
+   "nos": 79564,
+   "escala_MPa": {
+    "min": 0.0,
+    "max": 130.0,
+    "saturacao": 130.0
+   },
+   "ficheiros": {
+    "frente": "Ti6Al4V_poroso_von_mises_frente.png",
+    "corte_coronal": "Ti6Al4V_poroso_von_mises_corte_coronal.png"
+   }
+  }
+ },
+ "ficheiro_comparacao": "comparacao_von_mises.png"
+}

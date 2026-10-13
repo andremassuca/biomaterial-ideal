@@ -43,7 +43,7 @@ Leitura da haste de Ti-6Al-4V poroso: deixa no osso proximal uma carga próxima 
 
 ## Deslocamento máximo e tensão máxima (malha de 3,5 mm)
 
-Nos modelos com a haste a Simulation mostra o aviso de deslocamentos excessivos, respondido com No (ver docs/FEA_HASTE_SW.md); os deslocamentos máximos ficam perto dos do fémur intacto. As imagens em results/figures/fea_sw/ têm a forma deformada exagerada e a escala de cores automática de cada estudo.
+Nos modelos com a haste a Simulation mostra o aviso de deslocamentos excessivos, respondido com No (ver docs/FEA_HASTE_SW.md); os deslocamentos máximos ficam perto dos do fémur intacto. As imagens em results/figures/fea_sw/ são de dois tipos. Os ficheiros *_densidade_energia.png mostram a densidade de energia de deformação por elemento (SEDENS, em N·m/m³) com a forma deformada exagerada; a escala de cores é automática de cada estudo e vem na barra da própria imagem (as escalas não são comparáveis entre estudos). Os ficheiros *_malha.png são o gráfico da malha ("Mesh Quality1") que a Simulation ativa em primeiro lugar, sem escala de cores de tensão; até 13 out 2026 tinham, por engano, o nome *_von_mises.png. Os valores de von Mises desta tabela vêm do solver, não destas imagens; os mapas de von Mises em imagem vêm do MAPDL (results/figures/fea_mapdl/, scripts/mapas_von_mises_mapdl.py).
 
 | caso | deslocamento máximo (mm) | von Mises máximo no modelo (MPa) |
 |---|---|---|

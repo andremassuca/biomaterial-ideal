@@ -483,8 +483,14 @@ def resumo_markdown(resultados: dict) -> str:
                      f"Gruen 1: {'sim' if mesma['1'] else 'não'}; Gruen 7: {'sim' if mesma['7'] else 'não'} |")
     L += ["", f"## Deslocamento máximo e tensão máxima (malha de {_num(float(fina), 1)} mm)", "",
           "Nos modelos com a haste a Simulation mostra o aviso de deslocamentos excessivos, respondido com No (ver "
-          "docs/FEA_HASTE_SW.md); os deslocamentos máximos ficam perto dos do fémur intacto. As imagens em "
-          "results/figures/fea_sw/ têm a forma deformada exagerada e a escala de cores automática de cada estudo.", "",
+          "docs/FEA_HASTE_SW.md); os deslocamentos máximos ficam perto dos do fémur intacto. "
+          "As imagens em results/figures/fea_sw/ são de dois tipos. Os ficheiros *_densidade_energia.png mostram a "
+          "densidade de energia de deformação por elemento (SEDENS, em N·m/m³) com a forma deformada exagerada; a "
+          "escala de cores é automática de cada estudo e vem na barra da própria imagem (as escalas não são comparáveis "
+          "entre estudos). Os ficheiros *_malha.png são o gráfico da malha (\"Mesh Quality1\") que a Simulation ativa "
+          "em primeiro lugar, sem escala de cores de tensão; até 13 out 2026 tinham, por engano, o nome "
+          "*_von_mises.png. Os valores de von Mises desta tabela vêm do solver, não destas imagens; os mapas de von "
+          "Mises em imagem vêm do MAPDL (results/figures/fea_mapdl/, scripts/mapas_von_mises_mapdl.py).", "",
           "| caso | deslocamento máximo (mm) | von Mises máximo no modelo (MPa) |", "|---|---|---|"]
     for caso, por_malha in resultados["casos"].items():
         r = por_malha.get(fina)
@@ -1156,19 +1162,42 @@ def _curto(nome):
             "Ti-6Al-4V ELI": "Ti6Al4V", "Ti-6Al-4V poroso": "Ti6Al4V_poroso"}[nome]
 
 
-def imagens(sw, doc, res, rotulo):
-    """Imagens, vistas de frente, dos mapas de von Mises e da densidade de energia de deformação do estudo ativo.
+def escolher_graficos(nomes) -> dict:
+    """Separa os gráficos de um estudo da Simulation em "malha" e "tensao" pelo início do nome.
 
-    Em linguagem simples: ativa o gráfico de tensões que a Simulation cria por omissão, grava-o em PNG, cria um
-    gráfico da densidade de energia de deformação (por elemento) e grava-o também. As escalas de cores são as
-    automáticas de cada estudo (não são iguais entre materiais).
+    Em linguagem simples: a Simulation guarda vários gráficos por estudo ("Mesh Quality1", "Stress1 (-vonMises-)", ...);
+    esta função diz qual é o da malha e qual é o de tensões de von Mises (ou None se não existir), em vez de supor que o
+    primeiro da lista é o de tensões (não é: o primeiro é o da malha, e foi esse erro que deu os antigos *_von_mises.png).
+    """
+    nomes = [str(n) for n in (nomes or [])]
+    malha = next((n for n in nomes if n.lower().startswith("mesh")), None)
+    tensao = next((n for n in nomes if n.lower().startswith(("stress", "tens"))), None)
+    return {"malha": malha, "tensao": tensao}
+
+
+def imagens(sw, doc, res, rotulo):
+    """Imagens, vistas de frente, do gráfico da malha, do gráfico de von Mises e da densidade de energia do estudo ativo.
+
+    Em linguagem simples: grava em PNG o gráfico da malha (*_malha.png), o gráfico de tensões de von Mises, se o estudo o
+    tiver (*_von_mises.png; nunca grava a malha com esse nome) e cria e grava o da densidade de energia de deformação
+    (*_densidade_energia.png). As escalas de cores são as automáticas de cada estudo (não são iguais entre materiais).
+    NOTA: a escolha do gráfico de tensões por nome ainda não foi corrida com o SOLIDWORKS; os mapas de von Mises que a
+    aplicação mostra vêm do MAPDL (scripts/mapas_von_mises_mapdl.py).
     """
     PASTA_FIG.mkdir(parents=True, exist_ok=True)
     try:
         nomes = list(_call0(res, "GetPlotNames") or [])
-        if nomes:
-            res.ActivatePlot(nomes[0])
-        _gravar_vista(doc, PASTA_FIG / f"{rotulo}_von_mises.png")
+        graficos = escolher_graficos(nomes)
+        if graficos["malha"]:
+            res.ActivatePlot(graficos["malha"])
+            _gravar_vista(doc, PASTA_FIG / f"{rotulo}_malha.png")
+        else:
+            log.warning("gráfico da malha não encontrado entre %s", nomes)
+        if graficos["tensao"]:
+            res.ActivatePlot(graficos["tensao"])
+            _gravar_vista(doc, PASTA_FIG / f"{rotulo}_von_mises.png")
+        else:
+            log.warning("gráfico de von Mises não encontrado entre %s (não se grava *_von_mises.png)", nomes)
         err = _int()
         plot = res.CreatePlot(3, 7, 0, True, err)  # deformação, SEDENS, SI, por elemento
         nomes2 = list(_call0(res, "GetPlotNames") or [])

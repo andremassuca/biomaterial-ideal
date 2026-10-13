@@ -220,3 +220,12 @@ def test_percentil_e_raio_exterior(cf):
     with pytest.raises(ValueError):
         fea.percentil([], 50)
     assert fea._raio_exterior(cf, 82.5) == pytest.approx((19.0 + 23.0) / 2)
+
+
+def test_escolher_graficos_separa_malha_e_tensao():
+    g = fea.escolher_graficos(["Mesh Quality1", "Stress1 (-vonMises-)", "Displacement1"])
+    assert g == {"malha": "Mesh Quality1", "tensao": "Stress1 (-vonMises-)"}
+    # o primeiro da lista não é o de tensões: foi esse engano que deu os antigos *_von_mises.png
+    assert fea.escolher_graficos(["Mesh Quality1"]) == {"malha": "Mesh Quality1", "tensao": None}
+    assert fea.escolher_graficos([]) == {"malha": None, "tensao": None}
+    assert fea.escolher_graficos(None) == {"malha": None, "tensao": None}
