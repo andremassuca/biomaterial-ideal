@@ -21,6 +21,7 @@ const TIPOS = {
   ".ttf": "font/ttf",
   ".woff2": "font/woff2",
   ".glb": "model/gltf-binary",
+  ".mp4": "video/mp4",
   ".txt": "text/plain; charset=utf-8",
 };
 
@@ -44,7 +45,24 @@ createServer((pedido, resposta) => {
     resposta.end("<h1>404</h1>");
     return;
   }
-  resposta.writeHead(200, { "content-type": TIPOS[extname(ficheiro).toLowerCase()] ?? "application/octet-stream" });
+  const tipo = TIPOS[extname(ficheiro).toLowerCase()] ?? "application/octet-stream";
+  const tamanho = statSync(ficheiro).size;
+  // pedidos de intervalo (Range): o navegador pede assim os vídeos, como no GitHub Pages
+  const m = /^bytes=(\d*)-(\d*)$/.exec(pedido.headers.range ?? "");
+  if (m && (m[1] || m[2])) {
+    const inicio = m[1] ? Number(m[1]) : Math.max(0, tamanho - Number(m[2]));
+    const fim = m[1] && m[2] ? Math.min(Number(m[2]), tamanho - 1) : tamanho - 1;
+    if (inicio > fim || inicio >= tamanho) {
+      resposta.writeHead(416, { "content-range": `bytes */${tamanho}` });
+      resposta.end();
+      return;
+    }
+    resposta.writeHead(206, { "content-type": tipo, "accept-ranges": "bytes", "content-range": `bytes ${inicio}-${fim}/${tamanho}`, "content-length": fim - inicio + 1 });
+    if (pedido.method === "HEAD") resposta.end();
+    else createReadStream(ficheiro, { start: inicio, end: fim }).pipe(resposta);
+    return;
+  }
+  resposta.writeHead(200, { "content-type": tipo, "accept-ranges": "bytes", "content-length": tamanho });
   if (pedido.method === "HEAD") resposta.end();
   else createReadStream(ficheiro).pipe(resposta);
 }).listen(porta, "127.0.0.1", () => {

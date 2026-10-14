@@ -222,6 +222,36 @@ export type Cfd = Record<
   { espessura_um: number; tau_media: number; fracao_baixa: number; osi_media: number; fracao_osi: number; area_mm2: number }
 >;
 
+/** Repetição do fluxo pulsátil com sangue de Carreau (results/cfd_pulsatil_carreau.json). */
+export interface CfdCarreau {
+  limiar_pa: number;
+  carreau: { mu0: number; muinf: number; lambda_s: number; n: number };
+  casos: Record<
+    string,
+    {
+      espessura_um: number;
+      newtoniano: { tau_media: number; fracao_baixa: number };
+      carreau: { tau_media: number; fracao_baixa: number };
+      dif_fracao_pp: number;
+      dif_tau_rel: number;
+    }
+  >;
+  ordem_mantida: boolean;
+}
+
+/** Micromovimento da haste com contacto com atrito (results/micromovimento_haste.json), em µm (deslocamento tangencial). */
+export interface Micromovimento {
+  material: string;
+  mu: number;
+  limiar_um: number;
+  nos: number;
+  principal: { max_um: number; mediana_um: number; fracao_acima_limiar: number };
+  outras_variantes: number;
+  outras_max_min_um: number;
+  outras_max_max_um: number;
+  outras_fracao_acima_limiar_max: number;
+}
+
 export interface DadosApp {
   nomes: Record<string, { nome: string; codigo: string }>;
   fichas: { materiais: LinhaMaterial[]; tecido: LinhaTecido[] };
@@ -231,6 +261,8 @@ export interface DadosApp {
   monte_carlo_referencia: LinhaMonteCarloRef[];
   fea: Fea | null;
   massa: Massa | null;
+  cfd_carreau?: CfdCarreau | null;
+  micromovimento?: Micromovimento | null;
   textos: { ioes: string | null };
 }
 

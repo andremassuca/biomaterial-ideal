@@ -372,7 +372,7 @@ def grafico_cfd(dados: dict[str, dict], destino: Path, w: float = 5.25, h: float
     ax.set_yticks([])
     for lado in ("top", "right", "left"):
         ax.spines[lado].set_visible(False)
-    ax.set_title("Parede entre os struts com\nfluxo lento (abaixo de 0,4 Pa)", fontsize=14, loc="left")
+    ax.set_title("Parede com fluxo lento (abaixo de\n0,4 Pa), sangue newtoniano", fontsize=14, loc="left")
     ax.grid(visible=False)
     fig.tight_layout()
     return gravar_diap(fig, destino)
@@ -819,6 +819,23 @@ def video(slide, nome: str, x, y, w, nome_forma=None):
     return f, int(seg * 1000)
 
 
+def video_simulacao(slide, nome: str, legenda: str):
+    """Vídeo de simulação de reserva (6,9 pol. de largura, à esquerda) com a legenda por baixo.
+
+    Devolve (formas, vídeos); se o ficheiro não existir, devolve duas listas vazias. O vídeo corre ao clicar."""
+    if not (ap.MEDIA / f"{nome}.mp4").exists():
+        return [], []
+    v, ms = video(slide, nome, 0.5, 1.75, 6.9, "!!video_simulacao")
+    leg = caixa(slide, 0.5, 5.68, 6.9, 0.48, legenda, 10, CINZA, nome="!!legenda_video")
+    return [v, leg], [(v, ms, False)]
+
+
+LEGENDA_FEA = ("Corte coronal, carga da marcha, interface colada. Deformação ampliada ×5. "
+               "Verificação numérica, não previsão clínica.")
+LEGENDA_CFD = ("TAWSS: média ao longo do ciclo cardíaco. Linhas de corrente: instante final do ciclo (t = 2,12 s). "
+               "O cursor indica a fase do ciclo; o campo não varia no vídeo.")
+
+
 def fundo(slide, cor):
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = cor
@@ -883,9 +900,7 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
                           espaco=1.05))
     ap.notas(s, "Estes são os cinco implantes do trabalho: a haste e o par articular da prótese da anca, o stent "
                 "coronário, o scaffold para regenerar osso e o implante dentário. Cada um tem o problema crítico "
-                "indicado pelo docente: desgaste e partículas no par articular; resistência mecânica e "
-                "biocompatibilidade no stent; suporte celular e degradação controlada no scaffold; integração com o "
-                "osso e corrosão no implante dentário. Na haste acrescentei o stress shielding e a fadiga.")
+                "indicado pelo docente, e na haste acrescentei o stress shielding e a fadiga.")
     plano.append((s, f + cols, [], "conteudo"))
 
     # 3. Critérios-alvo
@@ -965,7 +980,8 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
          f"{mil(n.n_iter)} vezes, com valores sorteados dentro desses intervalos, e conta-se quantas vezes cada "
          "material fica em 1.º lugar.", 15, TEXTO, False)], espaco=1.05)
     ap.notas(s, "O método tem cinco passos. Primeiro, os dados: cada valor tem mínimo, máximo, fonte e estado. "
-                "Segundo, os critérios-alvo, que dão a nota máxima ao valor ideal. Terceiro, três métodos ordenam os "
+                "Segundo, os critérios-alvo, que dão a nota máxima ao valor ideal, como em Petković e colegas, 2025, cujos "
+                "resultados reproduzi para verificar o código. Terceiro, três métodos ordenam os "
                 "materiais: o TOPSIS escolhe o mais perto do ideal e mais "
                 "longe do pior; o WASPAS soma e multiplica as notas, por isso castiga uma nota muito baixa; o VIKOR "
                 "procura o compromisso. Quarto, como os dados têm intervalos, repito cada decisão "
@@ -1001,7 +1017,7 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
           (f"{round(n.extra['rigidez'])} ×", "mais rígido do que o alvo")],
          f"Na haste femoral, o Ti-6Al-4V ELI fica em 1.º com os três métodos e nos dois cenários, e no Monte Carlo "
          f"ganha em {mil(hc['TOPSIS'])} a {mil(hc['VIKOR'])} das {mil(n.n_iter)} repetições: é a escolha mais "
-         f"sólida do trabalho. Mas o titânio continua cerca de {round(n.extra['rigidez'])} vezes mais rígido do que "
+         f"sólida do trabalho; a fadiga das ligas vem dos ensaios de Okazaki, 2012, no mesmo laboratório. Mas o titânio continua cerca de {round(n.extra['rigidez'])} vezes mais rígido do que "
          f"o alvo. Pela relação de Gibson e Ashby, a mesma liga com {ap.pt(100 * n.extra['p_alvo'], 0)} % de "
          "porosidade chegaria ao alvo; como a resistência cai ainda mais, seria com porosidade graduada e o colo "
          "maciço. A solução para o stress shielding pode estar no desenho da haste, "
@@ -1034,8 +1050,10 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
          f"compósito PCL com beta-TCP impresso em 3D fica em 1.º em {n_comp} das {len(vsc)} combinações; só no "
          f"TOPSIS do cenário A o beta-TCP poroso fica à frente, por {ap.pt(n.dc_scaffold['A'])}. Com os dados a "
          f"variar, o beta-TCP ganha mais vezes: em {ap.pt(tcp['TOPSIS'], 0)}, {ap.pt(tcp['WASPAS'], 0)} e "
-         f"{ap.pt(tcp['VIKOR'], 0)} % das repetições. A verificação das fontes baixou a resistência do compósito "
-         f"para {ap.pt(res_comp[0], 1)} megapascal e subiu a degradação para {ap.pt(deg_comp[0], 0)} meses. Por "
+         f"{ap.pt(tcp['VIKOR'], 0)} % das repetições. Verificar as fontes mudou duas vezes o "
+         f"resultado: baixou a resistência do compósito para {ap.pt(res_comp[0], 1)} megapascal (Kawai, 2018) e "
+         f"subiu a sua degradação para {ap.pt(deg_comp[0], 0)} meses (Zhong, 2026). O beta-TCP reabsorve-se em cerca "
+         "de 13 meses (Hirata, 2006) e tem módulo de 546 megapascal (Montelongo, 2021). Por "
          f"isso: {FRASE_SCAFFOLD}")
 
     # 9. Espectro de confiança
@@ -1063,8 +1081,7 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
         linhas.append(caixa(s, 8.75, y + 0.06, 3.9, 0.72, [(frase, 14, CINZA, False)], ancora=MSO_ANCHOR.MIDDLE))
     ap.notas(s, "Junto os cinco resultados num espectro de confiança. A haste é sólida. "
                 f"{FRASE_STENT_CURTA}. {FRASE_SCAFFOLD_CURTA}. No par articular e no implante dentário, a maior parte do peso cabe a escalas "
-                "de 1 a 5, por isso o ranking é indicativo. Saber quanto confiar numa escolha é tão importante como a "
-                "própria escolha.")
+                "de 1 a 5, por isso o ranking é indicativo.")
     plano.append((s, f + linhas, [], "conteudo"))
 
     # 10. Resposta ao enunciado (Caso | Problema | Biomateriais a investigar | Proposta)
@@ -1085,9 +1102,8 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
     corpo = quadro(s, ("Proposta", "Fabrico", "Testes antes do uso clínico", "Caracterização"), FABRICO,
                    (2.2, 3.45, 3.3, 3.18), y0=1.6, h_cab=0.4, h_linha=0.86)
     ap.notas(s, "Antes do uso clínico, cada proposta tem de ser fabricada, testada e caracterizada. Todas passam pela "
-                "série ISO 10993 de biocompatibilidade, e cada uma tem a sua norma mecânica: a fadiga da haste pela "
-                "ISO 7206-4, o desgaste do par articular em simulador pela ISO 14242, a fadiga pulsátil do stent pela "
-                "ASTM F2477 e a fadiga do implante dentário pela ISO 14801. Na caracterização entram a tração, a "
+                "série ISO 10993 de biocompatibilidade, e cada uma tem a sua norma mecânica, como a ISO 7206-4 na "
+                "fadiga da haste e a ASTM F2477 na do stent. Na caracterização entram a tração, a "
                 "microscopia eletrónica e, no scaffold, a micro-CT da porosidade.")
     plano.append((s, f + corpo, [], "conteudo"))
 
@@ -1117,8 +1133,8 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
     ap.notas(s, "A última camada é o doente: uma tabela de regras, cada uma com a sua fonte, exclui materiais numa "
                 "alergia confirmada ou reforça critérios em condições como a osteoporose ou a diabetes. Nos exemplos, "
                 "um defeito ósseo sem carga troca o compósito pelo beta-TCP, e uma alergia ao titânio confirmada por "
-                "teste troca o titânio pela zircónia. No jovem ativo, o TOPSIS passa ao cobalto-crómio: é "
-                "sensibilidade ao fator do perfil, não recomendação. Não é ferramenta clínica nem recomendação "
+                "teste troca o titânio pela zircónia. No jovem ativo, o TOPSIS passa ao cobalto-crómio, "
+                "como teste de sensibilidade. Não é ferramenta clínica nem recomendação "
                 "terapêutica.")
     plano.append((s, f + cs + [regras, aviso, av], [], "conteudo"))
 
@@ -1154,7 +1170,8 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
                  f"parede entre os struts tem fluxo lento, abaixo de 0,4 pascal, um limiar operacional deste "
                  f"estudo; com {a_['espessura_um']:.0f}, "
                  f"{100 * a_['fracao_baixa']:.0f} %. O efeito é da espessura, não da liga")
-    ap.notas(s, nota + ". A energia é um indicador mecânico de redistribuição de carga, não previsão de perda "
+    ap.notas(s, nota + ". O micromovimento máximo na interface é de 66 micrómetros, abaixo dos 150 a partir dos "
+                "quais a fixação deixa de ser por osso, em cães (Pilliar, 1986). A energia é um indicador mecânico de redistribuição de carga, não previsão de perda "
                 "óssea.")
     plano.append((s, f + corpo, [], "conteudo"))
 
@@ -1178,9 +1195,9 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
             (f"A mesma área com tensão de corte baixa (abaixo de {nb('0,4 Pa')}): Pt-Cr {pc('Pt-Cr', 'OpenFOAM')} contra "
              f"{pc('Pt-Cr', 'Ansys Fluent')}; 316L {pc('316L', 'OpenFOAM')} contra {pc('316L', 'Ansys Fluent')}.",
              14, TEXTO, False)], espaco=1.02))
-        nota2 = ("Para saber se as simulações dependem da ferramenta, repeti-as num segundo programa, independente. "
+        nota2 = ("Repeti as simulações num segundo programa, independente. "
                  f"Na haste, o SOLIDWORKS e o Ansys Mechanical dão a mesma proteção de tensões, com diferenças de "
-                 f"{ap.pt(dmax, 1)} % ou menos nas zonas de Gruen 1 e 7, e a mesma ordem dos materiais. No stent, o "
+                 f"{ap.pt(dmax, 1)} % ou menos, e a mesma ordem dos materiais. No stent, o "
                  f"OpenFOAM e o Ansys Fluent dão a mesma área com fluxo lento: {ap.pt(a2['Pt-Cr']['OpenFOAM'], 1)} "
                  f"contra {ap.pt(a2['Pt-Cr']['Ansys Fluent'], 1)} % com os struts finos. É uma verificação "
                  "numérica cruzada, não uma validação experimental.")
@@ -1222,7 +1239,7 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
                 "meio-termo certo, como a rigidez do osso. Segunda: medir a confiança separa escolhas sólidas, como a "
                 "haste, de materiais muito próximos, como no stent. Terceira, a mais importante: um ranking só vale o "
                 "que valem os dados; verificar as fontes mudou o scaffold, que passou a depender da carga. O próximo passo é ligar a "
-                "ferramenta a dados reais de doentes, a caminho de um gémeo digital de cada doente. Obrigado.")
+                "ferramenta a dados reais de doentes. Obrigado.")
     plano.append((s, entradas_fim, [], "capa"))
 
     # Reserva
@@ -1275,29 +1292,35 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
             ("[VÍDEO DA DEMONSTRAÇÃO POR INSERIR]", 20, BRANCO, True),
             ("Gerar app-nativa/demo/demo_app_60s.mp4 e exportar de novo a apresentação.", 14, SUB_NOITE, False)],
             alinha=PP_ALIGN.CENTER, ancora=MSO_ANCHOR.MIDDLE, nome="!!marcador_demo")]
-    lista = caixa(s, 9.35, 2.05, 3.4, 3.4, [
-        ("Ranking ao vivo", 16, AZUL_TEXTO, True), ("os pesos mudam e a ordem reage", 14, TEXTO, False),
-        ("Monte Carlo", 16, AZUL_TEXTO, True), ("10 000 repetições no núcleo Rust", 14, TEXTO, False),
-        ("Fluxo do doente", 16, AZUL_TEXTO, True), ("as regras aplicadas e porquê", 14, TEXTO, False),
-        ("Modelos 3D e secção Porquê", 16, AZUL_TEXTO, True), ("os implantes e cada método explicado", 14, TEXTO,
-                                                               False)], espaco=1.02)
+    lista = caixa(s, 9.35, 1.95, 3.4, 3.3, [
+        ("Ranking e Monte Carlo", 14, AZUL_TEXTO, True), ("pesos ao vivo; 10 000 repetições no núcleo Rust", 12, TEXTO, False),
+        ("Doente em tempo real", 14, AZUL_TEXTO, True), ("regras, pesos e exclusões, com a justificação", 12, TEXTO, False),
+        ("Comparar materiais", 14, AZUL_TEXTO, True), ("dois a dois, com a fonte e o estado", 12, TEXTO, False),
+        ("Simulação", 14, AZUL_TEXTO, True), ("FEA da haste (von Mises) e CFD do stent", 12, TEXTO, False),
+        ("Histórico e PDF", 14, AZUL_TEXTO, True), ("guardar e exportar cada análise", 12, TEXTO, False),
+        ("Modo apresentação", 14, AZUL_TEXTO, True), ("vista limpa, letra e gráficos grandes", 12, TEXTO, False)],
+        espaco=1.0)
     dom, cam = URL_WEB.split("/", 1)
     web = caixa(s, 9.35, 5.3, 3.4, 1.3, [("Aplicação para Windows e no navegador:", 14, CINZA, False),
                                          (dom + "/", 14, AZUL_TEXTO, True), (cam, 14, AZUL_TEXTO, True)],
                 espaco=1.02)
     ap.notas(s, "Para explorar estas escolhas fiz uma aplicação, para Windows e no navegador. Escolhe-se o caso, "
                 "ajustam-se os pesos e o ranking dos três métodos reage na hora; um botão corre o Monte Carlo no "
-                "núcleo, escrito em Rust e testado contra o código Python. Há um fluxo para o doente, que mostra que "
-                "regras se aplicam e porquê, os modelos 3D dos implantes e uma secção que explica cada método.")
+                "núcleo, escrito em Rust e testado contra o código Python. No ecrã do doente, um painel mostra em "
+                "tempo real que regras se aplicam, como mudam os pesos e que materiais saem, sempre com a "
+                "justificação. Pode comparar-se dois materiais, ver as simulações (mapas de von Mises da haste e a "
+                "CFD do stent), guardar cada análise no histórico, exportá-la em PDF e passar ao modo apresentação. "
+                "É uma ferramenta educativa, não clínica.")
     plano.append((s, f + corpo + [lista, web], vids, "conteudo"))
 
     # 18. Impacto no doente: a haste (FEA), com o mapa (reserva)
     s = novo()
     f = titulo(s, "Impacto no doente: a haste", "Reserva: simulação da haste", 18)
-    corpo = []
+    corpo, vids = video_simulacao(s, "sim_fea_haste", LEGENDA_FEA)
     if rz:
-        corpo.append(figura_caixa(s, FEA_MAPA if FEA_MAPA.exists() else FEA_MAPA.with_name("sed_corte_coronal.png"),
-                                  0.5, 1.75, 6.9, 4.3, nome="!!mapa_fea"))
+        if not corpo:
+            corpo.append(figura_caixa(s, FEA_MAPA if FEA_MAPA.exists() else FEA_MAPA.with_name("sed_corte_coronal.png"),
+                                      0.5, 1.75, 6.9, 4.3, nome="!!mapa_fea"))
         corpo.append(figura_caixa(s, grafico_fea(rz, CACHE / "fea_razoes.png"), 7.55, 1.75, 5.25, 4.3,
                                   nome="!!grafico_fea"))
     frase = caixa(s, 0.6, 6.15, 9.4, 0.5, "Quanto mais rígida a haste, menos carga chega ao osso junto ao colo.", 18,
@@ -1309,14 +1332,15 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
                 "são cerca do dobro, porque o fémur é simplificado: só a ordem é robusta. É um indicador mecânico de "
                 "redistribuição de carga, não uma previsão de perda óssea nem de descolamento; a interface colada não "
                 "modela micromovimento. A haste porosa exigiria porosidade graduada, com o colo maciço.")
-    plano.append((s, f + corpo + [frase, rot], [], "conteudo"))
+    plano.append((s, f + corpo + [frase, rot], vids, "conteudo"))
 
     # 19. Impacto no doente: a espessura do strut (CFD), com o mapa (reserva)
     s = novo()
     f = titulo(s, "Impacto no doente: a espessura do strut", "Reserva: simulação do stent", 19)
-    corpo = []
+    corpo, vids = video_simulacao(s, "sim_cfd_stent", LEGENDA_CFD)
     if dcfd and CFD_MAPA.exists():
-        corpo.append(figura_caixa(s, CFD_MAPA, 0.5, 1.75, 6.9, 4.3, nome="!!mapa_cfd"))
+        if not corpo:
+            corpo.append(figura_caixa(s, CFD_MAPA, 0.5, 1.75, 6.9, 4.3, nome="!!mapa_cfd"))
         corpo.append(figura_caixa(s, grafico_cfd(dcfd, CACHE / "cfd_area_baixa.png"), 7.55, 1.75, 5.25, 4.3,
                                   nome="!!grafico_cfd"))
     frase = caixa(s, 0.6, 6.15, 9.4, 0.5, "Struts mais grossos deixam mais parede com o sangue a passar devagar.", 18,
@@ -1329,7 +1353,7 @@ def construir(numeros: ap.Numeros | None = None, destino: Path = DESTINO, render
                 "fluxo, não uma previsão de reestenose. A fração depende do limiar: a partir de cerca de 0,8 pascal "
                 "as duas espessuras ficam praticamente iguais; a tensão média relativa à do tubo sem stent, 0,47 "
                 "contra 0,27, não depende dele.")
-    plano.append((s, f + corpo + [frase, rot], [], "conteudo"))
+    plano.append((s, f + corpo + [frase, rot], vids, "conteudo"))
 
     lo316, hi316, u316 = intervalo("Aço inox 316L", "Módulo de Young")
     reserva(20, "Porquê Monte Carlo? Porque os dados têm intervalos", "Reserva: estatística", [

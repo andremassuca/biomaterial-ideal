@@ -1,0 +1,389 @@
+{
+ "colado_Ti": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": null,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 0.0,
+   "p95_um": 0.0,
+   "mediana_um": 0.0,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 1.0,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 0.0,
+   "p95_um": 0.0,
+   "mediana_um": 0.0,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 1.0,
+   "n": 5035
+  },
+  "abertura_max_um": 0.0,
+  "penetracao_max_um": -0.0,
+  "fracao_aberta_10um": 0.0,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 1.0,
+  "fracao_a_escorregar": 0.0,
+  "zonas": {
+   "1": {
+    "energia_J": 0.023550323761742743,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.04956304918052014,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.09009794287889519,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.12909730376495973,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.12309875513687556,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.06617452053464533,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.01855985508921899,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.484505,
+  "elementos_contacto": [
+   2506,
+   2506
+  ]
+ },
+ "atrito04_Ti": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": 0.4,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 83.50273730011253,
+   "p95_um": 66.14949139219411,
+   "mediana_um": 49.15900054462424,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.03733862959285005,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 78.37413963814505,
+   "p95_um": 64.91981498607662,
+   "mediana_um": 48.14530908187543,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.06276067527308839,
+   "n": 5035
+  },
+  "abertura_max_um": 22.44052168369605,
+  "penetracao_max_um": 73.78257829676491,
+  "fracao_aberta_10um": 0.026812313803376366,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 0.7458100558659218,
+  "fracao_a_escorregar": 0.1209098164405427,
+  "zonas": {
+   "1": {
+    "energia_J": 0.026163583967687466,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.05199101515821008,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.09976605877063507,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.1338535635134701,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.12092610837955,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.06533992497446554,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.027143704200410013,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.5525895,
+  "elementos_contacto": [
+   2506,
+   2506
+  ]
+ },
+ "atrito02_Ti": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": 0.2,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 101.21619620243594,
+   "p95_um": 92.75857135205905,
+   "mediana_um": 74.17828906284954,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.019463753723932473,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 99.0839705571524,
+   "p95_um": 92.15147760748496,
+   "mediana_um": 73.25803432537354,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.04250248262164846,
+   "n": 5035
+  },
+  "abertura_max_um": 32.872770640632766,
+  "penetracao_max_um": 83.11544470905038,
+  "fracao_aberta_10um": 0.06593843098311818,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 0.7529928172386273,
+  "fracao_a_escorregar": 0.12210694333599362,
+  "zonas": {
+   "1": {
+    "energia_J": 0.02710420113441859,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.052486616915960044,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.10218791589467613,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.13984481908335972,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.11984624965125101,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.06575458680818304,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.032497218656530096,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.5578514,
+  "elementos_contacto": [
+   2506,
+   2506
+  ]
+ },
+ "atrito04_CoCr": {
+  "material": "Co-Cr-Mo forjado",
+  "mu": 0.4,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 66.52894875024323,
+   "p95_um": 57.070436557526996,
+   "mediana_um": 46.14218044807269,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.0407149950347567,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 64.8470135697911,
+   "p95_um": 55.089644680003445,
+   "mediana_um": 45.502045831609436,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.064746772591857,
+   "n": 5035
+  },
+  "abertura_max_um": 22.703915818987635,
+  "penetracao_max_um": 55.55360155253624,
+  "fracao_aberta_10um": 0.018272095332671302,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 0.7350359138068635,
+  "fracao_a_escorregar": 0.12450119712689545,
+  "zonas": {
+   "1": {
+    "energia_J": 0.02358967854980532,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.037186478532480034,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.09600107910392618,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.13421987710361993,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.1130483263355978,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.05096393546372268,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.017838284772790973,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.3268495,
+  "elementos_contacto": [
+   2506,
+   2506
+  ]
+ },
+ "atrito04_Ti_fkn10": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": 0.4,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 71.7201074726076,
+   "p95_um": 53.80721053869917,
+   "mediana_um": 36.29269250151444,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.17954319761668322,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 65.68675008754475,
+   "p95_um": 52.40412169589283,
+   "mediana_um": 35.2123070131174,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.21191658391261173,
+   "n": 5035
+  },
+  "abertura_max_um": 7.218847803506266,
+  "penetracao_max_um": 65.21943221462573,
+  "fracao_aberta_10um": 0.0,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 0.7406225059856345,
+  "fracao_a_escorregar": 0.13886671987230648,
+  "zonas": {
+   "1": {
+    "energia_J": 0.025942870581340614,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.05182587677382009,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.09987162120926096,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.1333441151489201,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.11998749011193309,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.06430874183921599,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.027001166059999995,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.5404917,
+  "elementos_contacto": [
+   2506,
+   2506
+  ],
+  "fkn": 10.0
+ },
+ "atrito04_Ti_rigido": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": 0.4,
+  "nos": 84597,
+  "elementos": 50981,
+  "n_interface": 5035,
+  "relativo": {
+   "max_um": 70.11685259737833,
+   "p95_um": 51.84033655707612,
+   "mediana_um": 34.03522070656122,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.2637537239324727,
+   "n": 5035
+  },
+  "tangencial": {
+   "max_um": 63.853877217389766,
+   "p95_um": 50.24524532097301,
+   "mediana_um": 32.966766722837086,
+   "fracao_acima_limiar": 0.0,
+   "fracao_abaixo_crescimento": 0.2969215491559086,
+   "n": 5035
+  },
+  "abertura_max_um": 6.492048167664301,
+  "penetracao_max_um": 64.13966105791066,
+  "fracao_aberta_10um": 0.0,
+  "nos_com_normal": 5035,
+  "fracao_aberto": 0.7418196328810854,
+  "fracao_a_escorregar": 0.1372705506783719,
+  "zonas": {
+   "1": {
+    "energia_J": 0.025918823590545228,
+    "n": 12296
+   },
+   "2": {
+    "energia_J": 0.051773568201189966,
+    "n": 3192
+   },
+   "3": {
+    "energia_J": 0.09958883954987136,
+    "n": 2576
+   },
+   "4": {
+    "energia_J": 0.13317715411178974,
+    "n": 2398
+   },
+   "5": {
+    "energia_J": 0.11972031586779167,
+    "n": 2731
+   },
+   "6": {
+    "energia_J": 0.0641512621390824,
+    "n": 3522
+   },
+   "7": {
+    "energia_J": 0.02705477573464002,
+    "n": 4862
+   }
+  },
+  "u_max_mm": 6.5382622,
+  "elementos_contacto": [
+   2506,
+   2506
+  ],
+  "fkn": 10.0,
+  "rigido": true
+ }
+}

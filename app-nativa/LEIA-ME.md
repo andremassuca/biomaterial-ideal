@@ -13,7 +13,9 @@ Ferramenta educativa de exploração de critérios. Não é um dispositivo médi
   - `caso_*.json`: um por caso (problemas dos cenários, regras dos perfis, perfis de exemplo).
   - `app.json`: nomes simples aprovados, fichas dos materiais e do tecido (com fonte e estado), filtros (RM,
     ISO 10993-1, esterilização e o cenário de sensibilidade), espectro de confiança, Monte Carlo do relatório,
-    FEA da haste, massa da haste, texto dos iões metálicos e o limiar de empate.
+    FEA da haste, massa da haste, texto dos iões metálicos e o limiar de empate. Também traz as verificações
+    adicionais do relatório v11.1: `cfd_carreau` (sangue de Carreau, de `results/cfd_pulsatil_carreau.json`, gerado por
+    `scripts/resumo_cfd_carreau_pulsatil.py`) e `micromovimento` (de `results/micromovimento_haste.json`).
   - `cfd_stent.json`: só aparece quando existir `results/cfd_pulsatil.json`; até lá, o ecrã "Porquê" mostra um
     marcador "Resultados da CFD ainda não disponíveis".
   - `triagem.json`: só aparece quando existir `results/base_triagem.csv` (gerado por `scripts/base_triagem.py`);
@@ -31,6 +33,9 @@ Ferramenta educativa de exploração de critérios. Não é um dispositivo médi
     Definições e Sobre.
   - `estilos/tema.css`: variáveis do tema claro e escuro (só variáveis CSS) e a letra Inter.
 - Letra Inter: lida de `design/fontes/` pelo `tema.css` (o Vite junta-a ao build, com caminhos relativos).
+- `public/simulacao/videos/`: vídeos MP4 opcionais do ecrã Simulação (`cfd_stent_2ciclo_web.mp4`,
+  `fea_haste_4materiais_web.mp4`). A lista é lida quando o Vite arranca (`vite.config.ts`); sem o ficheiro, o bloco
+  "Vídeo da simulação" não aparece. Depois de copiar um MP4, reiniciar o `npm run dev` ou voltar a compilar.
 - `public/modelos/`: modelos glTF opcionais (`haste.glb`, `stent.glb`, `par.glb`, `dentario.glb`), exportados
   do Blender sem compressão Draco. Sem ficheiro, o visualizador mostra uma forma simplificada com um aviso. A lista
   dos modelos é lida quando o Vite arranca (`vite.config.ts`): depois de acrescentar um `.glb`, reiniciar o

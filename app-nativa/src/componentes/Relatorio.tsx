@@ -1,9 +1,10 @@
 // Relatório de uma análise, em folha branca pronta a imprimir ou guardar em PDF (caixa de impressão do sistema).
 // Mostra o caso, o perfil, os pesos, os rankings dos três métodos, o Monte Carlo, as fontes e as limitações.
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Printer, X } from "lucide-react";
 import { TEXTO_AVISO } from "@/componentes/comuns";
+import { CAMPOS } from "@/lib/campos";
 import { Botao } from "@/componentes/ui/botao";
 import type { Analise } from "@/lib/analise";
 import { TITULO_CASO, descricaoCenario, rotuloMaterial } from "@/lib/dados";
@@ -31,7 +32,7 @@ export const LIMITACOES = [
   "Os rankings dos três métodos (TOPSIS, WASPAS e VIKOR) podem discordar; o consenso de Borda resume-os, mas não elimina a diferença.",
 ];
 
-function Tabela({ cabecalho, linhas }: { cabecalho: string[]; linhas: (string | number)[][] }) {
+function Tabela({ cabecalho, linhas }: { cabecalho: string[]; linhas: ReactNode[][] }) {
   return (
     <table className="w-full border-collapse text-left text-[11px]">
       <thead>
@@ -67,6 +68,28 @@ function Seccao({ titulo, children }: { titulo: string; children: React.ReactNod
   );
 }
 
+/**
+ * Valor de um dado do doente como se escreve numa folha: "sim" passa a "Sim" e, nas opções com texto próprio (sexo,
+ * atividade, defeito com ou sem carga), usa o texto que o formulário mostra.
+ */
+export function nomeDoValor(chave: string, valor: string | number): string {
+  const campo = CAMPOS.find((c) => c.chave === chave);
+  const opcao = campo?.opcoes?.find((o) => String(o.valor) === String(valor));
+  if (opcao) return opcao.texto;
+  const t = String(valor);
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/**
+ * Nome sugerido para o ficheiro PDF: "Relatorio <caso> AAAA-MM-DD".
+ * Em linguagem simples: a caixa de impressão propõe o título da página como nome do ficheiro; assim o PDF não fica
+ * com o nome genérico "Biomaterial Ideal".
+ */
+export function tituloDoRelatorio(a: Analise): string {
+  const data = a.criadaEm.slice(0, 10);
+  return `Relatorio ${TITULO_CASO[a.caso]} ${data}`;
+}
+
 /** Conteúdo do relatório (a folha). */
 export function Relatorio({ analise: a }: { analise: Analise }) {
   const r = a.ranking;
@@ -92,7 +115,7 @@ export function Relatorio({ analise: a }: { analise: Analise }) {
         {perfil.length === 0 ? (
           <p>Sem perfil: caso de base, com os pesos e os candidatos do cenário.</p>
         ) : (
-          <Tabela cabecalho={["Dado", "Valor"]} linhas={perfil.map(([k, v]) => [k.replace(/_/g, " "), String(v)])} />
+          <Tabela cabecalho={["Dado", "Valor"]} linhas={perfil.map(([k, v]) => [CAMPOS.find((c) => c.chave === k)?.rotulo ?? k.replace(/_/g, " "), nomeDoValor(k, v)])} />
         )}
         {a.regras.length > 0 && (
           <div className="mt-3">
@@ -100,7 +123,9 @@ export function Relatorio({ analise: a }: { analise: Analise }) {
             <Tabela
               cabecalho={["Regra", "Condição", "Efeito", "Justificação", "Estado"]}
               linhas={a.regras.map((x) => [
-                x.id,
+                <span key={x.id} className="whitespace-nowrap" data-regra-id>
+                  {x.id}
+                </span>,
                 textoPublico(x.condicao ?? ""),
                 `${x.efeito}: ${x.alvo}${x.valor ? ` (${decimalPt(x.valor)})` : ""}`,
                 textoPublico(x.justificacao ?? ""),
@@ -229,15 +254,23 @@ export function ModalRelatorio() {
   const analise = useRelatorio();
   useEffect(() => {
     if (!analise) return;
+    const tituloAntes = document.title;
+    document.title = tituloDoRelatorio(analise);
     const aoTecla = (e: KeyboardEvent) => e.key === "Escape" && fecharRelatorio();
     window.addEventListener("keydown", aoTecla);
-    return () => window.removeEventListener("keydown", aoTecla);
+    return () => {
+      document.title = tituloAntes;
+      window.removeEventListener("keydown", aoTecla);
+    };
   }, [analise]);
   if (!analise || typeof document === "undefined") return null;
   return createPortal(
     <div id="relatorio-impressao" role="dialog" aria-modal="true" aria-label="Relatório da análise" className="fixed inset-0 z-50 overflow-y-auto bg-neutral-200">
       <div className="no-print sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-neutral-400 bg-neutral-100 px-4 py-2 text-neutral-900">
-        <span className="text-sm font-medium">Relatório da análise</span>
+        <span className="text-sm">
+          <strong className="font-medium">Relatório da análise.</strong>{" "}
+          <span data-dica-pdf>Para guardar em PDF: clique em "Imprimir ou guardar em PDF" e, na janela seguinte, escolha a impressora "Guardar como PDF".</span>
+        </span>
         <div className="flex gap-2">
           <Botao onClick={() => window.print()}>
             <Printer className="h-4 w-4" /> Imprimir ou guardar em PDF

@@ -11,16 +11,19 @@ import {
   MALHA_MAPDL,
   MATERIAIS_SW,
   NOTA_MAPDL,
+  NOTA_VERIFICACAO,
   imagemMapdl,
   imagemSw,
   linhaMapdl,
   linhaSw,
+  resumoMicromovimento,
   urlSimulacao,
   variacaoPercentual,
   type CorteMapdl,
   type VistaFea,
 } from "@/lib/simulacao";
 import { Ampliavel } from "./Ampliavel";
+import { BlocoVideo } from "./BlocoVideo";
 
 /** Módulo de Young da haste (GPa) lido dos resultados da aplicação; null no fémur intacto. */
 function moduloHaste(materialBase: string | null): number | null {
@@ -34,6 +37,41 @@ function Linha({ nome, children }: { nome: string; children: ReactNode }) {
       <dt className="text-texto2">{nome}</dt>
       <dd className="numero text-right font-medium text-texto">{children}</dd>
     </div>
+  );
+}
+
+/** Cartão do micromovimento da haste (Ansys, contacto com atrito): a frase do relatório v11.1 (secção 8) e a ressalva. */
+export function CartaoMicromovimento() {
+  const r = resumoMicromovimento();
+  if (!r) return null;
+  const nenhum = r.fracaoAcimaLimiar === 0;
+  return (
+    <Cartao data-micromovimento>
+      <TituloCartao>Verificação adicional: micromovimento na interface osso-haste</TituloCartao>
+      <p className="mt-2 text-sm leading-relaxed">
+        Como verificação adicional, e não como previsão clínica, repetiu-se a haste de {r.material} no Ansys com contacto com
+        atrito entre a haste e o osso (μ = {num(r.mu, 1)}, contacto mais rígido): o deslocamento tangencial máximo na interface é de{" "}
+        {num(r.maxUm, 1)} µm, a mediana é de {num(r.medianaUm, 1)} µm e {nenhum ? "nenhum nó (0 %)" : `${num(r.fracaoAcimaLimiar * 100, 1)} % dos nós`} passa os{" "}
+        {num(r.limiarUm, 0)} µm, o valor a partir do qual, em cães, a fixação passa a ser por tecido conjuntivo e não por osso
+        (Pilliar et al., 1986). Nas outras quatro variantes do contacto o máximo vai de {num(r.intervaloMinUm, 1)} a{" "}
+        {num(r.intervaloMaxUm, 1)} µm, {nenhum ? "também sem nós acima de" : "com nós acima de"} {num(r.limiarUm, 0)} µm.
+      </p>
+      <dl className="mt-3 grid gap-x-6 sm:grid-cols-2 [&>*]:min-w-0">
+        <Linha nome="Máximo (caso principal)">{num(r.maxUm, 1)} µm</Linha>
+        <Linha nome="Intervalo do máximo nas outras variantes">
+          {num(r.intervaloMinUm, 1)} a {num(r.intervaloMaxUm, 1)} µm
+        </Linha>
+        <Linha nome={`Nós acima de ${num(r.limiarUm, 0)} µm`}>{num(r.fracaoAcimaLimiar * 100, 0)} %</Linha>
+      </dl>
+      <p role="note" className="mt-3 rounded-md border border-aviso/40 bg-aviso/10 px-3 py-2 text-xs font-medium text-texto">
+        {NOTA_VERIFICACAO} Não demonstra perda óssea nem descolamento: o micromovimento foi estimado só como verificação adicional
+        (caso principal com interface colada, um só instante da marcha, osso isotrópico, sem remodelação); não houve validação
+        experimental.
+      </p>
+      <p className="mt-2 text-xs leading-relaxed text-texto2">
+        Limiar de 150 µm: Pilliar RM, Lee JM, Maniatopoulos C. Clin Orthop Relat Res 1986;(208):108-113 (só resumo).
+      </p>
+    </Cartao>
   );
 }
 
@@ -294,6 +332,10 @@ export function SimulacaoFea() {
           </div>
         </Cartao>
       )}
+
+      <CartaoMicromovimento />
+
+      <BlocoVideo separador="fea" />
     </div>
   );
 }

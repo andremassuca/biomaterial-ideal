@@ -18,6 +18,17 @@ function modelosGlb(): string[] {
   }
 }
 
+/** Vídeos MP4 presentes em public/simulacao/videos; o ecrã Simulação só mostra o bloco dos que existem. */
+function videosSimulacao(): string[] {
+  try {
+    return readdirSync(fileURLToPath(new URL("./public/simulacao/videos", import.meta.url))).filter((f) =>
+      f.toLowerCase().endsWith(".mp4"),
+    );
+  } catch {
+    return [];
+  }
+}
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -36,7 +47,7 @@ export default defineConfig({
     fs: { allow: [".."] },
   },
   envPrefix: ["VITE_", "TAURI_ENV_"],
-  define: { __MODELOS_GLB__: JSON.stringify(modelosGlb()) },
+  define: { __MODELOS_GLB__: JSON.stringify(modelosGlb()), __VIDEOS_SIM__: JSON.stringify(videosSimulacao()) },
   build: {
     target: "es2021",
     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,

@@ -4,8 +4,78 @@ import { Cartao, DescricaoCartao, Etiqueta, TituloCartao } from "@/componentes/u
 import { Opcoes } from "@/componentes/ui/controlos";
 import { CFD } from "@/lib/dados";
 import { num, pct } from "@/lib/formato";
-import { LIMIAR_TAWSS_PA, comparacaoFluent, malhasCfd, materiaisCfd, urlSimulacao, verificacoesCfd } from "@/lib/simulacao";
+import {
+  LIMIAR_TAWSS_PA,
+  NOTA_VERIFICACAO,
+  comparacaoFluent,
+  linhasCarreau,
+  malhasCfd,
+  materiaisCfd,
+  urlSimulacao,
+  verificacoesCfd,
+} from "@/lib/simulacao";
 import { Ampliavel } from "./Ampliavel";
+import { BlocoVideo } from "./BlocoVideo";
+
+/** Percentagem com uma casa decimal (36,8 %), como no relatório; o `pct` geral arredonda às unidades. */
+function pct1(fracao: number): string {
+  return `${num(fracao * 100, 1)} %`;
+}
+
+/** Cartão da repetição do fluxo pulsátil com sangue de Carreau: tabela e a frase do relatório v11.1 (secção 8). */
+export function CartaoCarreau() {
+  const linhas = linhasCarreau();
+  if (linhas.length < 2) return null;
+  const [fino, grosso] = linhas;
+  return (
+    <Cartao data-carreau>
+      <TituloCartao>Verificação adicional: sangue não newtoniano (Carreau)</TituloCartao>
+      <p className="mt-2 text-sm leading-relaxed">
+        Como verificação adicional, repetiu-se o escoamento pulsátil com o sangue de Carreau, não newtoniano: a área da parede
+        abaixo de {num(LIMIAR_TAWSS_PA, 1)} Pa passa de {pct1(fino.fracaoNewtoniano)} para {pct1(fino.fracaoCarreau)} com o strut de{" "}
+        {num(fino.espessura_um, 0)} µm e de {pct1(grosso.fracaoNewtoniano)} para {pct1(grosso.fracaoCarreau)} com o de{" "}
+        {num(grosso.espessura_um, 0)} µm, e a TAWSS média é de {num(fino.tauCarreau, 3)} e {num(grosso.tauCarreau, 3)} Pa; os
+        valores absolutos mudam, mas a ordem entre as duas espessuras mantém-se.
+      </p>
+      <div className="mt-3 overflow-x-auto">
+        <table className="tabela-limpa w-full text-left text-sm">
+          <thead className="text-xs text-texto2">
+            <tr>
+              {[
+                "Strut",
+                "Área < 0,4 Pa, newtoniano",
+                "Área < 0,4 Pa, Carreau",
+                "TAWSS média, newtoniano (Pa)",
+                "TAWSS média, Carreau (Pa)",
+              ].map((c) => (
+                <th key={c} className="py-1 pr-3 font-medium">
+                  {c}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {linhas.map((l) => (
+              <tr key={l.material} className="border-t border-linha">
+                <td className="py-1.5 pr-3 font-medium">
+                  {num(l.espessura_um, 0)} µm ({l.material})
+                </td>
+                <td className="numero py-1.5 pr-3">{pct1(l.fracaoNewtoniano)}</td>
+                <td className="numero py-1.5 pr-3">{pct1(l.fracaoCarreau)}</td>
+                <td className="numero py-1.5 pr-3">{num(l.tauNewtoniano, 3)}</td>
+                <td className="numero py-1.5 pr-3">{num(l.tauCarreau, 3)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p role="note" className="mt-3 rounded-md border border-aviso/40 bg-aviso/10 px-3 py-2 text-xs font-medium text-texto">
+        {NOTA_VERIFICACAO} Não demonstra reestenose nem trombose: geometria idealizada, sem lesão e parede rígida; {num(LIMIAR_TAWSS_PA, 1)} Pa
+        é um limiar operacional deste estudo; não houve validação experimental.
+      </p>
+    </Cartao>
+  );
+}
 
 /** Barra horizontal simples (0 a 1) para uma fração, com o valor escrito ao lado. */
 export function BarraFracao({ fracao, rotulo }: { fracao: number; rotulo: string }) {
@@ -216,23 +286,16 @@ export function SimulacaoCfd() {
         </Cartao>
       </div>
 
+      <CartaoCarreau />
+
+      <BlocoVideo separador="cfd" />
+
       <Cartao>
         <TituloCartao>O que ainda não existe nos resultados</TituloCartao>
         <ul className="mt-2 space-y-2 text-sm">
           <li className="flex flex-wrap items-center gap-2">
             <Etiqueta tom="aviso">Por gerar</Etiqueta>
-            <span>Linhas de corrente (streamlines) do escoamento à volta dos struts.</span>
-          </li>
-          <li className="flex flex-wrap items-center gap-2">
-            <Etiqueta tom="aviso">Por gerar</Etiqueta>
             <span>Render em 4K do escoamento no stent.</span>
-          </li>
-          <li className="flex flex-wrap items-center gap-2">
-            <Etiqueta tom="aviso">Por consolidar</Etiqueta>
-            <span>
-              Sangue não newtoniano (Carreau): os casos foram corridos na pasta de trabalho da CFD, mas não há resumo
-              em results/. Os resultados acima são todos com sangue newtoniano.
-            </span>
           </li>
         </ul>
       </Cartao>

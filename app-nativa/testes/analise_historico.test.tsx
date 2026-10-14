@@ -193,3 +193,56 @@ describe("ecrã Histórico", () => {
     expect(screen.getByText(/Os dados mudaram desde esta análise/)).toBeTruthy();
   });
 });
+
+describe("relatório: código da regra, título e instrução do PDF", () => {
+  it("o código da regra fica numa só linha (whitespace-nowrap) na tabela de regras", async () => {
+    const { Relatorio } = await import("../src/componentes/Relatorio");
+    const { criarAnalise } = await import("../src/lib/analise");
+    const { CASOS } = await import("../src/lib/dados");
+    const { prepararNucleo, avaliarDoente } = await import("../src/lib/nucleo");
+    await prepararNucleo();
+    const r = await avaliarDoente("Haste", "A", { osteoporose: "sim" });
+    const a = criarAnalise({
+      caso: "Haste",
+      cenario: "A",
+      problemaBase: CASOS.Haste.cenarios.A,
+      problemaUsado: r.resultado.problema,
+      ranking: r.resultado.ranking,
+      perfil: { osteoporose: "sim" },
+      regras: r.resultado.regras,
+    });
+    render(<Relatorio analise={a} />);
+    const id = document.querySelector("[data-regra-id]") as HTMLElement;
+    expect(id.textContent).toBe("H-OST");
+    expect(id.className).toContain("whitespace-nowrap");
+  });
+
+  it("tituloDoRelatorio inclui o caso e a data", async () => {
+    const { tituloDoRelatorio } = await import("../src/componentes/Relatorio");
+    const a = await analiseHaste(new Date("2026-10-13T17:00:00Z"));
+    expect(tituloDoRelatorio(a)).toBe("Relatorio Haste femoral 2026-10-13");
+  });
+
+  it("ao abrir o relatório o título da página é o nome sugerido do PDF e volta ao original ao fechar; há instrução", async () => {
+    const { ModalRelatorio, tituloDoRelatorio } = await import("../src/componentes/Relatorio");
+    const { abrirRelatorio, fecharRelatorio } = await import("../src/lib/relatorio");
+    const a = await analiseHaste();
+    document.title = "Biomaterial Ideal";
+    render(<ModalRelatorio />);
+    await act(async () => abrirRelatorio(a));
+    expect(document.title).toBe(tituloDoRelatorio(a));
+    expect(document.querySelector("[data-dica-pdf]")?.textContent).toContain("Guardar como PDF");
+    await act(async () => fecharRelatorio());
+    expect(document.title).toBe("Biomaterial Ideal");
+  });
+});
+
+describe("nomeDoValor", () => {
+  it("usa o texto do formulário nas opções e põe maiúscula nos restantes", async () => {
+    const { nomeDoValor } = await import("../src/componentes/Relatorio");
+    expect(nomeDoValor("atividade", "baixa")).toBe("Baixa");
+    expect(nomeDoValor("osteoporose", "sim")).toBe("Sim");
+    expect(nomeDoValor("idade", 78)).toBe("78");
+    expect(nomeDoValor("chave_desconhecida", "abc")).toBe("Abc");
+  });
+});

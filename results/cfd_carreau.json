@@ -1,0 +1,44 @@
+{
+ "carreau": {
+  "mu0": 0.056,
+  "muinf": 0.0035,
+  "lambda_s": 3.313,
+  "n": 0.3568
+ },
+ "rho": 1060.0,
+ "mu_newtoniano": 0.0035,
+ "casos": {
+  "Estacionário (caudal médio) Pt-Cr": {
+   "fracao_newt": 0.4615291251735144,
+   "fracao_carreau": 0.3679915366408452,
+   "dif_pp": -9.35375885326692,
+   "tau_newt": 0.40969541638802304,
+   "tau_carreau": 0.5088538636490406,
+   "dif_tau_rel": 0.24202967203104975
+  },
+  "Estacionário (caudal médio) 316L": {
+   "fracao_newt": 0.8091865379243848,
+   "fracao_carreau": 0.6844729734377862,
+   "dif_pp": -12.471356448659854,
+   "tau_newt": 0.2333604906760952,
+   "tau_carreau": 0.2975579774701877,
+   "dif_tau_rel": 0.2751000677453954
+  },
+  "Estacionário, Carreau com 8000 iterações Pt-Cr": {
+   "fracao_newt": 0.4615291251735144,
+   "fracao_carreau": 0.3679915366408452,
+   "dif_pp": -9.35375885326692,
+   "tau_newt": 0.40969541638802304,
+   "tau_carreau": 0.5087227630762056,
+   "dif_tau_rel": 0.24170967681609024
+  },
+  "Estacionário, Carreau com 8000 iterações 316L": {
+   "fracao_newt": 0.8091865379243848,
+   "fracao_carreau": 0.6849495448491749,
+   "dif_pp": -12.423699307520986,
+   "tau_newt": 0.2333604906760952,
+   "tau_carreau": 0.2971418703259673,
+   "dif_tau_rel": 0.27331695894658004
+  }
+ }
+}

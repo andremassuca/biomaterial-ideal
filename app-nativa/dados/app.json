@@ -7735,6 +7735,59 @@
    6.99
   ]
  },
+ "cfd_carreau": {
+  "limiar_pa": 0.4,
+  "carreau": {
+   "mu0": 0.056,
+   "muinf": 0.0035,
+   "lambda_s": 3.313,
+   "n": 0.3568
+  },
+  "casos": {
+   "Pt-Cr": {
+    "espessura_um": 79.0,
+    "newtoniano": {
+     "tau_media": 0.4084233489928541,
+     "fracao_baixa": 0.46531655319141874
+    },
+    "carreau": {
+     "tau_media": 0.5084652005372609,
+     "fracao_baixa": 0.3679647294247376
+    },
+    "dif_fracao_pp": -9.735182376668112,
+    "dif_tau_rel": 0.244946455169871
+   },
+   "316L": {
+    "espessura_um": 135.0,
+    "newtoniano": {
+     "tau_media": 0.23161884952168868,
+     "fracao_baixa": 0.8210091302587775
+    },
+    "carreau": {
+     "tau_media": 0.29594596978615173,
+     "fracao_baixa": 0.6922010063157638
+    },
+    "dif_fracao_pp": -12.880812394301378,
+    "dif_tau_rel": 0.2777283472277998
+   }
+  },
+  "ordem_mantida": true
+ },
+ "micromovimento": {
+  "material": "Ti-6Al-4V ELI",
+  "mu": 0.4,
+  "limiar_um": 150.0,
+  "nos": 5035,
+  "principal": {
+   "max_um": 65.68675008754475,
+   "mediana_um": 35.2123070131174,
+   "fracao_acima_limiar": 0.0
+  },
+  "outras_variantes": 4,
+  "outras_max_min_um": 63.853877217389766,
+  "outras_max_max_um": 99.0839705571524,
+  "outras_fracao_acima_limiar_max": 0.0
+ },
  "textos": {
   "ioes": "# Iões metálicos: efeitos sistémicos do cobalto, do crómio e do níquel\n\nTexto de apoio ao relatório e ao diapositivo de reserva \"Impacto no doente: massa e iões\". Fontes confirmadas a\n8 out 2026 no PubMed, nas páginas dos reguladores e na IARC; \"resumo\" quer dizer que só se leu o resumo.\n\n## Cobalto (haste de Co-Cr-Mo e ligas de cobalto do stent)\n\n- Toxicidade sistémica rara, com concentrações altas no sangue: numa revisão de 18 casos, \"neuro-ocular toxicity\n  (14 patients), cardiotoxicity (11 patients) and thyroid toxicity (9 patients)\", com surdez neurossensorial (7)\n  e perda de visão (6); cobalto mediano de 398 µg/L (13,6 a 6521). O risco maior foi a revisão de uma cerâmica\n  partida com um componente com cobalto, mais do que a falha de um par metal-metal (Bradberry SM, Wilkinson JM,\n  Ferner RE. Clin Toxicol 2014;52:837-847, doi:10.3109/15563650.2014.944977; resumo).\n- Abaixo de 300 µg/L de cobalto no sangue não se esperam efeitos sistémicos significativos na maioria das\n  pessoas; a policitemia é o efeito mais sensível (Paustenbach DJ, Galbraith DA, Finley BL. Clin Toxicol\n  2014;52:98-112, doi:10.3109/15563650.2013.857024; resumo; autores de uma consultora, com cartas críticas\n  publicadas no mesmo ano).\n- Valores de vigilância: no Reino Unido, cobalto ou crómio no sangue total a partir de 7 ppb (119 nmol/L de\n  cobalto; 134,5 nmol/L de crómio) pede seguimento mais apertado e imagem; não há limiar acordado que obrigue à\n  revisão (MHRA, MDA/2017/018, 29 jun 2017). A FDA (página para cirurgiões, atualizada a 15 mar 2019) diz que\n  não há evidência para fixar um limiar e lista, entre os sinais sistémicos, a cardiomiopatia e alterações\n  neurológicas (audição e visão). Um consenso europeu de peritos põe o limiar de preocupação entre 2 e 7 µg/L\n  (Hannemann F et al. Orthop Traumatol Surg Res 2013;99:263-271, doi:10.1016/j.otsr.2013.01.005; resumo;\n  evidência de nível V).\n- Cancro: o cobalto metálico e os sais solúveis de cobalto(II) passaram ao Grupo 2A, \"probably carcinogenic to\n  humans\", com evidência inadequada em humanos (IARC, Monografia 131, 2022; Karagas MR et al. Lancet Oncol\n  2022;23:577-578, doi:10.1016/S1470-2045(22)00219-4).\n\n## Crómio\n\n- O crómio(VI) é carcinogénico (Grupo 1); o crómio metálico e os compostos de crómio(III) não são\n  classificáveis (Grupo 3) (IARC, Monografia 49, 1990). O crómio libertado pelas ligas de implantes é sobretudo\n  crómio(III) [confirmar com uma fonte].\n\n## Níquel (stents: 316L 14 %, L605 10 %, MP35N 35 %, Pt-Cr 9 %, valores de data/materiais.csv)\n\n- Alergia: cerca de 8 a 19 % dos adultos na Europa e 8 a 10 % das crianças e adolescentes, com predomínio\n  feminino (Ahlström MG et al. Contact Dermatitis 2019;81:227-241, doi:10.1111/cod.13327; resumo). Numa\n  meta-análise da população geral: níquel 11,4 %, cobalto 2,7 %, crómio 1,8 % (Alinaghi F et al. Contact\n  Dermatitis 2019;80:77-85, doi:10.1111/cod.13119; resumo).\n- Stents: em 131 doentes com stents de 316L, os dez com teste epicutâneo positivo (sete ao níquel, quatro ao\n  molibdénio) tinham todos reestenose (p = 0,03); os autores dizem que a alergia \"may be one of the triggering\n  mechanisms\" (Köster R et al. Lancet 2000;356:1895-1897, doi:10.1016/S0140-6736(00)03262-1; resumo; há uma\n  errata e cartas críticas, Lancet 2001;357:316 e 1205-1207).\n- Cancro: os compostos de níquel são do Grupo 1; o níquel metálico é do Grupo 2B (IARC, Monografia 49, 1990).\n- Não se encontrou uma fonte que meça a libertação de níquel dos stents no corpo; fica \"A verificar\".\n\n## Titânio, alumínio e vanádio (Ti-6Al-4V)\n\n- Com hastes de titânio soltas, o titânio no soro subiu cerca de duas vezes; o alumínio não mudou muito e o\n  vanádio ficou baixo em todos os grupos (Jacobs JJ et al. J Bone Joint Surg Am 1991;73:1475-1486, PMID\n  1844129; resumo). As diferenças entre laboratórios ainda não deixam definir valores \"normais\" de titânio\n  (Swiatkowska I, Martin N, Hart AJ. J Trace Elem Med Biol 2019;53:120-128, doi:10.1016/j.jtemb.2019.02.013;\n  resumo).\n\n## Leitura para o trabalho\n\n- O problema dos iões de cobalto e crómio vem sobretudo do desgaste e da corrosão nas superfícies que se movem\n  ou encaixam (par metal-metal, ligação cabeça-colo); com metal-polietileno os níveis são mais baixos (Engh CA\n  et al. J Bone Joint Surg Am 2014;96:448-455, doi:10.2106/JBJS.M.00164; resumo). Por isso, no par articular a\n  libertação de iões entra na escolha; na haste conta a corrosão nas junções.\n- No stent, todas as ligas permanentes candidatas têm níquel; o perfil de doente com alergia ao níquel trata\n  isto (data/perfis_doente.csv).\n"
  }

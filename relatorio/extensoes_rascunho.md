@@ -47,9 +47,9 @@ Três requisitos entram como filtros e não como critérios com peso, para não 
 
 > **Contexto de uso:** interpretar o critério-alvo do módulo, comparando materiais pela energia de deformação no osso, um indicador mecânico de redistribuição de carga.
 >
-> **Verificação feita:** solução analítica, equilíbrio, convergência da malha e verificação numérica cruzada com o SOLIDWORKS Simulation e o Ansys Mechanical APDL.
+> **Verificação feita:** solução analítica, equilíbrio, convergência da malha e verificação numérica cruzada com o SOLIDWORKS Simulation e o Ansys Mechanical APDL, e verificação adicional do micromovimento com contacto com atrito no Ansys.
 >
-> **O que não demonstra:** perda óssea, descolamento nem micromovimento (interface colada, um só instante da marcha, osso isotrópico, sem remodelação); não houve validação experimental.
+> **O que não demonstra:** perda óssea nem descolamento; o micromovimento foi estimado só como verificação adicional, não como previsão clínica (caso principal com interface colada, um só instante da marcha, osso isotrópico, sem remodelação); não houve validação experimental.
 
 Um dos critérios com mais peso na haste é o módulo de Young com alvo no osso cortical (0,20, a seguir à resistência à fadiga, com 0,25; secção 4.2). Para ver o efeito desse critério no osso, simulou-se a haste dentro de um fémur e mediu-se a energia de deformação no osso proximal, nas zonas de Gruen 1 e 7 (Gruen et al. 1979), em relação ao fémur intacto. A razão é um indicador mecânico de redistribuição de carga: uma razão baixa quer dizer que o osso recebe menos estímulo mecânico (*stress shielding*); não é uma previsão de perda óssea nem de descolamento, porque a simulação não modela a remodelação. As zonas de Gruen, definidas na radiografia, foram traduzidas para 3D pelo plano da haste e por terços do comprimento implantado; a zona 1 contém a inserção dos abdutores, por isso a zona 7 (calcar) é o indicador mais informativo.
 
@@ -67,15 +67,17 @@ Resultados (energia no osso face ao fémur intacto, Gruen 1 e Gruen 7; Python e 
 
 A razão mede o estímulo mecânico inicial, não a perda óssea nem o descolamento: não se simulou a remodelação. Com a interface colada, o modelo também não mostra o custo de uma haste flexível, que aumenta as tensões e o micromovimento na interface proximal (Huiskes et al. 1992); por isso a haste porosa de 17 GPa é um limite teórico, não uma recomendação. A resistência da haste porosa também não foi avaliada aqui (secção 9.8).
 
+Como verificação adicional, e não como previsão clínica, repetiu-se a haste de Ti-6Al-4V ELI no Ansys com contacto com atrito entre a haste e o osso (μ = 0,4, contacto mais rígido): o deslocamento tangencial máximo na interface é de 65,7 µm, a mediana é de 35,2 µm e nenhum nó (0 %) passa os 150 µm, o valor a partir do qual, em cães, a fixação passa a ser por tecido conjuntivo e não por osso (Pilliar et al. 1986). Nas outras quatro variantes do contacto o máximo vai de 63,9 a 99,1 µm, também sem nós acima de 150 µm.
+
 <!-- figura: fea/sed_corte_coronal -->
 
 ## 8.4 Simulação do escoamento no stent
 
 > **Contexto de uso:** interpretar o critério da espessura do strut; o resultado é da espessura, não da liga.
 >
-> **Verificação feita:** escoamento de Poiseuille analítico, convergência da malha, passo de tempo, repetição entre ciclos e verificação numérica cruzada com o Ansys Fluent (escoamento estacionário).
+> **Verificação feita:** escoamento de Poiseuille analítico, convergência da malha, passo de tempo, repetição entre ciclos, verificação numérica cruzada com o Ansys Fluent (escoamento estacionário) e repetição com o sangue não newtoniano de Carreau.
 >
-> **O que não demonstra:** reestenose nem trombose: geometria idealizada, sem lesão, parede rígida e sangue newtoniano; 0,4 Pa é um limiar operacional deste estudo; não houve validação experimental.
+> **O que não demonstra:** reestenose nem trombose: geometria idealizada, sem lesão, parede rígida e sangue newtoniano no caso principal (a repetição com Carreau não muda a ordem); 0,4 Pa é um limiar operacional deste estudo; não houve validação experimental.
 
 O critério com mais peso no stent é a espessura dos struts (secção 5.2). Para ver o seu efeito no escoamento, simulou-se o sangue a passar numa artéria coronária com o stent, com struts de 79 µm (DES atual, valor típico do Pt-Cr na base) e de 135 µm (1.ª geração, valor típico do 316L). O resultado é da espessura e não da liga: a decisão do stent é entre o Pt-Cr e o L605, e a simulação compara um strut atual com um de 1.ª geração. A grandeza é a tensão de corte na parede: tensões de corte baixas favorecem um fenótipo aterogénico do endotélio (Malek et al. 1999), e as zonas de corte baixo entre os struts associam-se à hiperplasia da neoíntima (LaDisa et al. 2005). Estudos de CFD e experimentais mostram mais recirculação com struts mais espessos (Jiménez e Davies 2009; Kolandaivelu et al. 2011).
 
@@ -98,6 +100,8 @@ Resultados (Tabela [n]), com o limiar de 0,4 Pa (limiar operacional deste estudo
 Table: Resultados da simulação do escoamento no stent (fluxo pulsátil, médias no segundo ciclo, parede da artéria entre os struts): efeito da espessura do strut.
 
 A fração depende do limiar: com 0,3 Pa seria 35 % contra 67 %, com 0,5 Pa 59 % contra 94 % e com 0,6 Pa 73 % contra 97 %; a partir de cerca de 0,8 Pa, quase toda a parede entre os struts fica abaixo do limiar nas duas espessuras (98 % e 99 %), porque a parede sem stent está a 0,87 Pa. A medida menos dependente do limiar é a TAWSS média relativa à do tubo sem stent: 0,47 com o strut de 79 µm e 0,27 com o de 135 µm. A espessura atua também pela lesão da parede e pelo tempo de cobertura endotelial, que o modelo não representa; a evidência clínica do efeito da espessura é o ensaio ISAR-STEREO (Kastrati et al. 2001).
+
+Como verificação adicional, repetiu-se o escoamento pulsátil com o sangue de Carreau, não newtoniano: a área da parede abaixo de 0,4 Pa passa de 46,5 % para 36,8 % com o strut de 79 µm e de 82,1 % para 69,2 % com o de 135 µm, e a TAWSS média é de 0,508 e 0,296 Pa; os valores absolutos mudam, mas a ordem entre as duas espessuras mantém-se.
 
 <!-- figura: cfd/tawss_mapas -->
 

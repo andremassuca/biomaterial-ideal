@@ -127,9 +127,36 @@ def test_cfd_json_none_sem_resultados(tmp_path):
     assert ex.cfd_json(tmp_path)["Pt-Cr"]["espessura_um"] == 79
 
 
+def test_cfd_carreau_json_valores_do_relatorio_v11_1(tmp_path):
+    assert ex.cfd_carreau_json(tmp_path) is None
+    c = ex.cfd_carreau_json()["casos"]
+    assert c["Pt-Cr"]["espessura_um"] == 79 and c["316L"]["espessura_um"] == 135
+    assert round(100 * c["Pt-Cr"]["carreau"]["fracao_baixa"], 1) == 36.8
+    assert round(100 * c["316L"]["carreau"]["fracao_baixa"], 1) == 69.2
+    assert round(100 * c["Pt-Cr"]["newtoniano"]["fracao_baixa"], 1) == 46.5
+    assert round(100 * c["316L"]["newtoniano"]["fracao_baixa"], 1) == 82.1
+    assert round(c["Pt-Cr"]["carreau"]["tau_media"], 3) == 0.508
+    assert round(c["316L"]["carreau"]["tau_media"], 3) == 0.296
+    # o caso newtoniano é o mesmo da CFD principal
+    for mat, r in ex.cfd_json().items():
+        assert c[mat]["newtoniano"]["fracao_baixa"] == pytest.approx(r["fracao_baixa"])
+        assert c[mat]["newtoniano"]["tau_media"] == pytest.approx(r["tau_media"])
+
+
+def test_micromovimento_json_valores_do_relatorio_v11_1(tmp_path):
+    assert ex.micromovimento_json(tmp_path) is None
+    m = ex.micromovimento_json()
+    assert m["limiar_um"] == 150 and m["mu"] == 0.4 and m["outras_variantes"] == 4
+    assert round(m["principal"]["max_um"], 1) == 65.7
+    assert round(m["principal"]["mediana_um"], 1) == 35.2
+    assert m["principal"]["fracao_acima_limiar"] == 0 and m["outras_fracao_acima_limiar_max"] == 0
+    assert round(m["outras_max_min_um"], 1) == 63.9 and round(m["outras_max_max_um"], 1) == 99.1
+
+
 def test_app_json_e_exportar_extras(tmp_path):
     d = ex.app_json()
-    assert set(d) >= {"nomes", "fichas", "filtros", "espectro", "limiar_empate", "fea", "massa", "textos"}
+    assert set(d) >= {"nomes", "fichas", "filtros", "espectro", "limiar_empate", "fea", "massa", "textos",
+                      "cfd_carreau", "micromovimento"}
     json.dumps(d, allow_nan=False)
     caminhos = ex.exportar_extras(tmp_path)
     assert caminhos[0].name == "app.json" and caminhos[0].exists()

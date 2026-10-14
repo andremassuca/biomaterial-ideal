@@ -1,6 +1,0 @@
-ficheiro,escala,fechada,orientacao_coerente,volume_valido,corpos,triangulos,volume_mm3,dimensoes_mm,porosidade_geometrica,tamanho_MB
-haste_femoral_corail8_1para1.stl,1.0,True,True,True,1,37620,23799.89,56.14 x 137.66 x 15.00,,1.881
-haste_femoral_corail8_1para1_metadeA.stl,1.0,True,True,True,1,20746,11899.98,56.14 x 137.66 x 7.50,,1.037
-haste_femoral_corail8_1para1_metadeB.stl,1.0,True,True,True,1,18132,11899.91,56.14 x 137.66 x 7.50,,0.907
-scaffold_0_90_celula_10x.stl,10.0,True,True,True,1,444,158.93,12.00 x 12.00 x 4.80,0.7701,0.022
-scaffold_0_90_bloco_3x3x6_10x.stl,10.0,True,True,True,1,8796,4421.24,36.00 x 36.00 x 14.40,0.7631,0.44

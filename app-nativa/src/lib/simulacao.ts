@@ -4,6 +4,8 @@
 // cfd_verificacoes.json e cfd_malhas.csv) e dos dados da aplicação.
 import dados from "@/componentes/simulacao/dados_simulacao.json";
 import mapas from "@/componentes/simulacao/mapas_von_mises.json";
+import { APP } from "./dados";
+import type { CfdCarreau, Micromovimento } from "./tipos";
 
 /** Limiar de tensão de corte na parede (Pa) usado como referência da CFD (docs/CFD_STENT.md: limiar operacional). */
 export const LIMIAR_TAWSS_PA = 0.4;
@@ -230,4 +232,108 @@ export function linhaMapdl(prefixo: string): LinhaMapdl | null {
     nos: c.nos,
     elementos: c.elementos,
   };
+}
+
+// ---------------------------------------------------------------- verificações adicionais do relatório v11.1
+
+/** Nota que acompanha os resultados novos (a mesma ideia do relatório: verificação adicional, não previsão clínica). */
+export const NOTA_VERIFICACAO = "Verificação, não previsão clínica.";
+
+/** Uma linha da comparação newtoniano contra Carreau: um material (strut), com fração e TAWSS dos dois modelos de sangue. */
+export interface LinhaCarreau {
+  material: string;
+  espessura_um: number;
+  fracaoNewtoniano: number;
+  fracaoCarreau: number;
+  tauNewtoniano: number;
+  tauCarreau: number;
+}
+
+/**
+ * Linhas da comparação com o sangue de Carreau, do strut mais fino para o mais grosso.
+ * Em linguagem simples: lê o que o exportador gravou e devolve, por material, a fração da parede com TAWSS baixo e a
+ * TAWSS média nos dois modelos; devolve lista vazia se esses resultados não existirem.
+ */
+export function linhasCarreau(c: CfdCarreau | null | undefined = APP.cfd_carreau): LinhaCarreau[] {
+  if (!c) return [];
+  return Object.entries(c.casos)
+    .map(([material, r]) => ({
+      material,
+      espessura_um: r.espessura_um,
+      fracaoNewtoniano: r.newtoniano.fracao_baixa,
+      fracaoCarreau: r.carreau.fracao_baixa,
+      tauNewtoniano: r.newtoniano.tau_media,
+      tauCarreau: r.carreau.tau_media,
+    }))
+    .sort((a, b) => a.espessura_um - b.espessura_um);
+}
+
+/** Valores do micromovimento prontos a mostrar (µm; fração em 0 a 1), ou null se não existirem. */
+export interface ResumoMicromovimento {
+  maxUm: number;
+  medianaUm: number;
+  intervaloMinUm: number;
+  intervaloMaxUm: number;
+  limiarUm: number;
+  fracaoAcimaLimiar: number;
+  mu: number;
+  material: string;
+}
+
+/**
+ * Resume o micromovimento da haste: máximo do caso principal, intervalo do máximo nas outras variantes e fração de nós
+ * acima do limiar (a maior de todas as variantes, para não esconder um valor pior).
+ */
+export function resumoMicromovimento(m: Micromovimento | null | undefined = APP.micromovimento): ResumoMicromovimento | null {
+  if (!m) return null;
+  return {
+    maxUm: m.principal.max_um,
+    medianaUm: m.principal.mediana_um,
+    intervaloMinUm: m.outras_max_min_um,
+    intervaloMaxUm: m.outras_max_max_um,
+    limiarUm: m.limiar_um,
+    fracaoAcimaLimiar: Math.max(m.principal.fracao_acima_limiar, m.outras_fracao_acima_limiar_max),
+    mu: m.mu,
+    material: m.material,
+  };
+}
+
+/** Vídeo da simulação que se mostra se o ficheiro existir em public/simulacao/videos. */
+export interface VideoSimulacao {
+  ficheiro: string;
+  separador: "cfd" | "fea";
+  titulo: string;
+  legenda: string;
+}
+
+export const VIDEOS_SIMULACAO: VideoSimulacao[] = [
+  {
+    ficheiro: "cfd_stent_2ciclo_web.mp4",
+    separador: "cfd",
+    titulo: "Vídeo da simulação: escoamento pulsátil no stent",
+    legenda: "TAWSS: média ao longo do ciclo cardíaco. Linhas de corrente: instante final do ciclo (t = 2,12 s). O cursor indica a fase do ciclo; o campo não varia no vídeo.",
+  },
+  {
+    ficheiro: "fea_haste_4materiais_web.mp4",
+    separador: "fea",
+    titulo: "Vídeo da simulação: haste femoral com os quatro materiais",
+    legenda: "Corte coronal, carga da marcha, interface colada. Deformação ampliada ×5. Verificação numérica, não previsão clínica.",
+  },
+];
+
+/**
+ * Vídeos de um separador que existem de facto.
+ * Em linguagem simples: filtra a lista de vídeos previstos pelos ficheiros presentes em public/simulacao/videos
+ * (lista lida quando o Vite arranca); sem ficheiro, não há bloco.
+ */
+export function videosDisponiveis(
+  separador: "cfd" | "fea",
+  existentes: readonly string[] = __VIDEOS_SIM__,
+): VideoSimulacao[] {
+  return VIDEOS_SIMULACAO.filter((v) => v.separador === separador && existentes.includes(v.ficheiro));
+}
+
+/** Caminho público de um vídeo (public/simulacao/videos/<ficheiro>). */
+export function urlVideo(ficheiro: string, base: string = import.meta.env.BASE_URL): string {
+  return urlSimulacao(`videos/${ficheiro}`, base);
 }

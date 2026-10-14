@@ -89,6 +89,8 @@ A implementação foi verificada reproduzindo os casos de estudo 1 e 2 de Petkov
 
 
 
+Os resultados também podem ser explorados na aplicação Biomaterial Ideal (núcleo de cálculo em Rust, versão web e instalador para Windows), que usa os mesmos dados do relatório e não altera a base. As funcionalidades são o perfil de doente, com um painel que mostra em tempo real as regras ativas, o efeito nos pesos e os materiais excluídos; o ecrã Comparar, que põe dois materiais lado a lado com fonte e estado de cada valor; a Simulação, com os mapas de tensão de von Mises da haste e os resultados da CFD do stent; a exportação do resultado para PDF; o histórico das análises guardadas; os materiais personalizados, que entram só no ranking do utilizador; e o modo de apresentação.
+
 ## 2.11 Caracterização dos biomateriais
 
 O enunciado pede as técnicas mais adequadas para caracterizar a densidade, a dureza, a flexibilidade, a absorção de água, a resistência mecânica, o comportamento térmico, a condutividade elétrica e a microestrutura, e eventualmente a composição por FTIR ou Raman. A Tabela [n] resume, para cada propriedade, a técnica, o princípio e onde se aplica neste trabalho. A questão 11 de cada caso (capítulos 4 a 7) indica o que se mede em cada material e mostra os valores das propriedades que entraram na comparação; os ensaios do dispositivo acabado, com as normas, estão na questão 10.

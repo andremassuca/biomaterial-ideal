@@ -225,6 +225,98 @@ async function guiaoPerfil(page) {
   return marcas;
 }
 
+/** Escolhe uma opção (radio) de um grupo com nome, como "Osteoporose" > "Sim". */
+async function opcao(page, grupo, nome) {
+  await page.getByRole("group", { name: grupo, exact: true }).getByRole("radio", { name: nome, exact: true }).click();
+  await pausa(page, 500);
+}
+
+/**
+ * Guião de 60 s da app nova (passos 1, 2, 3 e 5 de _partilha/app_v2/GUIAO_DEMO.md): Início com o espectro de
+ * confiança; haste femoral com um peso e o Monte Carlo; doente de 78 anos com osteoporose (regra H-OST);
+ * Simulação com a tensão de von Mises (MAPDL) e a troca de material. Tema escuro, sem narração.
+ */
+async function guiaoDemo60(page) {
+  const marcas = [];
+  const t0 = Date.now();
+  const marca = (nome) => marcas.push([nome, (Date.now() - t0) / 1000]);
+  const ate = async (seg) => {
+    while ((Date.now() - t0) / 1000 < seg) await pausa(page, 100);
+  };
+
+  // 1. Início (0 a 13 s): os cinco cartões e o espectro de confiança
+  marca("início");
+  await legenda(page, "Biomaterial Ideal: qual é o biomaterial ideal? Cinco dispositivos, três métodos de decisão");
+  await pausa(page, 5500);
+  await mostrar(page, page.getByText("Espectro de confiança").first());
+  await legenda(page, "O espectro mostra onde a escolha é clara e onde depende dos dados");
+  await ate(13);
+
+  // 2. Haste femoral (13 a 29 s)
+  marca("haste");
+  await menu(page, "Haste femoral");
+  await page.getByRole("region", { name: "Ranking TOPSIS" }).waitFor();
+  await legenda(page, "Haste femoral: os três métodos põem a liga de titânio em primeiro");
+  await pausa(page, 4000);
+  const cursor = page.getByRole("slider").first();
+  await mostrar(page, cursor);
+  await legenda(page, "Mudar um peso: o ranking responde na hora");
+  await cursor.focus();
+  for (let k = 0; k < 8; k++) {
+    await page.keyboard.press("ArrowRight");
+    await pausa(page, 180);
+  }
+  await pausa(page, 1200);
+  for (let k = 0; k < 8; k++) await page.keyboard.press("ArrowLeft");
+  const correr = page.getByRole("button", { name: "Correr" });
+  await mostrar(page, correr);
+  await legenda(page, "Monte Carlo: 10 000 repetições com as propriedades a variar nos intervalos da base");
+  await correr.click();
+  await page.locator("table").filter({ hasText: "app / relatório" }).waitFor({ timeout: 60_000 });
+  await pausa(page, 1500);
+  await ate(29);
+
+  // 3. Doente (29 a 49 s)
+  marca("doente");
+  await menu(page, "Doente");
+  await page.locator("main").getByRole("button", { name: /Haste femoral/ }).first().click().catch(() => {});
+  await legenda(page, "Doente: dispositivo haste femoral; os dados do doente mudam os pesos");
+  await pausa(page, 2000);
+  await page.getByRole("list", { name: "Passos" }).getByRole("button", { name: /Dados gerais/ }).click();
+  await pausa(page, 700);
+  await legenda(page, "Mulher de 78 anos, atividade baixa, com osteoporose");
+  await page.locator("#campo-idade").fill("78");
+  await pausa(page, 600);
+  await opcao(page, "Sexo", "Feminino");
+  await opcao(page, "Atividade física", "Baixa");
+  await opcao(page, "Osteoporose", "Sim");
+  await pausa(page, 800);
+  await legenda(page, "Regra H-OST: o módulo de Young passa a pesar mais (stress shielding)");
+  await mostrar(page, page.getByText("Impacto no peso dos critérios").first());
+  await pausa(page, 3500);
+  await page.getByRole("list", { name: "Passos" }).getByRole("button", { name: /Resultado/ }).click();
+  await page.getByText("1.º com este perfil").first().waitFor();
+  await legenda(page, "Resultado: o ranking com este perfil de doente");
+  await ate(49);
+
+  // 5. Simulação (49 a 60 s)
+  marca("simulação");
+  await menu(page, "Simulação FEA e CFD");
+  await legenda(page, "Simulação: tensão de von Mises da haste no fémur (MAPDL), a mesma escala de cores");
+  await page.getByRole("group", { name: "Vista", exact: true }).getByRole("radio", { name: "Tensão de von Mises" }).click();
+  await pausa(page, 3500);
+  const mat = page.getByRole("group", { name: "Material", exact: true }).getByRole("radio");
+  const n = await mat.count();
+  for (const k of [Math.min(1, n - 1), n - 1]) {
+    await mat.nth(k).click();
+    await pausa(page, 2500);
+  }
+  marca("fim");
+  await legenda(page, "Ferramenta educativa, não clínica");
+  while ((Date.now() - t0) / 1000 < DURACAO + 1.5) await pausa(page, 250);
+  return marcas;
+}
+
 async function main() {
   const dist = join(AQUI, "..", "dist-web", "index.html");
   if (!existsSync(dist)) throw new Error("falta dist-web: correr primeiro `npm run build:web`");
@@ -237,7 +329,7 @@ async function main() {
       viewport: { width: LARGURA, height: ALTURA },
       deviceScaleFactor: 1,
       locale: "pt-PT",
-      colorScheme: "light",
+      colorScheme: GUIAO === "demo60" ? "dark" : "light",
       recordVideo: { dir: pastaVideo, size: { width: LARGURA, height: ALTURA } },
     });
     const inicioGravacao = Date.now();
@@ -249,7 +341,7 @@ async function main() {
     await page.getByRole("navigation", { name: "Ecrãs" }).waitFor();
     await pausa(page, 800);
     const corte = (Date.now() - inicioGravacao) / 1000;
-    const marcas = GUIAO === "perfil" ? await guiaoPerfil(page) : await guiao(page);
+    const marcas = GUIAO === "demo60" ? await guiaoDemo60(page) : GUIAO === "perfil" ? await guiaoPerfil(page) : await guiao(page);
     await context.close();
     await browser.close();
     if (erros.length) throw new Error(`erros na consola durante a gravação:\n${erros.join("\n")}`);
@@ -264,7 +356,7 @@ async function main() {
         "-y", "-loglevel", "error",
         "-ss", corte.toFixed(2),
         "-i", join(pastaVideo, webm),
-        ...(GUIAO === "perfil" ? ["-t", String(DURACAO)] : []),
+        ...(GUIAO === "perfil" || GUIAO === "demo60" ? ["-t", String(DURACAO)] : []),
         "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-r", "30",
         "-movflags", "+faststart", "-an",
         SAIDA,
@@ -275,7 +367,7 @@ async function main() {
     for (const [nome, t] of marcas) console.log(`  ${t.toFixed(1).padStart(5)} s  ${nome}`);
   } finally {
     servidor.kill();
-    rmSync(pastaVideo, { recursive: true, force: true });
+    try { rmSync(pastaVideo, { recursive: true, force: true }); } catch { /* o Windows pode manter o ficheiro aberto um instante */ }
   }
 }
 

@@ -252,6 +252,38 @@ def cfd_json(results_dir: Path = RESULTS) -> dict | None:
     return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
 
 
+def cfd_carreau_json(results_dir: Path = RESULTS) -> dict | None:
+    """Repetição do fluxo pulsátil com sangue de Carreau (results/cfd_pulsatil_carreau.json), ou None se não existir."""
+    f = results_dir / "cfd_pulsatil_carreau.json"
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
+
+
+# Caso do micromovimento que o relatório destaca (haste de Ti-6Al-4V ELI, atrito 0,4, contacto mais rígido) e limiar de Pilliar.
+CASO_MICRO_PRINCIPAL = "atrito04_Ti_fkn10"
+LIMIAR_MICRO_UM = 150.0
+
+
+def micromovimento_json(results_dir: Path = RESULTS) -> dict | None:
+    """Micromovimento da haste com atrito (results/micromovimento_haste.json), ou None se não existir.
+
+    Em linguagem simples: devolve o caso principal (máximo, mediana e fração de nós acima de 150 µm do deslocamento
+    tangencial) e o intervalo do máximo nas outras variantes do contacto; o caso colado (zero por construção) fica de fora."""
+    f = results_dir / "micromovimento_haste.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))
+    t = d[CASO_MICRO_PRINCIPAL]["tangencial"]
+    outras = {k: v["tangencial"]["max_um"] for k, v in d.items() if k not in (CASO_MICRO_PRINCIPAL, "colado_Ti")}
+    return {"material": d[CASO_MICRO_PRINCIPAL]["material"], "mu": d[CASO_MICRO_PRINCIPAL]["mu"],
+            "limiar_um": LIMIAR_MICRO_UM, "nos": d[CASO_MICRO_PRINCIPAL]["n_interface"],
+            "principal": {"max_um": t["max_um"], "mediana_um": t["mediana_um"],
+                          "fracao_acima_limiar": t["fracao_acima_limiar"]},
+            "outras_variantes": len(outras), "outras_max_min_um": min(outras.values()),
+            "outras_max_max_um": max(outras.values()),
+            "outras_fracao_acima_limiar_max": max(v["tangencial"]["fracao_acima_limiar"]
+                                                  for k, v in d.items() if k in outras)}
+
+
 def app_json(data_dir: Path = DATA, results_dir: Path = RESULTS, docs_dir: Path = DOCS) -> dict:
     """Tudo o que a interface precisa além dos casos: nomes, fichas, filtros, espectro, FEA, massa e textos.
 
@@ -262,6 +294,7 @@ def app_json(data_dir: Path = DATA, results_dir: Path = RESULTS, docs_dir: Path 
     return {"nomes": nomes_json(), "fichas": fichas_json(data_dir), "filtros": filtros_json(data_dir),
             "espectro": espectro_json(results_dir, data_dir), "limiar_empate": LIMIAR_EMPATE,
             "monte_carlo_referencia": _registos(mc), "fea": fea_json(results_dir), "massa": massa_json(results_dir),
+            "cfd_carreau": cfd_carreau_json(results_dir), "micromovimento": micromovimento_json(results_dir),
             "textos": {"ioes": ioes.read_text(encoding="utf-8") if ioes.exists() else None}}
 
 

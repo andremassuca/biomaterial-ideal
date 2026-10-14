@@ -6,6 +6,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { Ampliavel } from "../src/componentes/simulacao/Ampliavel";
+import { BlocoVideo } from "../src/componentes/simulacao/BlocoVideo";
 import { BarraFracao } from "../src/componentes/simulacao/SimulacaoCfd";
 import { AVISO_SIMULACAO, Simulacao } from "../src/ecras/Simulacao";
 import {
@@ -19,6 +20,10 @@ import {
   imagemMapdl,
   imagemSw,
   linhaMapdl,
+  linhasCarreau,
+  resumoMicromovimento,
+  urlVideo,
+  videosDisponiveis,
   linhaSw,
   malhasCfd,
   materiaisCfd,
@@ -140,7 +145,8 @@ describe("ecrã Simulação", () => {
     render(<Simulacao />);
     fireEvent.mouseDown(screen.getByRole("tab", { name: "Stent (CFD)" }), { button: 0 });
     expect(screen.getByText("O que ainda não existe nos resultados")).toBeTruthy();
-    expect(screen.getByText(/Linhas de corrente/)).toBeTruthy();
+    // as linhas de corrente já existem (vídeo da CFD): deixam de constar da lista do que falta
+    expect(screen.queryByText(/Linhas de corrente \(streamlines\)/)).toBeNull();
     expect(screen.getByText(/Render em 4K/)).toBeTruthy();
     expect(screen.getAllByText("Pt-Cr").length).toBeGreaterThan(0);
   });
@@ -212,5 +218,99 @@ describe("mapas de von Mises do MAPDL", () => {
     fireEvent.click(screen.getByRole("radio", { name: "Tensão de von Mises" }));
     fireEvent.click(screen.getByRole("radio", { name: "Malha" }));
     expect(screen.getByRole("radio", { name: /Malha 5,0 mm/ })).toBeTruthy();
+  });
+});
+
+describe("verificações adicionais do relatório v11.1 (Carreau e micromovimento)", () => {
+  const relatorio = readFileSync(resolve(APP_DIR, "..", "relatorio", "RELATORIO.md"), "utf-8");
+  const frase = (inicio: string) => {
+    const m = relatorio.match(new RegExp(`${inicio}[^\n]*`));
+    return (m?.[0] ?? "").replace(/\s+/g, " ").trim();
+  };
+  const ir = (nome: string) => fireEvent.mouseDown(screen.getByRole("tab", { name: nome }), { button: 0 });
+
+  it("linhasCarreau reproduz os números do relatório e do results/cfd_pulsatil_carreau.json", () => {
+    const l = linhasCarreau();
+    expect(l.map((x) => [x.material, x.espessura_um])).toEqual([["Pt-Cr", 79], ["316L", 135]]);
+    expect(l.map((x) => +(x.fracaoCarreau * 100).toFixed(1))).toEqual([36.8, 69.2]);
+    expect(l.map((x) => +(x.fracaoNewtoniano * 100).toFixed(1))).toEqual([46.5, 82.1]);
+    expect(l.map((x) => +x.tauCarreau.toFixed(3))).toEqual([0.508, 0.296]);
+    const r = lerJson<{ casos: Record<string, { carreau: { fracao_baixa: number } }> }>(resolve(RESULTS, "cfd_pulsatil_carreau.json"));
+    expect(l[0].fracaoCarreau).toBe(r.casos["Pt-Cr"].carreau.fracao_baixa);
+    expect(linhasCarreau(null)).toEqual([]);
+  });
+
+  it("o newtoniano de linhasCarreau é o mesmo da CFD principal (results/cfd_pulsatil.json)", () => {
+    for (const x of linhasCarreau()) {
+      expect(x.fracaoNewtoniano).toBeCloseTo(CFD![x.material].fracao_baixa, 12);
+      expect(x.tauNewtoniano).toBeCloseTo(CFD![x.material].tau_media, 12);
+    }
+  });
+
+  it("resumoMicromovimento: 65,7 µm, intervalo 63,9 a 99,1 µm, 0 % acima de 150 µm", () => {
+    const r = resumoMicromovimento()!;
+    expect([+r.maxUm.toFixed(1), +r.intervaloMinUm.toFixed(1), +r.intervaloMaxUm.toFixed(1)]).toEqual([65.7, 63.9, 99.1]);
+    expect(+r.medianaUm.toFixed(1)).toBe(35.2);
+    expect(r.limiarUm).toBe(150);
+    expect(r.fracaoAcimaLimiar).toBe(0);
+    expect(resumoMicromovimento(null)).toBeNull();
+  });
+
+  it("o separador do stent mostra a frase do relatório sobre o Carreau e a nota de verificação", () => {
+    render(<Simulacao />);
+    ir("Stent (CFD)");
+    const caixa = document.querySelector("[data-carreau]")!;
+    const esperado = frase("Como verificação adicional, repetiu-se o escoamento pulsátil com o sangue de Carreau");
+    expect(esperado).toContain("46,5 % para 36,8 %");
+    expect(caixa.querySelector("p")!.textContent!.replace(/\s+/g, " ").trim()).toBe(esperado);
+    expect(caixa.textContent).toContain("Verificação, não previsão clínica.");
+    // já não diz que o Carreau não está consolidado
+    expect(screen.queryByText(/Por consolidar/)).toBeNull();
+  });
+
+  it("o separador da haste mostra a frase do relatório sobre o micromovimento e a nota de verificação", () => {
+    render(<Simulacao />);
+    const caixa = document.querySelector("[data-micromovimento]")!;
+    const esperado = frase("Como verificação adicional, e não como previsão clínica, repetiu-se a haste");
+    expect(esperado).toContain("65,7 µm");
+    // o relatório acrescenta a referência completa: a app mostra a frase até ao fim da parte sobre as variantes
+    expect(caixa.querySelector("p")!.textContent!.replace(/\s+/g, " ").trim()).toBe(esperado);
+    expect(caixa.textContent).toContain("Verificação, não previsão clínica.");
+  });
+
+  it("videosDisponiveis só devolve os ficheiros que existem", () => {
+    expect(videosDisponiveis("cfd", [])).toEqual([]);
+    expect(videosDisponiveis("cfd", ["cfd_stent_2ciclo_web.mp4", "fea_haste_4materiais_web.mp4"]).map((v) => v.ficheiro)).toEqual([
+      "cfd_stent_2ciclo_web.mp4",
+    ]);
+    expect(videosDisponiveis("fea", ["fea_haste_4materiais_web.mp4"])).toHaveLength(1);
+    expect(urlVideo("a.mp4", "/tp2/")).toBe("/tp2/simulacao/videos/a.mp4");
+  });
+
+  it("BlocoVideo não desenha nada sem ficheiro e desenha o vídeo com controlos, sem som, em ciclo e só metadados", () => {
+    const vazio = render(<BlocoVideo separador="cfd" existentes={[]} />);
+    expect(vazio.container.innerHTML).toBe("");
+    cleanup();
+    const { container } = render(<BlocoVideo separador="fea" existentes={["fea_haste_4materiais_web.mp4"]} />);
+    const v = container.querySelector("video")!;
+    expect(v.hasAttribute("controls") && v.loop && v.muted).toBe(true);
+    expect(v.getAttribute("preload")).toBe("metadata");
+    expect(v.getAttribute("src")).toContain("simulacao/videos/fea_haste_4materiais_web.mp4");
+    expect(container.textContent).toContain("Verificação, não previsão clínica.");
+  });
+
+  it("os dois MP4 existem em public/simulacao/videos, cada um no seu separador e com a legenda aprovada", () => {
+    for (const f of ["cfd_stent_2ciclo_web.mp4", "fea_haste_4materiais_web.mp4"])
+      expect(existsSync(resolve(APP_DIR, "public", "simulacao", "videos", f)), f).toBe(true);
+    render(<Simulacao />);
+    expect(document.querySelectorAll("video")).toHaveLength(1);
+    expect(document.querySelector('[data-video="fea_haste_4materiais_web.mp4"]')?.textContent).toContain(
+      "Corte coronal, carga da marcha, interface colada. Deformação ampliada ×5. Verificação numérica, não previsão clínica.",
+    );
+    ir("Stent (CFD)");
+    expect(document.querySelectorAll("video")).toHaveLength(1);
+    expect(document.querySelector('[data-video="cfd_stent_2ciclo_web.mp4"]')?.textContent).toContain(
+      "TAWSS: média ao longo do ciclo cardíaco. Linhas de corrente: instante final do ciclo (t = 2,12 s). O cursor indica a fase do ciclo; o campo não varia no vídeo.",
+    );
   });
 });

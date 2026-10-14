@@ -1,0 +1,38 @@
+{
+ "limiar_pa": 0.4,
+ "carreau": {
+  "mu0": 0.056,
+  "muinf": 0.0035,
+  "lambda_s": 3.313,
+  "n": 0.3568
+ },
+ "casos": {
+  "Pt-Cr": {
+   "espessura_um": 79.0,
+   "newtoniano": {
+    "tau_media": 0.4084233489928541,
+    "fracao_baixa": 0.46531655319141874
+   },
+   "carreau": {
+    "tau_media": 0.5084652005372609,
+    "fracao_baixa": 0.3679647294247376
+   },
+   "dif_fracao_pp": -9.735182376668112,
+   "dif_tau_rel": 0.244946455169871
+  },
+  "316L": {
+   "espessura_um": 135.0,
+   "newtoniano": {
+    "tau_media": 0.23161884952168868,
+    "fracao_baixa": 0.8210091302587775
+   },
+   "carreau": {
+    "tau_media": 0.29594596978615173,
+    "fracao_baixa": 0.6922010063157638
+   },
+   "dif_fracao_pp": -12.880812394301378,
+   "dif_tau_rel": 0.2777283472277998
+  }
+ },
+ "ordem_mantida": true
+}
